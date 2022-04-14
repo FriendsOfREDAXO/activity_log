@@ -24,4 +24,3 @@ rex_activity::message('He did something :O')->type(rex_activity::TYPE_WARNING)->
 #### TODO:
 - [ ] Einstellungen um gewisse Events zu loggen (SLICE_ADD, SLICE_UPDATE...)
 - [ ] Cronjob um Logs zu löschen
-- [ ] Cronjob um Logs zu löschen
