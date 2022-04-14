@@ -1,0 +1,46 @@
+.rex-activity {
+  &-table {
+    tbody {
+      tr {
+        td {
+          color: #fff;
+
+          a {
+            color: #fff;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &-info {
+    background-color: #4b9ad9;
+  }
+
+  &-notice {
+    background-color: #919191;
+  }
+
+  &-debug {
+    background-color: #17a2b8;
+  }
+
+  &-warning {
+    background-color: #ffa700;
+  }
+
+  &-error {
+    background-color: #dc3545;
+  }
+
+  &-critical {
+    background-color: #c400c4;
+  }
+}
+
+body.rex-theme-dark {
+}
+
+@media (prefers-color-scheme: dark) {
+}

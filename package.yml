@@ -1,0 +1,24 @@
+package: activity_log
+version: "0.0.1-dev"
+name: Activity Log
+author: eaCe
+supportpage: https://github.com/eace/activity_log
+
+pages:
+  system/activity-log: { title: 'translate:activity_log_title' }
+  perm: admin[]
+
+requires:
+  redaxo: ^5.12.0
+  php:
+    version: '>=7.1'
+
+installer_ignore:
+  - node_modules
+  - .git
+  - .gitignore
+  - .gitignore
+  - .github
+  - package.json
+  - yarn.lock
+  - resources
