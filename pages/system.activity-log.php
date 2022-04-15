@@ -17,29 +17,13 @@ $list->setColumnFormat('created_at', 'date', 'd.m.Y - H:i:s');
 $list->setColumnSortable('created_at');
 
 $list->setColumnLabel('created_at', 'Time');
-$list->setColumnLabel('type', 'Typ');
+$list->setColumnLabel('type', 'Type');
 $list->setColumnLabel('message', 'Message');
 $list->setColumnLabel('causer_id', 'User');
 
 $list->setColumnFormat('causer_id', 'custom', 'rex_activity::userListCallback');
 $list->setColumnFormat('message', 'custom', 'rex_activity::messageListCallback');
-
-$list->setRowAttributes(function ($list) {
-    switch ($list->getValue('type')) {
-        case rex_activity::TYPE_CRITICAL:
-            return 'class="rex-activity-critical"';
-        case rex_activity::TYPE_ERROR:
-            return 'class="rex-activity-error"';
-        case rex_activity::TYPE_INFO:
-            return 'class="rex-activity-info"';
-        case rex_activity::TYPE_DEBUG:
-            return 'class="rex-activity-debug"';
-        case rex_activity::TYPE_NOTICE:
-            return 'class="rex-activity-notice"';
-        case rex_activity::TYPE_WARNING:
-            return 'class="rex-activity-warning"';
-    }
-});
+$list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 
 //$content = '<form action="' . rex_url::currentBackendPage() . '">
 //    <label class="checkbox-inline">

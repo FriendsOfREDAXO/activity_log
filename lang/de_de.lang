@@ -6,3 +6,8 @@ activity_log_saved = Einstellungen gespeichert
 activity_log_added = hinzugefügt
 activity_log_updated = aktualisiert
 activity_log_deleted = gelöscht
+
+activity_log_type_delete = gelöscht
+activity_log_type_update = aktualisiert
+activity_log_type_add = hinzugefügt
+activity_log_type_edit = editiert

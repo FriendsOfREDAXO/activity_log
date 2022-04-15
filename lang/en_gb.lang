@@ -6,3 +6,8 @@ activity_log_saved = Settings saved
 activity_log_added = added
 activity_log_updated = updated
 activity_log_deleted = deleted
+
+activity_log_type_delete = deleted
+activity_log_type_update = updated
+activity_log_type_add = added
+activity_log_type_edit = edited

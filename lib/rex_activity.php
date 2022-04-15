@@ -8,6 +8,10 @@ class rex_activity
     const TYPE_NOTICE = 'notice';
     const TYPE_CRITICAL = 'critical';
     const TYPE_DEBUG = 'debug';
+    const TYPE_ADD = 'add';
+    const TYPE_UPDATE = 'update';
+    const TYPE_EDIT = 'edit';
+    const TYPE_DELETE = 'delete';
 
     /**
      * @var rex_addon $addon
@@ -16,7 +20,7 @@ class rex_activity
     private static $table;
     private static $activity = null;
     private static $message = null;
-    private static $type = self::TYPE_INFO;
+    private static $type = null;
     private static $causer = null;
 
     /**
@@ -100,6 +104,19 @@ class rex_activity
         if ($params['subject']) {
             $user = rex_user::get($params['subject']);
             return '<a href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $user->getName() . '">' . $user->getName() . '</a>';
+        }
+
+        return '';
+    }
+
+    /**
+     * list callback - type column
+     * @param $params
+     * @return string
+     */
+    public static function typeListCallback($params): string {
+        if ($params['value']) {
+            return '<span class="badge ' . $params['value'] . '">' . $params['value'] . '</span>';
         }
 
         return '';

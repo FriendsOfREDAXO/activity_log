@@ -9,10 +9,6 @@ class slice
     private $user;
     private $addon;
 
-    private $ADDED = 1;
-    private $UPDATED = 2;
-    private $DELETED = 3;
-
     public function __construct() {
         $this->addon = $this->addon();
         $this->user = $this->user();
@@ -38,7 +34,7 @@ class slice
         $context = $this;
         \rex_extension::register('SLICE_ADDED', static function (\rex_extension_point $ep) use ($context) {
             $params = $ep->getParams();
-            \rex_activity::message($context->message($params, $context->ADDED))->causer($context->user)->log();
+            \rex_activity::message($context->message($params, \rex_activity::TYPE_ADD))->type(\rex_activity::TYPE_ADD)->causer($context->user)->log();
         });
     }
 
@@ -50,7 +46,7 @@ class slice
         $context = $this;
         \rex_extension::register('SLICE_UPDATED', static function (\rex_extension_point $ep) use ($context) {
             $params = $ep->getParams();
-            \rex_activity::message($context->message($params, $context->UPDATED))->causer($context->user)->log();
+            \rex_activity::message($context->message($params, \rex_activity::TYPE_UPDATE))->type(\rex_activity::TYPE_UPDATE)->causer($context->user)->log();
         });
     }
 
@@ -62,14 +58,14 @@ class slice
         $context = $this;
         \rex_extension::register('SLICE_DELETED', static function (\rex_extension_point $ep) use ($context) {
             $params = $ep->getParams();
-            \rex_activity::message($context->message($params, $context->DELETED))->causer($context->user)->log();
+            \rex_activity::message($context->message($params, \rex_activity::TYPE_DELETE))->type(\rex_activity::TYPE_DELETE)->causer($context->user)->log();
         });
     }
 
-    private function message(array $params, int $type): string {
+    private function message(array $params, string $type): string {
         $module = \rex_sql::factory()->getArray('SELECT * from ' . \rex::getTable('module') . ' WHERE id = ' . $params['module_id']);
 
-        $message = 'Slice ';
+        $message = '<strong>Slice:</strong> ';
         $message .= '<a href="' . \rex_url::backendController([
                 'page' => 'content/edit',
                 'article_id' => $params['article_id'],
@@ -80,18 +76,7 @@ class slice
             ]) . '">';
         $message .= $module[0]['name'];
         $message .= '</a>';
-
-        switch ($type) {
-            case $this->ADDED:
-                $message .= ' ' . $this->addon->i18n('added');
-                break;
-            case $this->UPDATED:
-                $message .= ' ' . $this->addon->i18n('updated');
-                break;
-            case $this->DELETED:
-                $message .= ' ' . $this->addon->i18n('deleted');
-                break;
-        }
+        $message .= ' ' . $this->addon->i18n('type_'.$type);
 
         /** @var \rex_article $article */
         $article = \rex_article::get($params['article_id']);
