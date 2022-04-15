@@ -53,7 +53,7 @@ class rex_activity
         $sql = rex_sql::factory();
         $sql->setTable(self::$table);
         $sql->setValue('created_at', date("Y-m-d H:i:s"));
-        $sql->setValue('type', self::$type);
+        $sql->setValue('type', self::$type ?: self::TYPE_NOTICE);
         $sql->setValue('message', self::$message);
         $sql->setValue('causer_id', self::$causer);
         $sql->insert();

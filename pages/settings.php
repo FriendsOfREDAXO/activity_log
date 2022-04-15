@@ -3,6 +3,10 @@
 /** @var rex_addon $this */
 if (rex_post('config-submit', 'boolean')) {
     $this->setConfig(rex_post('config', [
+        ['article_added', 'bool'],
+        ['article_updated', 'bool'],
+        ['article_status', 'bool'],
+        ['article_deleted', 'bool'],
         ['slice_added', 'bool'],
         ['slice_updated', 'bool'],
         ['slice_deleted', 'bool'],
@@ -13,6 +17,30 @@ if (rex_post('config-submit', 'boolean')) {
 }
 
 $content = '<fieldset class="rex-activity-log">';
+
+/**
+ * articles
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Article</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_article_added">Article added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_article_added" name="config[article_added]" value="1" ' . ($this->getConfig('article_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_article_updated">Article updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_article_updated" name="config[article_updated]" value="1" ' . ($this->getConfig('article_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_article_status">Article status change</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_article_status" name="config[article_status]" value="1" ' . ($this->getConfig('article_status') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_article_deleted">Article deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_article_deleted" name="config[article_deleted]" value="1" ' . ($this->getConfig('article_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
 
 /**
  * slices
