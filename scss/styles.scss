@@ -3,39 +3,49 @@
     tbody {
       tr {
         td {
-          color: #fff;
+          color: #ffffff;
 
           a {
-            color: #fff;
+            color: #ffffff;
             text-decoration: underline;
+          }
+
+          .badge {
+            color: #ffffff;
+
+            &.add {
+              background-color: #28a745;
+            }
+
+            &.info,
+            &.edit {
+              background-color: #4b9ad9;
+            }
+
+            &.notice {
+              background-color: #919191;
+            }
+
+            &.debug {
+              background-color: #17a2b8;
+            }
+
+            &.warning {
+              background-color: #ffa700;
+            }
+
+            &.error,
+            &.delete {
+              background-color: #dc3545;
+            }
+
+            &.critical {
+              background-color: #c400c4;
+            }
           }
         }
       }
     }
-  }
-
-  &-info {
-    background-color: #4b9ad9;
-  }
-
-  &-notice {
-    background-color: #919191;
-  }
-
-  &-debug {
-    background-color: #17a2b8;
-  }
-
-  &-warning {
-    background-color: #ffa700;
-  }
-
-  &-error {
-    background-color: #dc3545;
-  }
-
-  &-critical {
-    background-color: #c400c4;
   }
 }
 
