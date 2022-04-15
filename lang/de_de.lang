@@ -1,1 +1,8 @@
 activity_log_title = Activity Log
+activity_log_settings = Einstellungen
+activity_log_save = Speichern
+activity_log_saved = Einstellungen gespeichert
+
+activity_log_added = hinzugefügt
+activity_log_updated = aktualisiert
+activity_log_deleted = gelöscht

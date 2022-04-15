@@ -1,1 +1,8 @@
 activity_log_title = Activity Log
+activity_log_settings = Settings
+activity_log_save = Save
+activity_log_saved = Settings saved
+
+activity_log_added = added
+activity_log_updated = updated
+activity_log_deleted = deleted

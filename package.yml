@@ -4,6 +4,13 @@ name: Activity Log
 author: eaCe
 supportpage: https://github.com/eace/activity_log
 
+page:
+    title: translate:title
+    perm: admin
+    icon: rex-icon fa-list-alt
+    subpages:
+        settings: { title: translate:settings }
+
 pages:
   system/activity-log: { title: 'translate:activity_log_title' }
   perm: admin[]
