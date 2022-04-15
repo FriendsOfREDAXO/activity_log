@@ -2,6 +2,7 @@ activity_log_title = Activity Log
 activity_log_settings = Settings
 activity_log_save = Save
 activity_log_saved = Settings saved
+delete_older_than_7_days = Delete entries older than 7 days
 
 activity_log_added = added
 activity_log_updated = updated

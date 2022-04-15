@@ -1,9 +1,17 @@
 <?php
+$table = \rex::getTable('activity_log');
+
+if(rex_get('delete_old_logs') && rex_get('delete_old_logs') == 1) {
+    $sql = rex_sql::factory();
+    $sql->setTable($table);
+    $sql->setWhere('created_at < now() - interval 7 day');
+    $sql->delete();
+}
 
 $addon = rex_addon::get('activity_log');
 $types = rex_get('type');
 
-$query = 'SELECT created_at,type,message,causer_id FROM rex_activity_log';
+$query = 'SELECT created_at,type,message,causer_id FROM ' . $table;
 
 if ($types !== '' && is_array($types)) {
     $query .= ' WHERE FIND_IN_SET(type, "' . implode(',', rex_get('type')) . '")';
@@ -39,6 +47,10 @@ $list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 //</form>';
 
 $content = $list->get();
+
+$content .= '<form action="' . rex_url::currentBackendPage() . '" style="text-align: right">
+    <button type="submit" class="btn btn-danger" name="delete_old_logs" value="1">'.$addon->i18n('delete_older_than_7_days').'</button>
+</form>';
 
 $fragment = new rex_fragment();
 $fragment->setVar('body', $content, false);
