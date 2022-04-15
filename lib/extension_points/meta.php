@@ -13,7 +13,9 @@ class meta
         $this->addon = $this->addon();
         $this->user = $this->user();
 
-        $this->updated();
+        if($this->addon->getConfig('meta_updated')) {
+            $this->updated();
+        }
     }
 
     /**

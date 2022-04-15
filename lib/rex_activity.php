@@ -103,7 +103,7 @@ class rex_activity
     public static function userListCallback($params): string {
         if ($params['subject']) {
             $user = rex_user::get($params['subject']);
-            return '<a href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $user->getName() . '">' . $user->getName() . '</a>';
+            return '<a class="btn btn-sm btn-primary" href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $user->getName() . '"><i class="rex-icon rex-icon-user"></i> ' . $user->getName() . '</a>';
         }
 
         return '';

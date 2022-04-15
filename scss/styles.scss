@@ -5,7 +5,7 @@
         td {
           color: #ffffff;
 
-          a {
+          a:not(.btn) {
             color: #ffffff;
             text-decoration: underline;
           }

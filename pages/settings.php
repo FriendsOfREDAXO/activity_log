@@ -6,6 +6,7 @@ if (rex_post('config-submit', 'boolean')) {
         ['slice_added', 'bool'],
         ['slice_updated', 'bool'],
         ['slice_deleted', 'bool'],
+        ['meta_updated', 'bool'],
     ]));
 
     echo rex_view::success($this->i18n('saved'));
@@ -13,6 +14,9 @@ if (rex_post('config-submit', 'boolean')) {
 
 $content = '<fieldset class="rex-activity-log">';
 
+/**
+ * slices
+ */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Slice</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_slice_added">Slice added</label>';
@@ -27,6 +31,15 @@ $formElements[] = $n;
 $n = [];
 $n['label'] = '<label for="rex_activity_log_slice_deleted">Slice deleted</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_slice_deleted" name="config[slice_deleted]" value="1" ' . ($this->getConfig('slice_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+/**
+ * meta info
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Meta Info</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_meta_updated">Meta updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_meta_updated" name="config[meta_updated]" value="1" ' . ($this->getConfig('meta_updated') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();
