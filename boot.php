@@ -8,3 +8,7 @@ if (rex::isBackend() && is_object(rex::getUser())) {
      */
     new \RexActivity\EP\rex_activity_extension_points();
 }
+
+if (rex_addon::get('cronjob')->isAvailable() && !rex::isSafeMode()) {
+    rex_cronjob_manager::registerType('rex_activity_log_cronjob');
+}
