@@ -11,6 +11,12 @@ if (rex_post('config-submit', 'boolean')) {
         ['slice_updated', 'bool'],
         ['slice_deleted', 'bool'],
         ['meta_updated', 'bool'],
+        ['clang_added', 'bool'],
+        ['clang_updated', 'bool'],
+        ['clang_deleted', 'bool'],
+        ['media_added', 'bool'],
+        ['media_updated', 'bool'],
+        ['media_deleted', 'bool'],
     ]));
 
     echo rex_view::success($this->i18n('saved'));
@@ -62,6 +68,25 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_slice_deleted" name="
 $formElements[] = $n;
 
 /**
+ * media
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Media</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_media_added">Media added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_media_added" name="config[media_added]" value="1" ' . ($this->getConfig('media_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_media_updated">Media updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_media_updated" name="config[media_updated]" value="1" ' . ($this->getConfig('media_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_media_deleted">Media deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_media_deleted" name="config[media_deleted]" value="1" ' . ($this->getConfig('media_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+/**
  * meta info
  */
 $n = [];
@@ -70,6 +95,28 @@ $n['label'] = '<label for="rex_activity_log_meta_updated">Meta updated</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_meta_updated" name="config[meta_updated]" value="1" ' . ($this->getConfig('meta_updated') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
+/**
+ * clang
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Language</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_clang_added">Clang added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_clang_added" name="config[clang_added]" value="1" ' . ($this->getConfig('clang_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_clang_updated">Clang updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_clang_updated" name="config[clang_updated]" value="1" ' . ($this->getConfig('clang_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_clang_deleted">Clang deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_clang_deleted" name="config[clang_deleted]" value="1" ' . ($this->getConfig('clang_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+/**
+ * render form
+ */
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');

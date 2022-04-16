@@ -3,6 +3,7 @@ activity_log_settings = Settings
 activity_log_save = Save
 activity_log_saved = Settings saved
 activity_log_delete_older_than_7_days = Delete entries older than 7 days
+activity_log_delete_all = Delete all entries
 activity_log_cronjob_title = Delete Activity Log entries older than 7 days
 activity_log_cron_nothing_to_delete = No activity log entries to delete
 activity_log_cron_deleted = Activity Log entries deleted

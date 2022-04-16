@@ -8,5 +8,7 @@ class rex_activity_extension_points
         new \RexActivity\EP\article();
         new \RexActivity\EP\slice();
         new \RexActivity\EP\meta();
+        new \RexActivity\EP\media();
+        new \RexActivity\EP\clang();
     }
 }

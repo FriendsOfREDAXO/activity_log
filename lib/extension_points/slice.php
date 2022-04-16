@@ -6,63 +6,37 @@ class slice
 {
     use ep_trait;
 
-    private $user;
-    private $addon;
+    /**
+     * @var \rex_addon
+     */
+    private static $addon;
 
     public function __construct() {
-        $this->addon = $this->addon();
-        $this->user = $this->user();
+        self::$addon = $this->addon();
 
-        if($this->addon->getConfig('slice_added')) {
-            $this->added();
+        /**
+         * a new slice has been added
+         */
+        if(self::$addon->getConfig('slice_added')) {
+            $this->add('SLICE_ADDED', 'RexActivity\EP\slice::message');
         }
 
-        if($this->addon->getConfig('slice_updated')) {
-            $this->updated();
+        /**
+         * a slice has been updated
+         */
+        if(self::$addon->getConfig('slice_updated')) {
+            $this->update('SLICE_UPDATED', 'RexActivity\EP\slice::message');
         }
 
-        if($this->addon->getConfig('slice_deleted')) {
-            $this->deleted();
+        /**
+         * a slice has been deleted
+         */
+        if(self::$addon->getConfig('slice_deleted')) {
+            $this->delete('SLICE_DELETED', 'RexActivity\EP\slice::message');
         }
     }
 
-    /**
-     * a new slice has been added
-     * @return void
-     */
-    private function added(): void {
-        $context = $this;
-        \rex_extension::register('SLICE_ADDED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_ADD))->type(\rex_activity::TYPE_ADD)->causer($context->user)->log();
-        });
-    }
-
-    /**
-     * a slice has been updated
-     * @return void
-     */
-    private function updated(): void {
-        $context = $this;
-        \rex_extension::register('SLICE_UPDATED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_UPDATE))->type(\rex_activity::TYPE_UPDATE)->causer($context->user)->log();
-        });
-    }
-
-    /**
-     * a new slice has been deleted
-     * @return void
-     */
-    private function deleted(): void {
-        $context = $this;
-        \rex_extension::register('SLICE_DELETED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_DELETE))->type(\rex_activity::TYPE_DELETE)->causer($context->user)->log();
-        });
-    }
-
-    private function message(array $params, string $type): string {
+    public static function message(array $params, string $type): string {
         $module = \rex_sql::factory()->getArray('SELECT * from ' . \rex::getTable('module') . ' WHERE id = ' . $params['module_id']);
 
         $message = '<strong>Slice:</strong> ';
@@ -76,7 +50,7 @@ class slice
             ]) . '">';
         $message .= $module[0]['name'];
         $message .= '</a>';
-        $message .= ' ' . $this->addon->i18n('type_'.$type);
+        $message .= ' ' . self::$addon->i18n('type_'.$type);
 
         /** @var \rex_article $article */
         $article = \rex_article::get($params['article_id']);

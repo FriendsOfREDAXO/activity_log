@@ -6,92 +6,49 @@ class article
 {
     use ep_trait;
 
-    private $user;
-    private $addon;
+    /**
+     * @var \rex_addon
+     */
+    private static $addon;
+
 
     public function __construct() {
-        $this->addon = $this->addon();
-        $this->user = $this->user();
+        self::$addon = $this->addon();
 
-        if($this->addon->getConfig('article_added')) {
-            $this->added();
+        /**
+         * TODO: prevent multiple entries (CLANG)
+         */
+
+        /**
+         * a new article has been added
+         */
+        if(self::$addon->getConfig('article_added')) {
+            $this->add('ART_ADDED', 'RexActivity\EP\article::message');
         }
 
-        if($this->addon->getConfig('article_updated')) {
-            $this->updated();
+        /**
+         * a article has been updated
+         */
+        if(self::$addon->getConfig('article_updated')) {
+            $this->update('ART_UPDATED', 'RexActivity\EP\article::message');
         }
 
-        if($this->addon->getConfig('article_deleted')) {
-            $this->deleted();
+        /**
+         * a article has been deleted
+         */
+        if(self::$addon->getConfig('article_deleted')) {
+            $this->delete('ART_DELETED', 'RexActivity\EP\article::message');
         }
 
-        $this->status();
-        if($this->addon->getConfig('article_status')) {
-            $this->status();
+        /**
+         * the article status has been changed
+         */
+        if(self::$addon->getConfig('article_status')) {
+            $this->update('ART_STATUS', 'RexActivity\EP\article::message');
         }
     }
 
-    /**
-     * article has been added
-     * @return void
-     */
-    private function added(): void {
-        $context = $this;
-        \rex_extension::register('ART_ADDED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_ADD))
-                ->type(\rex_activity::TYPE_ADD)
-                ->causer($context->user)
-                ->log();
-        });
-    }
-
-    /**
-     * article has been updated
-     * @return void
-     */
-    private function updated(): void {
-        $context = $this;
-        \rex_extension::register('ART_UPDATED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_UPDATE))
-                ->type(\rex_activity::TYPE_UPDATE)
-                ->causer($context->user)
-                ->log();
-        });
-    }
-
-    /**
-     * article has been deleted
-     * @return void
-     */
-    private function deleted(): void {
-        $context = $this;
-        \rex_extension::register('ART_DELETED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_DELETE))
-                ->type(\rex_activity::TYPE_DELETE)
-                ->causer($context->user)
-                ->log();
-        });
-    }
-
-    /**
-     * article status has been changed
-     * @return void
-     */
-    private function status(): void {
-        $context = $this;
-        \rex_extension::register('ART_STATUS', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_UPDATE))
-                ->type(\rex_activity::TYPE_UPDATE)
-                ->causer($context->user)
-                ->log();
-        });
-    }
-
-    private function message(array $params, string $type): string {
+    public static function message(array $params, string $type): string {
         $article = \rex_article::get($params['id']);
 
         $message = '<strong>Article:</strong> ';
@@ -113,7 +70,7 @@ class article
         }
 
         $message .= ' - ';
-        $message .= $this->addon->i18n('type_'.$type);
+        $message .= self::$addon->i18n('type_'.$type);
 
         return $message;
     }

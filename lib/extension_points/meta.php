@@ -6,41 +6,27 @@ class meta
 {
     use ep_trait;
 
-    private $user;
-    private $addon;
+    /**
+     * @var \rex_addon
+     */
+    private static $addon;
 
     public function __construct() {
-        $this->addon = $this->addon();
-        $this->user = $this->user();
+        self::$addon = $this->addon();
 
-        if($this->addon->getConfig('meta_updated')) {
-            $this->updated();
+        /**
+         * article meta has been updated
+         */
+        if(self::$addon->getConfig('meta_updated')) {
+            $this->update('ART_META_UPDATED', 'RexActivity\EP\meta::message');
         }
     }
 
-    /**
-     * article meta has been updated
-     * @return void
-     */
-    private function updated(): void {
-        $context = $this;
-        \rex_extension::register('ART_META_UPDATED', static function (\rex_extension_point $ep) use ($context) {
-            $params = $ep->getParams();
-            \rex_activity::message($context->message($params, \rex_activity::TYPE_UPDATE))
-                ->type(\rex_activity::TYPE_UPDATE)
-                ->causer($context->user)
-                ->log();
-        });
-    }
-
-    private function message(array $params, string $type): string {
-        $message = '<strong>Meta Info:</strong> ';
-        $message .= $this->addon->i18n('type_'.$type);
-
+    public static function message(array $params, string $type): string {
         /** @var \rex_article $article */
         $article = \rex_article::get($params['id']);
 
-        $message .= ' - ';
+        $message = '<strong>Meta Info:</strong> ';
         $message .= '<a href="' . \rex_url::backendController([
                 'page' => 'content/edit',
                 'article_id' => $article->getId(),
@@ -50,6 +36,8 @@ class meta
             ]) . '">';
         $message .= $article->getName();
         $message .= '</a>';
+        $message .= ' - ';
+        $message .= self::$addon->i18n('type_'.$type);
 
         return $message;
     }

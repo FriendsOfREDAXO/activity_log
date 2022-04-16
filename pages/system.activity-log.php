@@ -8,6 +8,12 @@ if(rex_get('delete_old_logs') && rex_get('delete_old_logs') == 1) {
     $sql->delete();
 }
 
+if(rex_get('delete_all_logs') && rex_get('delete_all_logs') == 1) {
+    $sql = rex_sql::factory();
+    $sql->setTable($table);
+    $sql->delete();
+}
+
 $addon = rex_addon::get('activity_log');
 $types = rex_get('type');
 
@@ -48,8 +54,9 @@ $list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 
 $content = $list->get();
 
-$content .= '<form action="' . rex_url::currentBackendPage() . '" style="text-align: right">
+$content .= '<hr><form action="' . rex_url::currentBackendPage() . '" style="text-align: right">
     <button type="submit" class="btn btn-danger" name="delete_old_logs" value="1">'.$addon->i18n('delete_older_than_7_days').'</button>
+    <button type="submit" class="btn btn-danger" name="delete_all_logs" value="1">'.$addon->i18n('delete_all').'</button>
 </form>';
 
 $fragment = new rex_fragment();
