@@ -14,6 +14,9 @@ if (rex_post('config-submit', 'boolean')) {
         ['clang_added', 'bool'],
         ['clang_updated', 'bool'],
         ['clang_deleted', 'bool'],
+        ['user_added', 'bool'],
+        ['user_updated', 'bool'],
+        ['user_deleted', 'bool'],
         ['media_added', 'bool'],
         ['media_updated', 'bool'],
         ['media_deleted', 'bool'],
@@ -93,6 +96,25 @@ $n = [];
 $n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Meta Info</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_meta_updated">Meta updated</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_meta_updated" name="config[meta_updated]" value="1" ' . ($this->getConfig('meta_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+/**
+ * user
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>User</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_user_added">User added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_user_added" name="config[user_added]" value="1" ' . ($this->getConfig('user_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_user_updated">User updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_user_updated" name="config[user_updated]" value="1" ' . ($this->getConfig('user_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_user_deleted">User deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_user_deleted" name="config[user_deleted]" value="1" ' . ($this->getConfig('user_deleted') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 /**
