@@ -7,6 +7,9 @@ if (rex_post('config-submit', 'boolean')) {
         ['article_updated', 'bool'],
         ['article_status', 'bool'],
         ['article_deleted', 'bool'],
+        ['category_added', 'bool'],
+        ['category_updated', 'bool'],
+        ['category_deleted', 'bool'],
         ['slice_added', 'bool'],
         ['slice_updated', 'bool'],
         ['slice_deleted', 'bool'],
@@ -49,6 +52,25 @@ $formElements[] = $n;
 $n = [];
 $n['label'] = '<label for="rex_activity_log_article_deleted">Article deleted</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_article_deleted" name="config[article_deleted]" value="1" ' . ($this->getConfig('article_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+/**
+ * categories
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Category</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_category_added">Category added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_category_added" name="config[category_added]" value="1" ' . ($this->getConfig('category_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_category_updated">Category updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_category_updated" name="config[category_updated]" value="1" ' . ($this->getConfig('category_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_category_deleted">Category deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_category_deleted" name="config[category_deleted]" value="1" ' . ($this->getConfig('category_deleted') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 /**
