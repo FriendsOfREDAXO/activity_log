@@ -10,10 +10,12 @@ page:
     icon: rex-icon fa-list-alt
     subpages:
         settings: { title: translate:settings }
+        system.activity-log: { title: 'translate:activity_log_title' }
 
 pages:
-  system/activity-log: { title: 'translate:activity_log_title' }
-  perm: admin[]
+  system/activity-log:
+    title: 'translate:activity_log_title'
+    perm: activity_log[]
 
 requires:
   redaxo: ^5.12.0
