@@ -8,6 +8,10 @@ Die Logs werden im System unter Activity Log angezeigt.
 rex_activity::message('Hello World!')->type(rex_activity::TYPE_INFO)->log();
 rex_activity::message('He did something :O')->type(rex_activity::TYPE_WARNING)->causer(rex::getUser())->log();
 ```
+
+![activity_log](https://user-images.githubusercontent.com/2708231/163674949-76762489-3217-4d2f-8bbc-d89494f723c7.png)
+
+
 ---
 
 #### Typen:
@@ -26,6 +30,4 @@ rex_activity::message('He did something :O')->type(rex_activity::TYPE_WARNING)->
 ---
 
 #### TODO:
-- [ ] Einstellungen um gewisse Events zu loggen (SLICE_ADD, SLICE_UPDATE...)
-- [x] Cronjob um Logs zu löschen
-- [ ] Liste filtern
+- [ ] Liste der Logs aus den Einstellungen anlegen
