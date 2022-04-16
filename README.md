@@ -1,5 +1,4 @@
 # Activity Log für REDAXO 5
-### :construction: ACHTUNG: ALPHA-Version - Bitte nur zum Testen benutzen.
 
 Eine einfache Möglichkeit um Aktivitäten zu loggen.
 Die Logs werden im System unter Activity Log angezeigt.
