@@ -16,3 +16,4 @@ activity_log_type_delete = deleted
 activity_log_type_update = updated
 activity_log_type_add = added
 activity_log_type_edit = edited
+activity_log_type_status = Changed status

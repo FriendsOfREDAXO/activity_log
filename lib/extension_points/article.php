@@ -44,11 +44,11 @@ class article
          * the article status has been changed
          */
         if(self::$addon->getConfig('article_status')) {
-            $this->update('ART_STATUS', 'RexActivity\EP\article::message');
+            $this->status('ART_STATUS', 'RexActivity\EP\article::message');
         }
     }
 
-    public static function message(array $params, string $type): string {
+    public static function message(array $params, string $type, $additionalParams = null): string {
         $article = \rex_article::get($params['id']);
 
         $message = '<strong>Article:</strong> ';
@@ -70,7 +70,13 @@ class article
         }
 
         $message .= ' - ';
-        $message .= self::$addon->i18n('type_'.$type);
+
+        if(isset($additionalParams['type'])) {
+            $message .= self::$addon->i18n('type_'.$additionalParams['type']);
+        }
+        else {
+            $message .= self::$addon->i18n('type_'.$type);
+        }
 
         return $message;
     }

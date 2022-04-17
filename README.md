@@ -32,7 +32,7 @@ rex_activity::message('He did something :O')->type(rex_activity::TYPE_WARNING)->
 In den Einstellungen kann ein Log für folgende Extension Points aktiviert werden.
 
 **Article**
-Article added
+- Article added
 - Article updated
 - Article status change
 - Article deleted
