@@ -3,7 +3,8 @@ $sql = \rex_sql::factory();
 $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_log') . ' WHERE causer_id  IS NOT NULL GROUP BY causer_id ORDER BY causer_id');
 ?>
 
-<form action="<?=rex_url::currentBackendPage()?>" class="form-inline">
+<form action="<?=rex_url::currentBackendPage()?>" class="form-inline" method="get">
+    <input type="hidden" name="page" value="<?= rex_get('page') ?>">
     <div class="form-horizontal" style="text-align: right">
         <div class="form-group" style="text-align: left">
             <label class="control-label col-sm-3" for="filter_type">Type</label>
