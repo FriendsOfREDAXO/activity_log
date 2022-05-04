@@ -26,8 +26,10 @@ installer_ignore:
   - node_modules
   - .git
   - .gitignore
-  - .gitignore
   - .github
   - package.json
   - yarn.lock
   - resources
+  - .editorconfig
+  - .eslintrc.js
+  - .stylelintrc.js
