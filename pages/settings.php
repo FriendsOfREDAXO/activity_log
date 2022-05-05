@@ -1,7 +1,19 @@
 <?php
 
 /** @var rex_addon $this */
-if (rex_post('config-submit', 'boolean')) {
+
+if (rex_post('config_toggle_true', 'bool') || rex_post('config_toggle_false', 'bool')) {
+    $toggleTrue = rex_post('config_toggle_true', 'bool');
+    $configEntries = rex_config::get('activity_log');
+
+    foreach ($configEntries as $key => $value) {
+        $configEntries[$key] = $toggleTrue;
+    }
+
+    rex_config::set($this->getPackageId(), $configEntries);
+}
+
+if (rex_post('config-submit', 'bool')) {
     $this->setConfig(rex_post('config', [
         ['article_added', 'bool'],
         ['article_updated', 'bool'],
@@ -169,6 +181,14 @@ $formElements = [];
 
 $n = [];
 $n['field'] = '<button class="btn btn-save rex-form-aligned" type="submit" name="config-submit" value="1" ' . rex::getAccesskey($this->i18n('save'), 'save') . '>' . $this->i18n('save') . '</button>';
+$formElements[] = $n;
+
+$n = [];
+$n['field'] = '<button class="btn btn-default" name="config_toggle_true" value="1">' . $this->i18n('check_all') . '</button>';
+$formElements[] = $n;
+
+$n = [];
+$n['field'] = '<button class="btn btn-default" name="config_toggle_false" value="1">' . $this->i18n('uncheck_all') . '</button>';
 $formElements[] = $n;
 
 $fragment = new rex_fragment();

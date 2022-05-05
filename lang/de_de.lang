@@ -1,6 +1,8 @@
 activity_log_title = Activity Log
 activity_log_settings = Einstellungen
 activity_log_save = Speichern
+activity_log_check_all = Alle Kontrollkästchen aktivieren
+activity_log_uncheck_all = Alle Kontrollkästchen deaktivieren
 activity_log_saved = Einstellungen gespeichert
 activity_log_delete_older_than_7_days = Einträge löschen, die älter als 7 Tage sind
 activity_log_delete_all = Alle Einträge löschen

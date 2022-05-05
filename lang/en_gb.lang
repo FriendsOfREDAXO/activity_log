@@ -1,6 +1,8 @@
 activity_log_title = Activity Log
 activity_log_settings = Settings
 activity_log_save = Save
+activity_log_check_all = Enable all checkboxes
+activity_log_uncheck_all = Disable all checkboxes
 activity_log_saved = Settings saved
 activity_log_delete_older_than_7_days = Delete entries older than 7 days
 activity_log_delete_all = Delete all entries
