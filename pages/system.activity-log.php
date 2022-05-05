@@ -17,15 +17,16 @@ if (\rex_post('delete_all_logs') && \rex_post('delete_all_logs') == 1) {
 $addon = \rex_addon::get('activity_log');
 $type = \rex_get('type');
 $user = \rex_get('user');
+$clear = \rex_get('clear_filter');
 
 $query = 'SELECT created_at,type,message,causer_id FROM ' . $table;
 $where = [];
 
-if ($type && $type !== '') {
+if ($type && $type !== '' && !$clear) {
     $where[] = 'type = "' . $type . '"';
 }
 
-if ($user && $user !== '') {
+if ($user && $user !== '' && !$clear) {
     $where[] = 'causer_id = ' . $user;
 }
 
@@ -52,8 +53,8 @@ $list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 
 
 $filterFragment = new \rex_fragment();
-$filterFragment->setVar('type', $type);
-$filterFragment->setVar('user', $user);
+$filterFragment->setVar('type', $clear ? '' : $type);
+$filterFragment->setVar('user', $clear ? '' : $user);
 $content = $filterFragment->parse('filter-form.php');
 
 $content .= $list->get();

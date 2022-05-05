@@ -41,7 +41,8 @@ $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_lo
 
         <div class="form-group" style="text-align: left">
             <div class="col-sm-12">
-                <button type="submit" class="btn btn-default" name="filter" value="1">Filter</button>
+                &nbsp;<button type="submit" class="btn btn-default" name="filter" value="1">Filter</button>
+                &nbsp;<button type="submit" class="btn btn-danger" name="clear_filter" value="1">&#10005;</button>
             </div>
         </div>
     </div>
