@@ -43,5 +43,13 @@ trait ep_trait
                 ->log();
         });
     }
+
+    public static function getStatus(bool $status, $additionalParams): string {
+        if(isset($additionalParams['type']) && $additionalParams['type'] === 'status') {
+            return $status ? '&nbsp;&nbsp;<span class="small rex-online"><i class="rex-icon rex-icon-online"></i>&nbsp;online</span>' : '&nbsp;&nbsp;<span class="small rex-offline"><i class="rex-icon rex-icon-offline"></i>&nbsp;offline</span>';
+        }
+
+        return '';
+    }
 }
 

@@ -73,6 +73,7 @@ class article
 
         if(isset($additionalParams['type'])) {
             $message .= self::$addon->i18n('type_'.$additionalParams['type']);
+            $message .= self::getStatus($article->isOnline(), $additionalParams);
         }
         else {
             $message .= self::$addon->i18n('type_'.$type);

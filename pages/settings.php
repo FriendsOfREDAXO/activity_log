@@ -22,6 +22,7 @@ if (rex_post('config-submit', 'bool')) {
         ['category_added', 'bool'],
         ['category_updated', 'bool'],
         ['category_deleted', 'bool'],
+        ['category_status', 'bool'],
         ['slice_added', 'bool'],
         ['slice_updated', 'bool'],
         ['slice_deleted', 'bool'],
@@ -57,13 +58,13 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_article_updated" name
 $formElements[] = $n;
 
 $n = [];
-$n['label'] = '<label for="rex_activity_log_article_status">Article status change</label>';
-$n['field'] = '<input type="checkbox" id="rex_activity_log_article_status" name="config[article_status]" value="1" ' . ($this->getConfig('article_status') ? ' checked="checked"' : '') . ' />';
+$n['label'] = '<label for="rex_activity_log_article_deleted">Article deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_article_deleted" name="config[article_deleted]" value="1" ' . ($this->getConfig('article_deleted') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 $n = [];
-$n['label'] = '<label for="rex_activity_log_article_deleted">Article deleted</label>';
-$n['field'] = '<input type="checkbox" id="rex_activity_log_article_deleted" name="config[article_deleted]" value="1" ' . ($this->getConfig('article_deleted') ? ' checked="checked"' : '') . ' />';
+$n['label'] = '<label for="rex_activity_log_article_status">Article status change</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_article_status" name="config[article_status]" value="1" ' . ($this->getConfig('article_status') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 /**
@@ -83,6 +84,11 @@ $formElements[] = $n;
 $n = [];
 $n['label'] = '<label for="rex_activity_log_category_deleted">Category deleted</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_category_deleted" name="config[category_deleted]" value="1" ' . ($this->getConfig('category_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_category_status">Category status change</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_category_status" name="config[category_status]" value="1" ' . ($this->getConfig('category_status') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 /**

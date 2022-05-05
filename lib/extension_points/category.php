@@ -34,9 +34,17 @@ class category
         if(self::$addon->getConfig('category_deleted')) {
             $this->delete('CAT_DELETED', 'RexActivity\EP\category::message');
         }
+
+        /**
+         * the category status has been changed
+         */
+        if(self::$addon->getConfig('category_status')) {
+            $this->status('CAT_STATUS', 'RexActivity\EP\category::message');
+        }
     }
 
-    public static function message(array $params, string $type): string {
+    public static function message(array $params, string $type, $additionalParams = null): string {
+        $category = \rex_category::get($params['id']);
         $message = '<strong>Category:</strong> ';
         $message .= '<a href="' . \rex_url::backendController([
                 'page' => 'structure',
@@ -44,10 +52,17 @@ class category
                 'category_id' =>  $params['id'],
                 'clang_id' => $params['clang'],
             ]) . '">';
-        $message .= $params['name'];
+        $message .= $category->getName();
         $message .= '</a>';
         $message .= ' - ';
-        $message .= self::$addon->i18n('type_'.$type);
+
+        if(isset($additionalParams['type'])) {
+            $message .= self::$addon->i18n('type_'.$additionalParams['type']);
+            $message .= self::getStatus($category->isOnline(), $additionalParams);
+        }
+        else {
+            $message .= self::$addon->i18n('type_'.$type);
+        }
 
         return $message;
     }
