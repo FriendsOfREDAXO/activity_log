@@ -9,8 +9,8 @@ page:
     perm: admin
     icon: rex-icon fa-list-alt
     subpages:
-        settings: { title: translate:settings }
         system.activity-log: { title: 'translate:activity_log_title' }
+        settings: { title: translate:settings }
 
 pages:
   system/activity-log:
