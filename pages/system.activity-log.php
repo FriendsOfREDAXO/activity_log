@@ -14,12 +14,19 @@ if (\rex_post('delete_all_logs') && \rex_post('delete_all_logs') == 1) {
     $sql->delete();
 }
 
+if (\rex_post('delete_single_log')) {
+    $sql = \rex_sql::factory();
+    $sql->setTable($table);
+    $sql->setWhere('id = ' . \rex_post('delete_single_log'));
+    $sql->delete();
+}
+
 $addon = \rex_addon::get('activity_log');
 $type = \rex_get('type');
 $user = \rex_get('user');
 $clear = \rex_get('clear_filter');
 
-$query = 'SELECT created_at,type,message,causer_id FROM ' . $table;
+$query = 'SELECT id,created_at,type,message,causer_id FROM ' . $table;
 $where = [];
 
 if ($type && $type !== '' && !$clear) {
@@ -38,6 +45,7 @@ $query .= ' ORDER BY created_at DESC';
 
 $list = \rex_list::factory($query, 100, 'rex_activity');
 
+$list->removeColumn('id');
 $list->addTableAttribute('class', 'rex-activity-table');
 $list->setColumnFormat('created_at', 'date', 'd.m.Y - H:i:s');
 $list->setColumnSortable('created_at');
@@ -51,6 +59,10 @@ $list->setColumnFormat('causer_id', 'custom', 'rex_activity::userListCallback');
 $list->setColumnFormat('message', 'custom', 'rex_activity::messageListCallback');
 $list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 
+$list->addColumn('delete', '', -1, ['<th></th>', '<td class="rex-table-icon">###VALUE###</td>']);
+$list->setColumnFormat('delete', 'custom', static function ($params) use ($list) {
+    return '<button type="submit" class="btn btn-danger btn-sm" name="delete_single_log" value="' . $list->getValue('id') . '"><i class="rex-icon rex-icon-delete"></i></button>';
+});
 
 $filterFragment = new \rex_fragment();
 $filterFragment->setVar('type', $clear ? '' : $type);
