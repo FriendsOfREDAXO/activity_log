@@ -7,6 +7,10 @@ if (rex_post('config_toggle_true', 'bool') || rex_post('config_toggle_false', 'b
     $configEntries = rex_config::get('activity_log');
 
     foreach ($configEntries as $key => $value) {
+        if($key === 'rows_per_page') {
+            continue;
+        }
+        
         $configEntries[$key] = $toggleTrue;
     }
 
@@ -43,6 +47,7 @@ if (rex_post('config-submit', 'bool')) {
         ['module_added', 'bool'],
         ['module_updated', 'bool'],
         ['module_deleted', 'bool'],
+        ['rows_per_page', 'int'],
     ]));
 
     echo rex_view::success($this->i18n('saved'));
@@ -233,6 +238,20 @@ $formElements[] = $n;
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');
+
+/**
+ * misc
+ */
+$inputGroups = [];
+$n = [];
+$n['before'] = '<label class="form-label form-group-header" for="rex_activity_log_rows_per_page">Rows per page</label>';
+$n['field'] = '<input class="form-control" type="number" value="' . $this->getConfig('rows_per_page') . '" id="rex_activity_log_rows_per_page" name="config[rows_per_page]"/>';
+$inputGroups[] = $n;
+
+$fragment = new rex_fragment();
+$fragment->setVar('elements', $inputGroups, false);
+$content .= $fragment->parse('core/form/input_group.php');
+
 
 $formElements = [];
 

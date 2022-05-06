@@ -1,4 +1,6 @@
 <?php
+/** @var \rex_addon $this */
+
 $table = \rex::getTable('activity_log');
 
 if (\rex_post('delete_old_logs') && \rex_post('delete_old_logs') == 1) {
@@ -43,7 +45,7 @@ if ($where) {
 
 $query .= ' ORDER BY created_at DESC';
 
-$list = \rex_list::factory($query, 100, 'rex_activity');
+$list = \rex_list::factory($query, $this->getConfig('rows_per_page') ?: 100, 'rex_activity');
 
 $list->removeColumn('id');
 $list->addTableAttribute('class', 'rex-activity-table');
