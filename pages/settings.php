@@ -26,6 +26,7 @@ if (rex_post('config-submit', 'bool')) {
         ['slice_added', 'bool'],
         ['slice_updated', 'bool'],
         ['slice_deleted', 'bool'],
+        ['slice_moved', 'bool'],
         ['meta_updated', 'bool'],
         ['clang_added', 'bool'],
         ['clang_updated', 'bool'],
@@ -108,6 +109,11 @@ $formElements[] = $n;
 $n = [];
 $n['label'] = '<label for="rex_activity_log_slice_deleted">Slice deleted</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_slice_deleted" name="config[slice_deleted]" value="1" ' . ($this->getConfig('slice_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_slice_moved">Slice moved</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_slice_moved" name="config[slice_moved]" value="1" ' . ($this->getConfig('slice_moved') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
 /**

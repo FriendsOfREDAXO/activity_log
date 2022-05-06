@@ -19,3 +19,4 @@ activity_log_type_update = updated
 activity_log_type_add = added
 activity_log_type_edit = edited
 activity_log_type_status = Changed status
+activity_log_type_move = moved

@@ -34,9 +34,25 @@ class slice
         if(self::$addon->getConfig('slice_deleted')) {
             $this->delete('SLICE_DELETED', 'RexActivity\EP\slice::message');
         }
+
+        /**
+         * a slice has been moved
+         */
+        if(self::$addon->getConfig('slice_moved')) {
+            $this->move('SLICE_MOVE', 'RexActivity\EP\slice::message');
+        }
     }
 
-    public static function message(array $params, string $type): string {
+    public static function message(array $params, string $type, $additionalParams = null): string {
+        if(isset($additionalParams['type']) && $additionalParams['type'] === 'move') {
+            $slice = \rex_sql::factory()->getArray('SELECT id, ctype_id, module_id from ' . \rex::getTable('article_slice') . ' WHERE id = ' . $params['slice_id']);
+
+            if(!empty($slice)) {
+                $params['module_id'] = $slice[0]['module_id'];
+                $params['ctype'] = $slice[0]['ctype_id'];
+            }
+        }
+
         $module = \rex_sql::factory()->getArray('SELECT * from ' . \rex::getTable('module') . ' WHERE id = ' . $params['module_id']);
 
         $message = '<strong>Slice:</strong> ';
@@ -50,7 +66,13 @@ class slice
             ]) . '">';
         $message .= $module[0]['name'];
         $message .= '</a>';
-        $message .= ' ' . self::$addon->i18n('type_'.$type);
+
+        if(isset($additionalParams['type'])) {
+            $message .= ' ' . self::$addon->i18n('type_'.$additionalParams['type']);
+        }
+        else {
+            $message .= ' ' . self::$addon->i18n('type_'.$type);
+        }
 
         /** @var \rex_article $article */
         $article = \rex_article::get($params['article_id']);
@@ -65,6 +87,15 @@ class slice
             ]) . '">';
         $message .= $article->getName();
         $message .= '</a>';
+
+        if(isset($additionalParams['type'], $params['direction'])) {
+            if($params['direction'] === 'moveup') {
+                $message .= '  <span class="small"><i class="rex-icon rex-icon-up"></i></span>';
+            }
+            elseif($params['direction'] === 'movedown') {
+                $message .= '  <span class="small"><i class="rex-icon rex-icon-down"></i></span>';
+            }
+        }
 
         return $message;
     }

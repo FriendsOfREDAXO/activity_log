@@ -28,6 +28,10 @@ trait ep_trait
         $this->logExtensionPoint(\rex_activity::TYPE_EDIT, $extensionPoint, $messageCallback, ['type' => 'status']);
     }
 
+    public function move(string $extensionPoint, callable $messageCallback): void {
+        $this->logExtensionPoint(\rex_activity::TYPE_UPDATE, $extensionPoint, $messageCallback, ['type' => 'move']);
+    }
+
     public function logExtensionPoint(string $type, string $extensionPoint, callable $messageCallback, $additionalParams = null) {
         \rex_extension::register($extensionPoint, static function (\rex_extension_point $ep) use ($messageCallback, $type, $additionalParams) {
             $params = $ep->getParams();
