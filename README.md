@@ -40,12 +40,14 @@ In den Einstellungen kann ein Log für folgende Extension Points aktiviert werde
 **Category**
 - Category added
 - Category updated
+- Category status change
 - Category deleted
 
 **Slice**
 - Slice added
 - Slice updated
 - Slice deleted
+- Slice moved
 
 **Media**
 - Media added
@@ -64,3 +66,13 @@ In den Einstellungen kann ein Log für folgende Extension Points aktiviert werde
 - Clang added
 - Clang updated
 - Clang deleted
+
+**Template**
+- Template added
+- Template updated
+- Template deleted
+
+**Module**
+- Module added
+- Module updated
+- Module deleted
