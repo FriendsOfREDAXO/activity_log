@@ -37,6 +37,12 @@ if (rex_post('config-submit', 'bool')) {
         ['media_added', 'bool'],
         ['media_updated', 'bool'],
         ['media_deleted', 'bool'],
+        ['template_added', 'bool'],
+        ['template_updated', 'bool'],
+        ['template_deleted', 'bool'],
+        ['module_added', 'bool'],
+        ['module_updated', 'bool'],
+        ['module_deleted', 'bool'],
     ]));
 
     echo rex_view::success($this->i18n('saved'));
@@ -181,6 +187,45 @@ $n = [];
 $n['label'] = '<label for="rex_activity_log_clang_deleted">Clang deleted</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_clang_deleted" name="config[clang_deleted]" value="1" ' . ($this->getConfig('clang_deleted') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
+
+/**
+ * template
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Template</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_template_added">Template added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_template_added" name="config[template_added]" value="1" ' . ($this->getConfig('template_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_template_updated">Template updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_template_updated" name="config[template_updated]" value="1" ' . ($this->getConfig('template_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_template_deleted">Template deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_template_deleted" name="config[template_deleted]" value="1" ' . ($this->getConfig('template_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+/**
+ * module
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Module</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_module_added">Module added</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_module_added" name="config[module_added]" value="1" ' . ($this->getConfig('module_added') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_module_updated">Module updated</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_module_updated" name="config[module_updated]" value="1" ' . ($this->getConfig('module_updated') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
+$n = [];
+$n['label'] = '<label for="rex_activity_log_module_deleted">Module deleted</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_module_deleted" name="config[module_deleted]" value="1" ' . ($this->getConfig('module_deleted') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
+
 
 /**
  * render form

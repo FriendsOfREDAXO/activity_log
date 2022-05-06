@@ -12,5 +12,7 @@ class rex_activity_extension_points
         new \RexActivity\EP\clang();
         new \RexActivity\EP\user();
         new \RexActivity\EP\category();
+        new \RexActivity\EP\template();
+        new \RexActivity\EP\module();
     }
 }
