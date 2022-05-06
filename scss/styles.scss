@@ -47,6 +47,20 @@
   }
 }
 
+form#activity-log-settings {
+  .rex-form-group {
+    margin-bottom: 0;
+
+    dd {
+      padding-left: 0;
+    }
+  }
+
+  .form-group-header {
+    margin-top: 15px;
+  }
+}
+
 body.rex-theme-dark {
 }
 

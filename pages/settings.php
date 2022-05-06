@@ -78,7 +78,7 @@ $formElements[] = $n;
  * categories
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Category</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Category</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_category_added">Category added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_category_added" name="config[category_added]" value="1" ' . ($this->getConfig('category_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -102,7 +102,7 @@ $formElements[] = $n;
  * slices
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Slice</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Slice</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_slice_added">Slice added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_slice_added" name="config[slice_added]" value="1" ' . ($this->getConfig('slice_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -126,7 +126,7 @@ $formElements[] = $n;
  * media
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Media</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Media</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_media_added">Media added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_media_added" name="config[media_added]" value="1" ' . ($this->getConfig('media_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -145,7 +145,7 @@ $formElements[] = $n;
  * meta info
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Meta Info</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Meta Info</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_meta_updated">Meta updated</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_meta_updated" name="config[meta_updated]" value="1" ' . ($this->getConfig('meta_updated') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -154,7 +154,7 @@ $formElements[] = $n;
  * user
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>User</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>User</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_user_added">User added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_user_added" name="config[user_added]" value="1" ' . ($this->getConfig('user_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -173,7 +173,7 @@ $formElements[] = $n;
  * clang
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Language</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Language</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_clang_added">Clang added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_clang_added" name="config[clang_added]" value="1" ' . ($this->getConfig('clang_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -192,7 +192,7 @@ $formElements[] = $n;
  * template
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Template</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Template</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_template_added">Template added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_template_added" name="config[template_added]" value="1" ' . ($this->getConfig('template_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -211,7 +211,7 @@ $formElements[] = $n;
  * module
  */
 $n = [];
-$n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Module</strong></dd></dl>';
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Module</strong></dd></dl>';
 $n['label'] = '<label for="rex_activity_log_module_added">Module added</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_module_added" name="config[module_added]" value="1" ' . ($this->getConfig('module_added') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
@@ -237,7 +237,7 @@ $content .= $fragment->parse('core/form/checkbox.php');
 $formElements = [];
 
 $n = [];
-$n['field'] = '<button class="btn btn-save rex-form-aligned" type="submit" name="config-submit" value="1" ' . rex::getAccesskey($this->i18n('save'), 'save') . '>' . $this->i18n('save') . '</button>';
+$n['field'] = '<button class="btn btn-save" type="submit" name="config-submit" value="1" ' . rex::getAccesskey($this->i18n('save'), 'save') . '>' . $this->i18n('save') . '</button>';
 $formElements[] = $n;
 
 $n = [];
@@ -261,6 +261,6 @@ $fragment->setVar('buttons', $buttons, false);
 $content = $fragment->parse('core/page/section.php');
 
 echo '
-    <form action="' . rex_url::currentBackendPage() . '" method="post">
+    <form action="' . rex_url::currentBackendPage() . '" id="activity-log-settings" method="post">
         ' . $content . '
     </form>';
