@@ -1,5 +1,6 @@
 activity_log_title = Activity Log
 activity_log_settings = Einstellungen
+activity_log_help = Help/Readme
 activity_log_save = Speichern
 activity_log_check_all = Alle Kontrollkästchen aktivieren
 activity_log_uncheck_all = Alle Kontrollkästchen deaktivieren

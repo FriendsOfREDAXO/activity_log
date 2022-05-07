@@ -11,6 +11,8 @@ page:
     subpages:
         system.activity-log: { title: 'translate:activity_log_title' }
         settings: { title: translate:settings }
+        help: { title: translate:help, subPath: README.md }
+
 
 pages:
   system/activity-log:
