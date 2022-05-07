@@ -12,6 +12,14 @@ rex_activity::message('He did something :O')->type(rex_activity::TYPE_WARNING)->
 
 ---
 
+#### Einträge regelmäßig löschen:
+
+Einträge können jederzeit manuell im Activity Log gelöscht werden.
+
+Weiter gibt es die Möglichkeit die Einträge über das **Cronjob Addon** automatisiert zu löschen. Es stehen verschiedene Zeiträume zur Auswahl.
+
+---
+
 #### Typen:
 
 - TYPE_INFO

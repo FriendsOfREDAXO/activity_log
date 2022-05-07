@@ -6,9 +6,12 @@ activity_log_uncheck_all = Alle Kontrollkästchen deaktivieren
 activity_log_saved = Einstellungen gespeichert
 activity_log_delete_older_than_7_days = Einträge löschen, die älter als 7 Tage sind
 activity_log_delete_all = Alle Einträge löschen
-activity_log_cronjob_title = Activity Log Einträge löschen, die älter als 7 Tage sind
+activity_log_cronjob_title = Activity Log Einträge löschen
 activity_log_cron_nothing_to_delete = Keine Activity Log Einträge zu löschen
 activity_log_cron_deleted = Activity Log Einträge gelöscht
+activity_log_cronjob_clean = Activity Log Einträge löschen
+activity_log_cronjob_clean_sing = Activity Log Einträge löschen, die älter als {0} Tag sind
+activity_log_cronjob_clean_plur = Activity Log Einträge löschen, die älter als {0} Tage sind
 
 activity_log_added = hinzugefügt
 activity_log_updated = aktualisiert
