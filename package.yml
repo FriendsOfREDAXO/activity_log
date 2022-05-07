@@ -11,8 +11,7 @@ page:
     subpages:
         system.activity-log: { title: 'translate:activity_log_title' }
         settings: { title: translate:settings }
-        help: { title: translate:help, subPath: README.md }
-
+        help: { title: translate:help, subPath: README.md, icon: rex-icon fa-question-circle, itemclass: pull-right }
 
 pages:
   system/activity-log:
