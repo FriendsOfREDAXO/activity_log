@@ -1,5 +1,5 @@
 package: activity_log
-version: "0.0.1"
+version: "0.0.2"
 name: Activity Log
 author: eaCe
 supportpage: https://github.com/eace/activity_log
