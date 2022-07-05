@@ -45,6 +45,13 @@
       }
     }
   }
+
+  &-btn-disabled {
+    background-color: #333333 !important;
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 form#activity-log-settings {
