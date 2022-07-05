@@ -7,6 +7,7 @@ activity_log_uncheck_all = Disable all checkboxes
 activity_log_saved = Settings saved
 activity_log_delete_older_than_7_days = Delete entries older than 7 days
 activity_log_delete_all = Delete all entries
+activity_log_deleted_user = Deleted User
 activity_log_cronjob_title = Delete Activity Log entries
 activity_log_cron_nothing_to_delete = No activity log entries to delete
 activity_log_cron_deleted = Activity Log entries deleted

@@ -32,7 +32,11 @@ $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_lo
                     <select class="form-control" name="user" id="filter_user">
                         <option value="" <?=$this->user === '' ? 'selected' : ''?>>-</option>
                         <?php foreach ($causers as $causer) : ?>
-                            <option <?=$this->user == $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_user::get($causer['causer_id'])->getName()?></option>
+                            <?php if (\rex_user::get($causer['causer_id'])) : ?>
+                                <option <?=$this->user == $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_user::get($causer['causer_id'])->getName()?></option>
+                            <?php else: ?>
+                                <option <?=$this->user == $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_i18n::msg('activity_log_deleted_user')?> [<?=$causer['causer_id']?>]</option>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
                 </div>
