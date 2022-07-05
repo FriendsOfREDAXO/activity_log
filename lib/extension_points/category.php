@@ -46,14 +46,22 @@ class category
     public static function message(array $params, string $type, $additionalParams = null): string {
         $category = \rex_category::get($params['id']);
         $message = '<strong>Category:</strong> ';
-        $message .= '<a href="' . \rex_url::backendController([
-                'page' => 'structure',
-                'article_id' => 0,
-                'category_id' =>  $params['id'],
-                'clang_id' => $params['clang'],
-            ]) . '">';
-        $message .= $category->getName();
-        $message .= '</a>';
+
+        if($type === 'delete' && !empty($params)) {
+            $message .= $params['name'];
+            $message .= ' [' . $params['id'] . ']';
+        }
+        else {
+            $message .= '<a href="' . \rex_url::backendController([
+                    'page' => 'structure',
+                    'article_id' => 0,
+                    'category_id' =>  $params['id'],
+                    'clang_id' => $params['clang'],
+                ]) . '">';
+            $message .= $category->getName();
+            $message .= '</a>';
+        }
+
         $message .= ' - ';
 
         if(isset($additionalParams['type'])) {
