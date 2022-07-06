@@ -157,52 +157,6 @@ class rex_activity
             self::$addon->setConfig('cleared', true);
         }
     }
-
-    /**
-     * set default configs
-     * @return void
-     */
-    public static function setConfig(): void {
-        $configs = [
-            'article_added' => false,
-            'article_updated' => false,
-            'article_status' => false,
-            'article_deleted' => false,
-            'category_added' => false,
-            'category_updated' => false,
-            'category_deleted' => false,
-            'category_status' => false,
-            'slice_added' => false,
-            'slice_updated' => false,
-            'slice_deleted' => false,
-            'slice_moved' => false,
-            'meta_updated' => false,
-            'clang_added' => false,
-            'clang_updated' => false,
-            'clang_deleted' => false,
-            'user_added' => false,
-            'user_updated' => false,
-            'user_deleted' => false,
-            'media_added' => false,
-            'media_updated' => false,
-            'media_deleted' => false,
-            'template_added' => false,
-            'template_updated' => false,
-            'template_deleted' => false,
-            'module_added' => false,
-            'module_updated' => false,
-            'module_deleted' => false,
-            'rows_per_page' => 100,
-        ];
-
-        foreach ($configs as $key => $value) {
-            if (self::$addon->hasConfig($key)) {
-                continue;
-            }
-
-            self::$addon->setConfig($key, $value);
-        }
-    }
 }
 
 rex_activity::__constructStatic();
