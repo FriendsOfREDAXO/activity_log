@@ -7,7 +7,7 @@ class clang
     use ep_trait;
 
     /**
-     * @var \rex_addon
+     * @var \rex_addon_interface
      */
     private static $addon;
 
@@ -17,25 +17,30 @@ class clang
         /**
          * a new clang has been added
          */
-        if(self::$addon->getConfig('clang_added')) {
+        if (is_bool(self::$addon->getConfig('clang_added')) && self::$addon->getConfig('clang_added')) {
             $this->add('CLANG_ADDED', 'RexActivity\EP\clang::message');
         }
 
         /**
          * a clang has been updated
          */
-        if(self::$addon->getConfig('clang_updated')) {
+        if (is_bool(self::$addon->getConfig('clang_updated')) && self::$addon->getConfig('clang_updated')) {
             $this->update('CLANG_UPDATED', 'RexActivity\EP\clang::message');
         }
 
         /**
          * a clang has been deleted
          */
-        if(self::$addon->getConfig('clang_deleted')) {
+        if (is_bool(self::$addon->getConfig('clang_deleted')) && self::$addon->getConfig('clang_deleted')) {
             $this->delete('CLANG_DELETED', 'RexActivity\EP\clang::message');
         }
     }
 
+    /**
+     * @param array<string> $params
+     * @param string $type
+     * @return string
+     */
     public static function message(array $params, string $type): string {
         $message = '<strong>Language:</strong> ';
         $message .= '<a href="' . \rex_url::backendController([

@@ -1,6 +1,7 @@
 <?php
 
 if (rex::isBackend() && is_object(rex::getUser())) {
+    /** @var rex_addon $this */
     rex_view::addCssFile($this->getAssetsUrl('css/styles.css'));
 
     /**

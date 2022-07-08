@@ -4,10 +4,16 @@ namespace RexActivity\EP;
 
 trait ep_trait
 {
+    /**
+     * @return \rex_addon_interface
+     */
     public function addon() {
         return \rex_addon::get('activity_log');
     }
 
+    /**
+     * @return \rex_user|null
+     */
     public function user() {
         return \rex::getUser();
     }
@@ -32,7 +38,14 @@ trait ep_trait
         $this->logExtensionPoint(\rex_activity::TYPE_UPDATE, $extensionPoint, $messageCallback, ['type' => 'move']);
     }
 
-    public function logExtensionPoint(string $type, string $extensionPoint, callable $messageCallback, $additionalParams = null) {
+    /**
+     * @param string $type
+     * @param string $extensionPoint
+     * @param callable|null $messageCallback
+     * @param array<string>|null $additionalParams
+     * @return void
+     */
+    public function logExtensionPoint(string $type, string $extensionPoint, callable $messageCallback = null, ?array $additionalParams = null) {
         \rex_extension::register($extensionPoint, static function (\rex_extension_point $ep) use ($messageCallback, $type, $additionalParams) {
             $params = $ep->getParams();
             $message = '';

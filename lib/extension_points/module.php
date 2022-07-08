@@ -7,7 +7,7 @@ class module
     use ep_trait;
 
     /**
-     * @var \rex_addon
+     * @var \rex_addon_interface
      */
     private static $addon;
 
@@ -17,25 +17,30 @@ class module
         /**
          * a new module has been added
          */
-        if(self::$addon->getConfig('module_added')) {
+        if (is_bool(self::$addon->getConfig('module_added')) && self::$addon->getConfig('module_added')) {
             $this->add('MODULE_ADDED', 'RexActivity\EP\module::message');
         }
 
         /**
          * a module has been updated
          */
-        if(self::$addon->getConfig('module_updated')) {
+        if (is_bool(self::$addon->getConfig('module_updated')) && self::$addon->getConfig('module_updated')) {
             $this->update('MODULE_UPDATED', 'RexActivity\EP\module::message');
         }
 
         /**
          * a module has been deleted
          */
-        if(self::$addon->getConfig('module_deleted')) {
+        if (is_bool(self::$addon->getConfig('module_deleted')) && self::$addon->getConfig('module_deleted')) {
             $this->delete('MODULE_DELETED', 'RexActivity\EP\module::message');
         }
     }
 
+    /**
+     * @param array $params
+     * @param string $type
+     * @return string
+     */
     public static function message(array $params, string $type): string {
         $message = '<strong>Module:</strong> ';
 

@@ -4,7 +4,7 @@ $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_lo
 ?>
 
 <form action="<?=rex_url::currentBackendPage()?>" class="form-inline" method="get">
-    <input type="hidden" name="page" value="<?= rex_get('page') ?>">
+    <input type="hidden" name="page" value="<?= rex_get('page', 'string') ?>">
     <div class="form-horizontal" style="text-align: right">
         <div class="form-group" style="text-align: left">
             <label class="control-label col-sm-3" for="filter_type">Type</label>
@@ -25,17 +25,17 @@ $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_lo
             </div>
         </div>
 
-        <?php if ($causers) : ?>
+        <?php if (count($causers) !== 0) : ?>
             <div class="form-group" style="text-align: left">
                 <label class="control-label col-sm-3" for="filter_user">User</label>
                 <div class="col-sm-9">
                     <select class="form-control" name="user" id="filter_user">
                         <option value="" <?=$this->user === '' ? 'selected' : ''?>>-</option>
                         <?php foreach ($causers as $causer) : ?>
-                            <?php if (\rex_user::get($causer['causer_id'])) : ?>
-                                <option <?=$this->user == $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_user::get($causer['causer_id'])->getName()?></option>
+                            <?php if (\rex_user::get((int) $causer['causer_id']) !== null) : ?>
+                                <option <?=$this->user === $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_user::get((int) $causer['causer_id'])->getName()?></option>
                             <?php else: ?>
-                                <option <?=$this->user == $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_i18n::msg('activity_log_deleted_user')?> [<?=$causer['causer_id']?>]</option>
+                                <option <?=$this->user === $causer['causer_id'] ? 'selected' : ''?> value="<?=$causer['causer_id']?>"><?=\rex_i18n::msg('activity_log_deleted_user')?> [<?=$causer['causer_id']?>]</option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>

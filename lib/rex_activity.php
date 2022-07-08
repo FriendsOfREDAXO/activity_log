@@ -14,10 +14,10 @@ class rex_activity
     const TYPE_DELETE = 'delete';
 
     /**
-     * @var rex_addon $addon
+     * @var rex_addon|null $addon
      */
-    private static $addon;
-    private static $table;
+    private static $addon = null;
+    private static $table = '';
     private static $activity = null;
     private static $message = null;
     private static $type = null;
@@ -27,7 +27,7 @@ class rex_activity
      * @throws rex_sql_exception
      */
     public static function __constructStatic() {
-        self::$table = rex::getTable('activity_log');
+        self::$table = \rex::getTable('activity_log');
         self::$addon = \rex_addon::get('activity_log');
         self::$addon->setConfig('cleared', false);
 
@@ -62,7 +62,7 @@ class rex_activity
     /**
      * add message
      * @param string $message
-     * @return null
+     * @return rex_activity|null
      */
     public static function message(string $message) {
         self::$message = $message;

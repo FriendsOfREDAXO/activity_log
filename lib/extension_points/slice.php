@@ -7,7 +7,7 @@ class slice
     use ep_trait;
 
     /**
-     * @var \rex_addon
+     * @var \rex_addon_interface
      */
     private static $addon;
 
@@ -17,33 +17,40 @@ class slice
         /**
          * a new slice has been added
          */
-        if(self::$addon->getConfig('slice_added')) {
+        if (is_bool(self::$addon->getConfig('slice_added')) && self::$addon->getConfig('slice_added')) {
             $this->add('SLICE_ADDED', 'RexActivity\EP\slice::message');
         }
 
         /**
          * a slice has been updated
          */
-        if(self::$addon->getConfig('slice_updated')) {
+        if (is_bool(self::$addon->getConfig('slice_updated')) && self::$addon->getConfig('slice_updated')) {
             $this->update('SLICE_UPDATED', 'RexActivity\EP\slice::message');
         }
 
         /**
          * a slice has been deleted
          */
-        if(self::$addon->getConfig('slice_deleted')) {
+        if (is_bool(self::$addon->getConfig('slice_deleted')) && self::$addon->getConfig('slice_deleted')) {
             $this->delete('SLICE_DELETED', 'RexActivity\EP\slice::message');
         }
 
         /**
          * a slice has been moved
          */
-        if(self::$addon->getConfig('slice_moved')) {
+        if (is_bool(self::$addon->getConfig('slice_moved')) && self::$addon->getConfig('slice_moved')) {
             $this->move('SLICE_MOVE', 'RexActivity\EP\slice::message');
         }
     }
 
-    public static function message(array $params, string $type, $additionalParams = null): string {
+    /**
+     * @param array<string> $params
+     * @param string $type
+     * @param array<string>|null $additionalParams
+     * @return string
+     * @throws \rex_sql_exception
+     */
+    public static function message(array $params, string $type, ?array $additionalParams = null): string {
         if(isset($additionalParams['type']) && $additionalParams['type'] === 'move') {
             $slice = \rex_sql::factory()->getArray('SELECT id, ctype_id, module_id from ' . \rex::getTable('article_slice') . ' WHERE id = ' . $params['slice_id']);
 

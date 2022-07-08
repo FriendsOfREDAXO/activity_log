@@ -7,7 +7,7 @@ class meta
     use ep_trait;
 
     /**
-     * @var \rex_addon
+     * @var \rex_addon_interface
      */
     private static $addon;
 
@@ -17,11 +17,16 @@ class meta
         /**
          * article meta has been updated
          */
-        if(self::$addon->getConfig('meta_updated')) {
-            $this->update('ART_META_UPDATED', 'RexActivity\EP\meta::message');
+        if (is_bool(self::$addon->getConfig('meta_updated')) && self::$addon->getConfig('meta_updated')) {
+                $this->update('ART_META_UPDATED', 'RexActivity\EP\meta::message');
         }
     }
 
+    /**
+     * @param array $params
+     * @param string $type
+     * @return string
+     */
     public static function message(array $params, string $type): string {
         /** @var \rex_article $article */
         $article = \rex_article::get($params['id']);
