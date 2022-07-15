@@ -16,7 +16,7 @@ page:
 pages:
   system/activity-log:
     title: 'translate:activity_log_title'
-    perm: activity_log[]
+    perm: admin
 
 requires:
   redaxo: ^5.12.0
