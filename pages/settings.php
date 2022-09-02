@@ -7,10 +7,10 @@ if (rex_post('config_toggle_true', 'bool') || rex_post('config_toggle_false', 'b
     $configEntries = rex_config::get('activity_log');
 
     foreach ($configEntries as $key => $value) {
-        if($key === 'rows_per_page') {
+        if ($key === 'rows_per_page') {
             continue;
         }
-        
+
         $configEntries[$key] = $toggleTrue;
     }
 

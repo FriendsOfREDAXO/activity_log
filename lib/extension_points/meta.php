@@ -11,14 +11,15 @@ class meta
      */
     private static $addon;
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$addon = $this->addon();
 
         /**
          * article meta has been updated
          */
         if (is_bool(self::$addon->getConfig('meta_updated')) && self::$addon->getConfig('meta_updated')) {
-                $this->update('ART_META_UPDATED', 'RexActivity\EP\meta::message');
+            $this->update('ART_META_UPDATED', 'RexActivity\EP\meta::message');
         }
     }
 
@@ -27,7 +28,8 @@ class meta
      * @param string $type
      * @return string
      */
-    public static function message(array $params, string $type): string {
+    public static function message(array $params, string $type): string
+    {
         /** @var \rex_article $article */
         $article = \rex_article::get($params['id']);
 
@@ -42,9 +44,8 @@ class meta
         $message .= $article->getName();
         $message .= '</a>';
         $message .= ' - ';
-        $message .= self::$addon->i18n('type_'.$type);
+        $message .= self::$addon->i18n('type_' . $type);
 
         return $message;
     }
 }
-

@@ -7,7 +7,8 @@ class rex_activity_log_cronjob extends \rex_cronjob
      * @return bool
      * @throws \rex_sql_exception
      */
-    public function execute(): bool {
+    public function execute(): bool
+    {
         $daysToKeep = (int) $this->getParam('days_to_keep', 7);
 
         $sql = \rex_sql::factory();
@@ -33,7 +34,8 @@ class rex_activity_log_cronjob extends \rex_cronjob
      * get the job name
      * @return string
      */
-    public function getTypeName(): string {
+    public function getTypeName(): string
+    {
         return \rex_i18n::msg('activity_log_cronjob_title');
     }
 
@@ -41,7 +43,8 @@ class rex_activity_log_cronjob extends \rex_cronjob
      * set additional parameter
      * @return array[]
      */
-    public function getParamFields() {
+    public function getParamFields()
+    {
         $fields = [
             [
                 'label' => rex_i18n::msg('activity_log_cronjob_clean'),

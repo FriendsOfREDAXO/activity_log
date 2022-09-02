@@ -11,7 +11,8 @@ class media
      */
     private static $addon;
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$addon = $this->addon();
 
         /**
@@ -41,14 +42,14 @@ class media
      * @param string $type
      * @return string
      */
-    private function message(array $params, string $type): string {
+    private function message(array $params, string $type): string
+    {
         $message = '<strong>Media:</strong> ';
 
         $message .= $params['filename'];
         $message .= ' - ';
-        $message .= self::$addon->i18n('type_'.$type);
+        $message .= self::$addon->i18n('type_' . $type);
 
         return $message;
     }
 }
-

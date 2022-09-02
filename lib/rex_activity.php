@@ -2,16 +2,16 @@
 
 class rex_activity
 {
-    const TYPE_INFO = 'info';
-    const TYPE_WARNING = 'warning';
-    const TYPE_ERROR = 'error';
-    const TYPE_NOTICE = 'notice';
-    const TYPE_CRITICAL = 'critical';
-    const TYPE_DEBUG = 'debug';
-    const TYPE_ADD = 'add';
-    const TYPE_UPDATE = 'update';
-    const TYPE_EDIT = 'edit';
-    const TYPE_DELETE = 'delete';
+    public const TYPE_INFO = 'info';
+    public const TYPE_WARNING = 'warning';
+    public const TYPE_ERROR = 'error';
+    public const TYPE_NOTICE = 'notice';
+    public const TYPE_CRITICAL = 'critical';
+    public const TYPE_DEBUG = 'debug';
+    public const TYPE_ADD = 'add';
+    public const TYPE_UPDATE = 'update';
+    public const TYPE_EDIT = 'edit';
+    public const TYPE_DELETE = 'delete';
 
     /**
      * @var rex_addon|null $addon
@@ -26,7 +26,8 @@ class rex_activity
     /**
      * @throws rex_sql_exception
      */
-    public static function __constructStatic() {
+    public static function __constructStatic()
+    {
         self::$table = \rex::getTable('activity_log');
         self::$addon = \rex_addon::get('activity_log');
         self::$addon->setConfig('cleared', false);
@@ -45,7 +46,8 @@ class rex_activity
      * @throws rex_exception
      * @throws rex_sql_exception
      */
-    public static function log() {
+    public static function log()
+    {
         if (is_null(self::$message)) {
             throw new rex_exception('A message must be provided.');
         }
@@ -64,7 +66,8 @@ class rex_activity
      * @param string $message
      * @return rex_activity|null
      */
-    public static function message(string $message) {
+    public static function message(string $message)
+    {
         self::$message = $message;
         return self::$activity;
     }
@@ -74,7 +77,8 @@ class rex_activity
      * @param string $type
      * @return null
      */
-    public static function type(string $type) {
+    public static function type(string $type)
+    {
         self::$type = $type;
         return self::$activity;
     }
@@ -84,7 +88,8 @@ class rex_activity
      * @param rex_user|int $user
      * @return null
      */
-    public static function causer($user) {
+    public static function causer($user)
+    {
         if (is_numeric($user)) {
             self::$causer = $user;
         }
@@ -100,13 +105,14 @@ class rex_activity
      * @param $params
      * @return string
      */
-    public static function userListCallback($params): string {
+    public static function userListCallback($params): string
+    {
         if ($params['subject']) {
             /** @var \rex_user $user */
             $user = rex_user::get($params['subject']);
 
-            if(is_null($user)) {
-                return '<a href="#" class="btn btn-sm btn-primary rex-activity-btn-disabled"><i class="rex-icon rex-icon-user"></i> ' . self::$addon->i18n('deleted_user') . ' ['. $params['subject'] .']</a>';
+            if (is_null($user)) {
+                return '<a href="#" class="btn btn-sm btn-primary rex-activity-btn-disabled"><i class="rex-icon rex-icon-user"></i> ' . self::$addon->i18n('deleted_user') . ' [' . $params['subject'] . ']</a>';
             }
 
             return '<a class="btn btn-sm btn-primary" href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $user->getName() . '"><i class="rex-icon rex-icon-user"></i> ' . $user->getName() . '</a>';
@@ -120,7 +126,8 @@ class rex_activity
      * @param $params
      * @return string
      */
-    public static function typeListCallback($params): string {
+    public static function typeListCallback($params): string
+    {
         if ($params['value']) {
             return '<span class="badge ' . $params['value'] . '">' . $params['value'] . '</span>';
         }
@@ -133,7 +140,8 @@ class rex_activity
      * @param $params
      * @return string
      */
-    public static function messageListCallback($params): string {
+    public static function messageListCallback($params): string
+    {
         return $params['subject'];
     }
 
@@ -142,7 +150,8 @@ class rex_activity
      * TODO...
      * @throws rex_sql_exception
      */
-    public static function clearEntries(): void {
+    public static function clearEntries(): void
+    {
         if (self::$addon->getConfig('cleared')) {
             return;
         }

@@ -11,7 +11,8 @@ class template
      */
     private static $addon;
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$addon = $this->addon();
 
         /**
@@ -41,10 +42,11 @@ class template
      * @param string $type
      * @return string
      */
-    public static function message(array $params, string $type): string {
+    public static function message(array $params, string $type): string
+    {
         $message = '<strong>Template:</strong> ';
 
-        if($type === 'delete') {
+        if ($type === 'delete') {
             $message .= '[' . $params['id'] . ']';
         }
         else {
@@ -57,8 +59,7 @@ class template
             $message .= '</a>';
         }
 
-        $message .= ' ' . self::$addon->i18n('type_'.$type);
+        $message .= ' ' . self::$addon->i18n('type_' . $type);
         return $message;
     }
 }
-

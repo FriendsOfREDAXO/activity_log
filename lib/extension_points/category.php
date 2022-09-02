@@ -11,7 +11,8 @@ class category
      */
     private static $addon;
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$addon = $this->addon();
 
         /**
@@ -49,11 +50,12 @@ class category
      * @param array<string>|null $additionalParams
      * @return string
      */
-    public static function message(array $params, string $type, ?array $additionalParams = null): string {
+    public static function message(array $params, string $type, ?array $additionalParams = null): string
+    {
         $category = \rex_category::get((int) $params['id']);
         $message = '<strong>Category:</strong> ';
 
-        if($type === 'delete' && $params !== []) {
+        if ($type === 'delete' && $params !== []) {
             $message .= $params['name'];
             $message .= ' [' . $params['id'] . ']';
         }
@@ -61,11 +63,11 @@ class category
             $message .= '<a href="' . \rex_url::backendController([
                     'page' => 'structure',
                     'article_id' => 0,
-                    'category_id' =>  $params['id'],
+                    'category_id' => $params['id'],
                     'clang_id' => $params['clang'],
                 ]) . '">';
 
-            if($category !== null) {
+            if ($category !== null) {
                 $message .= $category->getName();
             }
 
@@ -74,18 +76,17 @@ class category
 
         $message .= ' - ';
 
-        if(isset($additionalParams['type'])) {
-            $message .= self::$addon->i18n('type_'.$additionalParams['type']);
+        if (isset($additionalParams['type'])) {
+            $message .= self::$addon->i18n('type_' . $additionalParams['type']);
 
-            if($category !== null) {
+            if ($category !== null) {
                 $message .= self::getStatus($category->isOnline(), $additionalParams);
             }
         }
         else {
-            $message .= self::$addon->i18n('type_'.$type);
+            $message .= self::$addon->i18n('type_' . $type);
         }
 
         return $message;
     }
 }
-

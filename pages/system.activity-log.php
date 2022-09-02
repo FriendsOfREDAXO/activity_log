@@ -62,7 +62,8 @@ $list->setColumnFormat('message', 'custom', 'rex_activity::messageListCallback')
 $list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 
 $list->addColumn('delete', '', -1, ['<th></th>', '<td class="rex-table-icon">###VALUE###</td>']);
-$list->setColumnFormat('delete', 'custom', static function ($params) use ($list) {
+$list->setColumnFormat('delete', 'custom', static function ($params) use ($list)
+{
     return '<button type="submit" class="btn btn-danger btn-sm" name="delete_single_log" value="' . $list->getValue('id') . '"><i class="rex-icon rex-icon-delete"></i></button>';
 });
 

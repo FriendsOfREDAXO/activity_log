@@ -11,7 +11,8 @@ class user
      */
     private static $addon;
 
-    public function __construct() {
+    public function __construct()
+    {
         self::$addon = $this->addon();
 
         /**
@@ -24,8 +25,8 @@ class user
         /**
          * user has been updated
          */
-            if (is_bool(self::$addon->getConfig('user_updated')) && self::$addon->getConfig('user_updated')) {
-                $this->update('USER_UPDATED', 'RexActivity\EP\user::message');
+        if (is_bool(self::$addon->getConfig('user_updated')) && self::$addon->getConfig('user_updated')) {
+            $this->update('USER_UPDATED', 'RexActivity\EP\user::message');
         }
 
         /**
@@ -41,13 +42,13 @@ class user
      * @param string $type
      * @return string
      */
-    private function message(array $params, string $type): string {
+    private function message(array $params, string $type): string
+    {
         $message = '<strong>User:</strong> ';
         $message .= '<a href="' . \rex_url::backendController(['page' => 'users/users', 'user_id' => $params['user']->getId()]) . '" title="' . $params['user']->getName() . '">' . $params['user']->getName() . '</a>';
         $message .= ' - ';
-        $message .= self::$addon->i18n('type_'.$type);
+        $message .= self::$addon->i18n('type_' . $type);
 
         return $message;
     }
 }
-
