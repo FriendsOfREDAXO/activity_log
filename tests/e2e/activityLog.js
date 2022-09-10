@@ -13,14 +13,14 @@ describe('Activity Log', () => {
      * add username
      */
     browser.assert.elementPresent('input[id=rex-id-login-user]');
-    browser.sendKeys('input[id=rex-id-login-user]', 'admin');
+    browser.sendKeys('input[id=rex-id-login-user]', 'nightwatch_username');
 
     /**
      * check if the password input is present
      * add password
      */
     browser.assert.elementPresent('input[id=rex-id-login-password]');
-    browser.sendKeys('input[id=rex-id-login-password]', ['adminpassword', browser.Keys.ENTER]);
+    browser.sendKeys('input[id=rex-id-login-password]', ['nightwatch_password', browser.Keys.ENTER]);
 
     /**
      * check if the session cookie is available
@@ -30,12 +30,16 @@ describe('Activity Log', () => {
       this.assert.equal(result.name, 'PHPSESSID');
     });
 
-    browser.waitForElementPresent('#rex-page-structure');
+    browser.pause(500);
 
     /**
      * check if we are logged in to the backend
      */
     browser.assert.urlContains('/redaxo/index.php?page=structure');
+    browser.url(function(result) {
+      // return the current url
+      console.log(result);
+    });
   });
 
   it('Test Activity Log functionality', function(browser) {
