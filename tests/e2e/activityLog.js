@@ -30,6 +30,8 @@ describe('Activity Log', () => {
       this.assert.equal(result.name, 'PHPSESSID');
     });
 
+    browser.waitForElementPresent('#rex-page-structure');
+
     /**
      * check if we are logged in to the backend
      */
