@@ -48,8 +48,8 @@ jobs:
 
       - name: Create user, update config
         run: |
-          php redaxo/bin/console user:create nightwatch_username nightwatch_password --admin --ansi
-          php redaxo/bin/console config:set error_email 'test@redaxo.invalid' --ansi
+          php redaxo_cms/redaxo/bin/console user:create nightwatch_username nightwatch_password --admin --ansi
+          php redaxo_cms/redaxo/bin/console config:set error_email 'test@redaxo.invalid' --ansi
 
       # copy Addon files, ignore some directories...
       # install phpmailer
