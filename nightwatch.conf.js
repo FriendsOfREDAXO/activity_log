@@ -36,7 +36,7 @@ module.exports = {
   test_settings: {
     default: {
       disable_error_log: false,
-      launch_url: 'http://localhost:8000/',
+      launch_url: '${LAUNCH_URL}',
 
       screenshots: {
         enabled: false,
