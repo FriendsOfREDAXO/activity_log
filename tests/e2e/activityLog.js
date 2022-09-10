@@ -36,10 +36,6 @@ describe('Activity Log', () => {
      * check if we are logged in to the backend
      */
     browser.assert.urlContains('/redaxo/index.php?page=structure');
-    browser.url(function(result) {
-      // return the current url
-      console.log(result);
-    });
   });
 
   it('Test Activity Log functionality', function(browser) {
