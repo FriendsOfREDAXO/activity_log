@@ -61,11 +61,16 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: Setup Webserver and install node modules
+      - name: Setup Webserver
         run: |
-          php -S localhost:8000 &
+          php -S localhost:8000
+
+      - name: Install node modules
+        working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
+        run: |
           npm install
           sudo apt-get install xvfb
 
       - name: Run e2e tests
+        working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: xvfb-run npm test
