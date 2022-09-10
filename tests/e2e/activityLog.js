@@ -6,7 +6,7 @@ describe('Activity Log', () => {
     /**
      * navigate to the login screen
      */
-    browser.navigateTo('redaxo');
+    browser.navigateTo('/redaxo/index.php');
 
     /**
      * check if the login input is present
