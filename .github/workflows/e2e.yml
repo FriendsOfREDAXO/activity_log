@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  check:
+  e2e:
 
     runs-on: ubuntu-latest
     permissions:
@@ -65,6 +65,7 @@ jobs:
         run: |
           php -S localhost:8000 &
           npm install
+          sudo apt-get install xvfb
 
       - name: Run e2e tests
-        run: npx nightwatch
+        run: xvfb-run npm test
