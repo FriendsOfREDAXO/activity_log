@@ -1,0 +1,70 @@
+name: e2e tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # for Git to git apply
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: gd, intl, pdo_mysql
+          coverage: none # disable xdebug, pcov
+
+      # credits https://blog.markvincze.com/download-artifacts-from-a-latest-github-release-in-sh-and-powershell/
+      - name: Download latest REDAXO release
+        run: |
+          LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/redaxo/redaxo/releases/latest)
+          REDAXO_VERSION=$(echo $LATEST_RELEASE | sed -e 's/.*"tag_name":"\([^"]*\)".*/\1/')
+          echo "Downloaded REDAXO $REDAXO_VERSION"
+          curl -Ls -o redaxo.zip https://github.com/redaxo/redaxo/releases/download/$REDAXO_VERSION/redaxo_$REDAXO_VERSION.zip
+          unzip -oq redaxo.zip -d redaxo_cms
+          rm redaxo.zip
+
+      - name: Init database
+        run: |
+            sudo /etc/init.d/mysql start
+            mysql -uroot -h127.0.0.1 -proot -e 'create database redaxo5;'
+            git apply .github/workflows/default.config.yml.github-action.diff
+
+      - name: Setup REDAXO
+        run: |
+          php redaxo_cms/redaxo/bin/console setup:run -n --lang=de_de --agree-license --db-password=root --db-createdb=no --db-setup=normal --admin-username=admin --admin-password=adminpassword --error-email=test@redaxo.invalid --ansi
+
+      # copy Addon files, ignore some directories...
+      # install phpmailer
+      # install the addon
+      # if the addon name does not match the repository name, ${{ github.event.repository.name }} must be replaced with the addon name
+      - name: Copy and install Addons
+        run: |
+          rsync -av --exclude='vendor' --exclude='.github' --exclude='.git' --exclude='redaxo_cms' './' 'redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}'
+          redaxo_cms/redaxo/bin/console package:install 'phpmailer'
+          redaxo_cms/redaxo/bin/console package:install '${{ github.event.repository.name }}'
+
+      - name: Setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Setup Webserver and install node modules
+        run: |
+          php -S localhost:8000 &
+          npm install
+
+      - name: Run e2e tests
+        run: npx nightwatch

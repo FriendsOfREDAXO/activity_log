@@ -1,3 +1,5 @@
 .idea
 /.phpunit.result.cache
 /vendor
+/node_modules/
+/tests_output/
