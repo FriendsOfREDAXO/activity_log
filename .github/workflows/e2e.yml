@@ -64,7 +64,7 @@ jobs:
       - name: Setup Webserver and install node modules
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: |
-          php -S localhost:8000 &
+          php -S localhost:8000 -t ../../../../ &
           npm install
           sudo apt-get install xvfb
 
