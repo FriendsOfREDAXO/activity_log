@@ -61,13 +61,10 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: Setup Webserver
-        run: |
-          php -S localhost:8000
-
-      - name: Install node modules
+      - name: Setup Webserver and install node modules
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: |
+          php -S localhost:8000 &
           npm install
           sudo apt-get install xvfb
 
