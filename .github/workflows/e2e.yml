@@ -44,6 +44,7 @@ jobs:
 
       - name: Setup REDAXO
         run: |
+          php .tools/bin/setup
           php redaxo_cms/redaxo/bin/console setup:run -n --lang=de_de --agree-license --db-password=root --db-createdb=no --db-setup=normal --admin-username=admin --admin-password=adminpassword --error-email=test@redaxo.invalid --ansi
 
       - name: Create user, update config
