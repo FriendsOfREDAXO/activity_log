@@ -71,11 +71,11 @@ jobs:
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: |
           php -S localhost:8000 -t ../../../../ &
-          npm install
-          sudo apt-get install xvfb
+          npm ci
+          npx playwright install --with-deps
 
       - name: Run e2e tests
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: |
           export LAUNCH_URL='http://localhost:8000/';
-          xvfb-run npm test
+          npx playwright test
