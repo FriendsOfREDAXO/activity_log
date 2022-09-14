@@ -72,7 +72,7 @@ jobs:
         run: |
           php -S localhost:8000 -t ../../../../ &
           npm ci
-          npx playwright install --with-deps
+          npx playwright install-deps chromium
 
       - name: Run e2e tests
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
