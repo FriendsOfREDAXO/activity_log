@@ -59,7 +59,6 @@ test('Test Activity Log functionality', async ({page}) => {
   await page.locator('input[id=rex-id-templatename]').press('Enter');
   await expect(page).toHaveURL('/redaxo/index.php?page=templates&start=0');
   page.once('dialog', dialog => {
-    console.log(`Dialog message: ${dialog.message()}`);
     dialog.accept().catch(() => {
     });
   });
