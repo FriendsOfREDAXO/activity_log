@@ -60,7 +60,8 @@ test('Test Activity Log functionality', async ({page}) => {
   await expect(page).toHaveURL('/redaxo/index.php?page=templates&start=0');
   page.once('dialog', dialog => {
     console.log(`Dialog message: ${dialog.message()}`);
-    dialog.accept().catch(() => {});
+    dialog.accept().catch(() => {
+    });
   });
   await page.locator('section.rex-page-section table tbody tr:last-child td:last-child > a').click();
   // page.on('dialog', dialog => dialog.accept());#
