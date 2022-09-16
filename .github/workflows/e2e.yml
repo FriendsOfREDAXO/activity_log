@@ -66,6 +66,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Setup Webserver and install node modules
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
