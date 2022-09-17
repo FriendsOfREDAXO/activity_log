@@ -55,13 +55,21 @@ default_config:
   'rows_per_page': 100
 
 installer_ignore:
-  - node_modules
   - .git
-  - .gitignore
   - .github
-  - package.json
-  - yarn.lock
-  - resources
+  - node_modules
+  - tests
+  - tests_output
   - .editorconfig
   - .eslintrc.js
+  - .gitignore
   - .stylelintrc.js
+  - composer.json
+  - composer.lock
+  - nightwatch.conf.js
+  - package.json
+  - package-lock.json
+  - yarn.lock
+  - phpcs.xml
+  - phpunit.xml
+  - resources

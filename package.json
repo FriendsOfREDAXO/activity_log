@@ -1,28 +1,27 @@
 {
   "name": "activity_log",
   "version": "1.0.0",
-  "description": "Eine einfache Möglichkeit um Aktivitäten zu loggen.\r Die Logs werden im System unter Activity Log angezeigt.",
-  "main": ".eslintrc.js",
   "directories": {
     "lib": "lib",
     "test": "tests"
   },
   "scripts": {
-    "test": "npx playwright test"
+    "test": "nightwatch"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FriendsOfREDAXO/activity_log.git"
   },
-  "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FriendsOfREDAXO/activity_log/issues"
   },
   "homepage": "https://github.com/FriendsOfREDAXO/activity_log#readme",
+  "dependencies": {
+    "nightwatch": "^2.3.4"
+  },
   "devDependencies": {
-    "@playwright/test": "^1.25.2",
-    "dotenv": "^16.0.2"
+    "geckodriver": "^3.0.2"
   }
 }

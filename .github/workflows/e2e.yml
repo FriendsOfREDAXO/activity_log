@@ -38,9 +38,9 @@ jobs:
 
       - name: Init database
         run: |
-            sudo /etc/init.d/mysql start
-            mysql -uroot -h127.0.0.1 -proot -e 'create database redaxo5;'
-            git apply .github/workflows/default.config.yml.github-action.diff
+          sudo /etc/init.d/mysql start
+          mysql -uroot -h127.0.0.1 -proot -e 'create database redaxo5;'
+          git apply .github/workflows/default.config.yml.github-action.diff
 
       - name: Setup REDAXO
         run: |
@@ -73,11 +73,11 @@ jobs:
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: |
           php -S localhost:8000 -t ../../../../ &
-          npm ci
-          npx playwright install chromium
+          npm install
+          sudo apt-get install xvfb
 
       - name: Run e2e tests
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
         run: |
           export LAUNCH_URL='http://localhost:8000/';
-          npx playwright test
+          xvfb-run npm test
