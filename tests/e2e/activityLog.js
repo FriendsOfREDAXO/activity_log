@@ -95,10 +95,11 @@ describe('Activity Log', () => {
      */
     browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(8) a');
     browser.acceptAlert();
-    browser.waitForElementNotVisible('#rex-js-ajax-loader');
     browser.pause(500);
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
     browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Artikel wurde gelöscht!');
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.pause(500);
 
     /**
      * navigate to the log page
