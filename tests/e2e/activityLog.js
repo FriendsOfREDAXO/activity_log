@@ -95,8 +95,7 @@ describe('Activity Log', () => {
      */
     browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(8) a');
     browser.acceptAlert();
-    browser.waitForElementNotVisible('#rex-js-ajax-loader');
-    browser.pause(500);
+    browser.pause(1000);
 
     /**
      * navigate to the log page
