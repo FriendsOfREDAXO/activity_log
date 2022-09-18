@@ -38,62 +38,74 @@ describe('Activity Log', () => {
     browser.assert.urlContains('/redaxo/index.php?page=structure');
   });
 
-  it('Test Activity Log functionality', function(browser) {
+  it('Test Article Logs', function(browser) {
     /**
-     * navigate to the addon page
+     * navigate to the settings page, uncheck all
      */
-    browser.assert.elementPresent('#rex-navi-page-activity-log');
-    browser.click('#rex-navi-page-activity-log');
+    browser.navigateTo('/redaxo/index.php?page=activity_log/settings');
+    browser.click('button[name=config_toggle_false]');
 
     /**
-     * there should be no logs
+     * check article related checkboxes
      */
-    browser.assert.elementPresent('table.rex-activity-table tr.table-no-results');
+    browser.click('#rex_activity_log_article_added');
+    browser.click('#rex_activity_log_article_updated');
+    browser.click('#rex_activity_log_article_deleted');
+    browser.click('#rex_activity_log_article_status');
 
     /**
-     * navigate to the settings page
+     * save settings
      */
-    browser.assert.elementPresent('.rex-page-main-inner .nav-tabs > li:nth-child(2) > a:nth-child(1)');
-    browser.click('.rex-page-main-inner .nav-tabs > li:nth-child(2) > a:nth-child(1)');
+    browser.click('button[name=config-submit]');
 
     /**
-     * toggle all checkboxes
+     * asset if the checkboxes checked...
      */
-    browser.assert.elementPresent('button[name=config_toggle_true]');
-    browser.click('button[name=config_toggle_true]');
+    browser.expect.element('#rex_activity_log_article_added').to.be.selected;
+    browser.expect.element('#rex_activity_log_article_updated').to.be.selected;
+    browser.expect.element('#rex_activity_log_article_deleted').to.be.selected;
+    browser.expect.element('#rex_activity_log_article_status').to.be.selected;
 
     /**
-     * create and delete a dummy template to generate some logs
+     * add a article
      */
-    browser.navigateTo('/redaxo/index.php?page=templates');
-    browser.assert.elementPresent('section.rex-page-section table thead th.rex-table-icon > a');
-    browser.click('section.rex-page-section table thead th.rex-table-icon > a');
-    browser.sendKeys('input[id=rex-id-templatename]', ['template_nightwatch', browser.Keys.ENTER]);
-    browser.ensure.elementIsNotVisible('#rex-js-ajax-loader');
-    browser.assert.elementPresent('section.rex-page-section table tbody tr:last-child td:last-child > a');
-    browser.click('section.rex-page-section table tbody tr:last-child td:last-child > a');
-    browser.acceptAlert();
-    browser.ensure.elementIsNotVisible('#rex-js-ajax-loader');
-
+    browser.navigateTo('/redaxo/index.php?page=structure&category_id=0&article_id=0&clang=1&function=add_art&artstart=0');
+    browser.sendKeys('input[name=article-name]', ['nightwatch_test_article', browser.Keys.ENTER]);
+    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
     browser.pause(500);
 
     /**
-     * check if two logs available
+     * change added article
+     */
+    browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
+    browser.sendKeys('input[name=article-name]', ['_change', browser.Keys.ENTER]);
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+
+    /**
+     * change added article status
+     */
+    browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(9) a');
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+    browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Artikelstatus wurde aktualisiert.');
+
+    /**
+     * delete added article
+     */
+    browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(8) a');
+    browser.acceptAlert();
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.pause(500);
+    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+    browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Artikel wurde gelöscht!');
+
+    /**
+     * navigate to the log page
      */
     browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
     browser.waitForElementVisible('table.rex-activity-table');
-    browser.assert.elementsCount('table.rex-activity-table tbody tr', 2);
-
-    /**
-     * filter logs
-     */
-    browser.click('select[id="filter_type"] option[value="delete"]');
-    browser.click('button[name=filter]');
-
-    /**
-     * check if one entry is available
-     */
-    browser.assert.elementsCount('table.rex-activity-table tbody tr', 1);
+    browser.assert.elementsCount('table.rex-activity-table tbody tr', 4);
 
     /**
      * delete all logs
