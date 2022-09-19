@@ -72,7 +72,7 @@ describe('Activity Log', () => {
     browser.navigateTo('/redaxo/index.php?page=structure&category_id=0&article_id=0&clang=1&function=add_art&artstart=0');
     browser.sendKeys('input[name=article-name]', ['nightwatch_test_article', browser.Keys.ENTER]);
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
-    browser.pause(500);
+    browser.pause(1000);
 
     /**
      * change added article
@@ -81,6 +81,7 @@ describe('Activity Log', () => {
     browser.sendKeys('input[name=article-name]', ['_change', browser.Keys.ENTER]);
     browser.waitForElementNotVisible('#rex-js-ajax-loader');
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+    browser.pause(1000);
 
     /**
      * change added article status
@@ -89,11 +90,13 @@ describe('Activity Log', () => {
     browser.waitForElementNotVisible('#rex-js-ajax-loader');
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
     browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Artikelstatus wurde aktualisiert.');
+    browser.pause(1000);
 
     /**
      * delete added article
      */
     browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(8) a');
+    browser.pause(250);
     browser.acceptAlert();
     browser.pause(1000);
 
