@@ -181,6 +181,66 @@ describe('Activity Log', () => {
     browser.assert.elementsCount('table.rex-activity-table tbody tr', 4);
   });
 
+  it('Test User Logs', function (browser) {
+    /**
+     * check user related checkboxes
+     */
+    browser.click('#rex_activity_log_user_added');
+    browser.click('#rex_activity_log_user_updated');
+    browser.click('#rex_activity_log_user_deleted');
+
+    /**
+     * save settings
+     */
+    browser.click('button[name=config-submit]');
+
+    /**
+     * assert if the checkboxes checked...
+     */
+    browser.expect.element('#rex_activity_log_user_added').to.be.selected;
+    browser.expect.element('#rex_activity_log_user_updated').to.be.selected;
+    browser.expect.element('#rex_activity_log_user_deleted').to.be.selected;
+
+    /**
+     * add a user
+     */
+    browser.navigateTo('/redaxo/index.php?page=users/users&FUNC_ADD=1');
+    browser.sendKeys('input[name=userlogin]', ['nightwatch_test_user']);
+    browser.sendKeys('input[name=userpsw]', ['nightwatch_test_user_pw', browser.Keys.ENTER]);
+    browser.waitForElementPresent('.alert.alert-info');
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.pause(500);
+
+    /**
+     * check if is users page...
+     */
+    browser.assert.urlContains('/redaxo/index.php?page=users/users');
+
+    /**
+     * change added user
+     */
+    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
+    browser.waitForElementPresent('.panel.panel-edit');
+    browser.sendKeys('input[name=username]', ['Name', browser.Keys.ENTER]);
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.waitForElementPresent('.alert.alert-info');
+    browser.pause(500);
+
+    /**
+     * delete added user
+     */
+    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(8) a');
+    browser.acceptAlert();
+    browser.pause(500);
+
+    /**
+     * navigate to the log page
+     */
+    browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+    browser.waitForElementVisible('table.rex-activity-table');
+    browser.assert.elementsCount('table.rex-activity-table tbody tr', 3);
+  });
+
   /**
    * delete all logs, uncheck all
    */
