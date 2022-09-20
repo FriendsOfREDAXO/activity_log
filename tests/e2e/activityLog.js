@@ -39,6 +39,18 @@ describe('Activity Log', () => {
   });
 
   it('Test Article Logs', function(browser) {
+
+    /**
+     * Add a start article if empty, because start articles cannot be deleted..
+     */
+    browser.getText('css selector', 'section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(3)', function(result) {
+      if (result.value === '') {
+        browser.navigateTo('/redaxo/index.php?page=structure&category_id=0&article_id=0&clang=1&function=add_art&artstart=0');
+        browser.sendKeys('input[name=article-name]', ['nightwatch_test_start_article', browser.Keys.ENTER]);
+        browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+      }
+    });
+
     /**
      * navigate to the settings page, uncheck all
      */
@@ -72,7 +84,7 @@ describe('Activity Log', () => {
     browser.navigateTo('/redaxo/index.php?page=structure&category_id=0&article_id=0&clang=1&function=add_art&artstart=0');
     browser.sendKeys('input[name=article-name]', ['nightwatch_test_article', browser.Keys.ENTER]);
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
-    browser.pause(1000);
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
 
     /**
      * change added article
@@ -81,7 +93,7 @@ describe('Activity Log', () => {
     browser.sendKeys('input[name=article-name]', ['_change', browser.Keys.ENTER]);
     browser.waitForElementNotVisible('#rex-js-ajax-loader');
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
-    browser.pause(1000);
+    browser.pause(500);
 
     /**
      * change added article status
@@ -90,15 +102,13 @@ describe('Activity Log', () => {
     browser.waitForElementNotVisible('#rex-js-ajax-loader');
     browser.waitForElementPresent('#rex-message-container .alert.alert-success');
     browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Artikelstatus wurde aktualisiert.');
-    browser.pause(1000);
 
     /**
      * delete added article
      */
     browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(8) a');
-    browser.pause(250);
     browser.acceptAlert();
-    browser.pause(1000);
+    browser.pause(500);
 
     /**
      * navigate to the log page
@@ -112,6 +122,12 @@ describe('Activity Log', () => {
      */
     browser.click('button[name=delete_all_logs]');
     browser.assert.elementPresent('table.rex-activity-table tr.table-no-results');
+
+    /**
+     * navigate to the settings page, uncheck all
+     */
+    browser.navigateTo('/redaxo/index.php?page=activity_log/settings');
+    browser.click('button[name=config_toggle_false]');
   });
 
   /**
