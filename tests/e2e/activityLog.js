@@ -119,67 +119,67 @@ describe('Activity Log', () => {
     browser.assert.elementsCount('table.rex-activity-table tbody tr', 4);
   });
 
-  it('Test Category Logs', function (browser) {
-    /**
-     * check category related checkboxes
-     */
-    browser.click('#rex_activity_log_category_added');
-    browser.click('#rex_activity_log_category_updated');
-    browser.click('#rex_activity_log_category_deleted');
-    browser.click('#rex_activity_log_category_status');
-
-    /**
-     * save settings
-     */
-    browser.click('button[name=config-submit]');
-
-    /**
-     * assert if the checkboxes checked...
-     */
-    browser.expect.element('#rex_activity_log_category_added').to.be.selected;
-    browser.expect.element('#rex_activity_log_category_updated').to.be.selected;
-    browser.expect.element('#rex_activity_log_category_deleted').to.be.selected;
-    browser.expect.element('#rex_activity_log_category_status').to.be.selected;
-
-    /**
-     * add a category
-     */
-    browser.navigateTo('/redaxo/index.php?page=structure&category_id=0&article_id=0&clang=1&function=add_cat&catstart=0');
-    browser.sendKeys('input[name=category-name]', ['nightwatch_test_category', browser.Keys.ENTER]);
-    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
-    browser.waitForElementNotVisible('#rex-js-ajax-loader');
-
-    /**
-     * change added category
-     */
-    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(5) a');
-    browser.sendKeys('input[name=category-name]', ['_change', browser.Keys.ENTER]);
-    browser.waitForElementNotVisible('#rex-js-ajax-loader');
-    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
-    browser.pause(500);
-
-    /**
-     * change added category status
-     */
-    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
-    browser.waitForElementNotVisible('#rex-js-ajax-loader');
-    browser.waitForElementPresent('#rex-message-container .alert.alert-success');
-    browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Kategoriestatus wurde aktualisiert!');
-
-    /**
-     * delete added category
-     */
-    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(6) a');
-    browser.acceptAlert();
-    browser.pause(500);
-
-    /**
-     * navigate to the log page
-     */
-    browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
-    browser.waitForElementVisible('table.rex-activity-table');
-    browser.assert.elementsCount('table.rex-activity-table tbody tr', 4);
-  });
+  // it('Test Category Logs', function (browser) {
+  //   /**
+  //    * check category related checkboxes
+  //    */
+  //   browser.click('#rex_activity_log_category_added');
+  //   browser.click('#rex_activity_log_category_updated');
+  //   browser.click('#rex_activity_log_category_deleted');
+  //   browser.click('#rex_activity_log_category_status');
+  //
+  //   /**
+  //    * save settings
+  //    */
+  //   browser.click('button[name=config-submit]');
+  //
+  //   /**
+  //    * assert if the checkboxes checked...
+  //    */
+  //   browser.expect.element('#rex_activity_log_category_added').to.be.selected;
+  //   browser.expect.element('#rex_activity_log_category_updated').to.be.selected;
+  //   browser.expect.element('#rex_activity_log_category_deleted').to.be.selected;
+  //   browser.expect.element('#rex_activity_log_category_status').to.be.selected;
+  //
+  //   /**
+  //    * add a category
+  //    */
+  //   browser.navigateTo('/redaxo/index.php?page=structure&category_id=0&article_id=0&clang=1&function=add_cat&catstart=0');
+  //   browser.sendKeys('input[name=category-name]', ['nightwatch_test_category', browser.Keys.ENTER]);
+  //   browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+  //   browser.waitForElementNotVisible('#rex-js-ajax-loader');
+  //
+  //   /**
+  //    * change added category
+  //    */
+  //   browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(5) a');
+  //   browser.sendKeys('input[name=category-name]', ['_change', browser.Keys.ENTER]);
+  //   browser.waitForElementNotVisible('#rex-js-ajax-loader');
+  //   browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+  //   browser.pause(500);
+  //
+  //   /**
+  //    * change added category status
+  //    */
+  //   browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
+  //   browser.waitForElementNotVisible('#rex-js-ajax-loader');
+  //   browser.waitForElementPresent('#rex-message-container .alert.alert-success');
+  //   browser.ensure.elementTextIs('#rex-message-container .alert.alert-success', 'Kategoriestatus wurde aktualisiert!');
+  //
+  //   /**
+  //    * delete added category
+  //    */
+  //   browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(6) a');
+  //   browser.acceptAlert();
+  //   browser.pause(500);
+  //
+  //   /**
+  //    * navigate to the log page
+  //    */
+  //   browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+  //   browser.waitForElementVisible('table.rex-activity-table');
+  //   browser.assert.elementsCount('table.rex-activity-table tbody tr', 4);
+  // });
 
   // it('Test User Logs', function (browser) {
   //   /**
@@ -265,7 +265,7 @@ describe('Activity Log', () => {
      * add a template
      */
     browser.navigateTo('/redaxo/index.php?page=templates&start=0&function=add');
-    browser.sendKeys('input[name=templatename]', ['nightwatch_test_template', browser.Keys.ENTER]);
+    browser.sendKeys('input[name=templatename]', ['z_nightwatch_test_template', browser.Keys.ENTER]);
     browser.waitForElementPresent('.alert.alert-success');
     browser.waitForElementNotVisible('#rex-js-ajax-loader');
 
@@ -284,7 +284,64 @@ describe('Activity Log', () => {
     browser.waitForElementPresent('.alert.alert-success');
 
     /**
-     * delete added user
+     * delete added template
+     */
+    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
+    browser.acceptAlert();
+    browser.pause(500);
+
+    /**
+     * navigate to the log page
+     */
+    browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+    browser.waitForElementVisible('table.rex-activity-table');
+    browser.assert.elementsCount('table.rex-activity-table tbody tr', 3);
+  });
+
+  it('Test Module Logs', function (browser) {
+    /**
+     * check user related checkboxes
+     */
+    browser.click('#rex_activity_log_module_added');
+    browser.click('#rex_activity_log_module_updated');
+    browser.click('#rex_activity_log_module_deleted');
+
+    /**
+     * save settings
+     */
+    browser.click('button[name=config-submit]');
+
+    /**
+     * assert if the checkboxes checked...
+     */
+    browser.expect.element('#rex_activity_log_module_added').to.be.selected;
+    browser.expect.element('#rex_activity_log_module_updated').to.be.selected;
+    browser.expect.element('#rex_activity_log_module_deleted').to.be.selected;
+
+    /**
+     * add a module
+     */
+    browser.navigateTo('/redaxo/index.php?page=modules/modules&start=0&function=add');
+    browser.sendKeys('input[name=mname]', ['z_nightwatch_test_module', browser.Keys.ENTER]);
+    browser.waitForElementPresent('.alert.alert-success');
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+
+    /**
+     * check if is modules page...
+     */
+    browser.assert.urlContains('/redaxo/index.php?page=modules/modules&start=0');
+
+    /**
+     * change added module
+     */
+    browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(6) a');
+    browser.waitForElementPresent('.panel.panel-edit');
+    browser.sendKeys('input[name=mname]', ['_edit', browser.Keys.ENTER]);
+    browser.waitForElementNotVisible('#rex-js-ajax-loader');
+    browser.waitForElementPresent('.alert.alert-success');
+
+    /**
+     * delete added module
      */
     browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
     browser.acceptAlert();
