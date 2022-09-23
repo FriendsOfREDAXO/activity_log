@@ -397,7 +397,6 @@ describe('Activity Log', () => {
         browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(3) a');
         browser.waitForElementPresent('.rex-main-frame');
         browser.sendKeys('input[name=meta_article_name]', ['_edit', browser.Keys.ENTER]);
-        browser.waitForElementPresent('.metainfo-sidebar .alert.alert-success');
         browser.pause(250);
 
         /**
