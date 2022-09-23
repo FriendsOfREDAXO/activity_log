@@ -570,8 +570,6 @@ describe('Activity Log', () => {
         browser.waitForElementVisible('.rex-slices .rex-slice-add')
         browser.pause(250);
         browser.click('.rex-slices .rex-slice-add button[name=btn_save]');
-        browser.waitForElementPresent('.alert.alert-success');
-        browser.waitForElementNotVisible('#rex-js-ajax-loader');
         browser.pause(250);
 
         /**
@@ -581,7 +579,6 @@ describe('Activity Log', () => {
         browser.waitForElementVisible('.rex-slices .rex-slice-edit');
         browser.pause(250);
         browser.click('.rex-slices .rex-slice-edit button[name=btn_save]');
-        browser.waitForElementPresent('.alert.alert-success');
         browser.waitForElementNotVisible('#rex-js-ajax-loader');
         browser.pause(250);
 
