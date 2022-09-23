@@ -69,7 +69,7 @@ class slice
                 'page' => 'content/edit',
                 'article_id' => $params['article_id'],
                 'slice_id' => $params['slice_id'],
-                'clang_id' => $params['clang_id'],
+                'clang_id' => isset($params['clang_id']) ?: $params['clang'],
                 'ctype' => $params['ctype'],
                 'function' => 'edit'
             ]) . '">';

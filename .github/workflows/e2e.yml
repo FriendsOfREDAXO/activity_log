@@ -78,16 +78,6 @@ jobs:
 
       - name: Run e2e tests
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
-        continue-on-error: true
         run: |
           export LAUNCH_URL='http://localhost:8000/';
           xvfb-run npm test
-
-      # If the tests fail we take a screenshot of the failed step, and then
-      # those get uploaded as artifacts with the result of this workflow.
-      - name: archive testing artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: screenshots
-          path: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}/screens
-          if-no-files-found: ignore
