@@ -407,10 +407,74 @@ describe('Activity Log', () => {
         browser.assert.elementsCount('table.rex-activity-table tbody tr', 1);
     });
 
+    it('Test Media Logs', function (browser) {
+        /**
+         * check media related checkboxes
+         */
+        browser.click('#rex_activity_log_media_added');
+        browser.click('#rex_activity_log_media_updated');
+        browser.click('#rex_activity_log_media_deleted');
+
+        /**
+         * save settings
+         */
+        browser.click('button[name=config-submit]');
+
+        /**
+         * assert if the checkboxes checked...
+         */
+        browser.expect.element('#rex_activity_log_media_added').to.be.selected;
+        browser.expect.element('#rex_activity_log_media_updated').to.be.selected;
+        browser.expect.element('#rex_activity_log_media_deleted').to.be.selected;
+        browser.pause(250);
+
+        /**
+         * upload a file
+         */
+        browser.navigateTo('/redaxo/index.php?page=mediapool/upload');
+        browser.uploadFile('#rex-mediapool-choose-file', require('path').resolve(__dirname + '/../../.tools/for-badge.png'));
+        browser.click('button[name=save]');
+        browser.pause(500);
+        browser.assert.urlContains('/redaxo/index.php?page=mediapool/media');
+
+        /**
+         * edit media
+         */
+        browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(5) a');
+        browser.waitForElementPresent('.panel.panel-edit');
+        browser.sendKeys('input[name=ftitle]', ['FOR', browser.Keys.ENTER]);
+        browser.pause(500);
+
+        /**
+         * delete media
+         */
+        browser.click('button[name=btn_delete]');
+        browser.pause(250);
+        browser.acceptAlert();
+        browser.pause(500);
+        browser.assert.urlContains('/redaxo/index.php?page=mediapool/media');
+
+        /**
+         * navigate to the log page
+         */
+        browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+        browser.waitForElementVisible('table.rex-activity-table');
+        browser.assert.elementsCount('table.rex-activity-table tbody tr', 3);
+    });
+
     /**
      * delete all logs, uncheck all
      */
     afterEach(browser => {
+        /**
+         * check if is log page otherwise navigate to log page...
+         */
+        browser.getCurrentUrl(function (result) {
+            if (!result.value.includes('page=activity_log/system.activity-log')) {
+                browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+            }
+        });
+
         /**
          * delete all logs
          */
