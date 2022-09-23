@@ -78,6 +78,7 @@ jobs:
 
       - name: Run e2e tests
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
+        continue-on-error: true
         run: |
           export LAUNCH_URL='http://localhost:8000/';
           xvfb-run npm test
