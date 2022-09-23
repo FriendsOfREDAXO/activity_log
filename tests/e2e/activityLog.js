@@ -545,19 +545,12 @@ describe('Activity Log', () => {
         browser.pause(250);
 
         /**
-         * check languages for debugging purposes
-         */
-        browser.navigateTo('/redaxo/index.php?page=system/lang');
-        browser.saveScreenshot('./screens/lang.png');
-
-        /**
          * add a module
          */
         browser.navigateTo('/redaxo/index.php?page=modules/modules&start=0&function=add');
         browser.sendKeys('input[name=mname]', ['z_nightwatch_test_module', browser.Keys.ENTER]);
         browser.waitForElementPresent('.alert.alert-success');
         browser.waitForElementNotVisible('#rex-js-ajax-loader');
-        browser.saveScreenshot('./screens/module.png');
         browser.pause(250);
 
         /**
@@ -575,7 +568,6 @@ describe('Activity Log', () => {
         browser.waitForElementVisible('.rex-slices .dropdown-menu');
         browser.click('.rex-slices .dropdown-menu li:first-of-type a');
         browser.waitForElementVisible('.rex-slices .rex-slice-add')
-        browser.saveScreenshot('./screens/add_slice.png');
         browser.pause(500);
         browser.click('.rex-slices .rex-slice-add button[name=btn_save]');
         browser.pause(500);
@@ -583,7 +575,6 @@ describe('Activity Log', () => {
         /**
          * change added slice
          */
-        browser.saveScreenshot('./screens/edit_slice.png');
         browser.click('.rex-slice a.btn-edit');
         browser.pause(250);
         browser.waitForElementVisible('.rex-slices .rex-slice-edit');
@@ -593,7 +584,6 @@ describe('Activity Log', () => {
         /**
          * move added slice
          */
-        browser.saveScreenshot('./screens/move_added_slice.png');
         browser.click('.rex-slices li.rex-slice-output a.btn-move:first-of-type');
         browser.waitForElementPresent('.alert.alert-danger');
         browser.pause(500);

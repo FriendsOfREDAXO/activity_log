@@ -39,8 +39,8 @@ module.exports = {
             launch_url: '${LAUNCH_URL}',
 
             screenshots: {
-                enabled: true,
-                on_failure: true,
+                enabled: false,
+                on_failure: false,
                 path: "./screens"
             },
 
