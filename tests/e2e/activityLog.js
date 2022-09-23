@@ -570,7 +570,7 @@ describe('Activity Log', () => {
         browser.waitForElementVisible('.rex-slices .rex-slice-add')
         browser.pause(250);
         browser.click('.rex-slices .rex-slice-add button[name=btn_save]');
-        browser.pause(250);
+        browser.pause(500);
 
         /**
          * change added slice
