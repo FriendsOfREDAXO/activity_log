@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "nightwatch"
+    "test": "nightwatch --verbose"
   },
   "repository": {
     "type": "git",
