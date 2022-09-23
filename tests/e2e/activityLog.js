@@ -568,25 +568,29 @@ describe('Activity Log', () => {
         browser.waitForElementVisible('.rex-slices .dropdown-menu');
         browser.click('.rex-slices .dropdown-menu li:first-of-type a');
         browser.waitForElementVisible('.rex-slices .rex-slice-add')
+        browser.pause(250);
         browser.click('.rex-slices .rex-slice-add button[name=btn_save]');
-        browser.pause(500);
+        browser.waitForElementNotVisible('.rex-ajax-loader-backdrop');
+        browser.pause(250);
 
         /**
          * change added slice
          */
         browser.click('.rex-slice a.btn-edit');
+        browser.waitForElementNotVisible('.rex-ajax-loader-backdrop');
         browser.waitForElementVisible('.rex-slices .rex-slice-edit');
         browser.pause(250);
         browser.click('.rex-slices .rex-slice-edit button[name=btn_save]');
-        browser.pause(500);
+        browser.waitForElementNotVisible('.rex-ajax-loader-backdrop');
+        browser.pause(250);
 
         /**
          * move added slice
          */
         browser.click('.rex-slices li.rex-slice-output a.btn-move:first-of-type');
         browser.waitForElementPresent('.alert.alert-danger');
-        browser.waitForElementNotVisible('#rex-js-ajax-loader');
-        browser.pause(500);
+        browser.waitForElementNotVisible('.rex-ajax-loader-backdrop');
+        browser.pause(250);
 
         /**
          * delete added slice
