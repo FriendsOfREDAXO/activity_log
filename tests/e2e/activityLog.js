@@ -462,6 +462,153 @@ describe('Activity Log', () => {
         browser.assert.elementsCount('table.rex-activity-table tbody tr', 3);
     });
 
+    it('Test Language Logs', function (browser) {
+        /**
+         * check language related checkboxes
+         */
+        browser.click('#rex_activity_log_clang_added');
+        browser.click('#rex_activity_log_clang_updated');
+        browser.click('#rex_activity_log_clang_deleted');
+
+        /**
+         * save settings
+         */
+        browser.click('button[name=config-submit]');
+
+        /**
+         * assert if the checkboxes checked...
+         */
+        browser.expect.element('#rex_activity_log_clang_added').to.be.selected;
+        browser.expect.element('#rex_activity_log_clang_updated').to.be.selected;
+        browser.expect.element('#rex_activity_log_clang_deleted').to.be.selected;
+        browser.pause(250);
+
+        /**
+         * add a language
+         */
+        browser.navigateTo('/redaxo/index.php?page=system/lang');
+        browser.click('section.rex-page-section:last-of-type table thead tr:first-of-type th:nth-of-type(1) a');
+        browser.waitForElementPresent('#rex-form-clang-code');
+        browser.sendKeys('input[name=clang_code]', ['zz']);
+        browser.sendKeys('input[name=clang_name]', ['zz_nightwatch_test_clang', browser.Keys.ENTER]);
+        browser.waitForElementPresent('.alert.alert-success');
+        browser.waitForElementNotVisible('#rex-js-ajax-loader');
+        browser.pause(250);
+
+        /**
+         * change added language
+         */
+        browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(6) a');
+        browser.waitForElementPresent('#rex-form-clang-code');
+        browser.sendKeys('input[name=clang_code]', ['_edit', browser.Keys.ENTER]);
+        browser.waitForElementNotVisible('#rex-js-ajax-loader');
+        browser.waitForElementPresent('.alert.alert-success');
+        browser.pause(250);
+
+        /**
+         * delete added language
+         */
+        browser.click('section.rex-page-section:first-of-type table tbody tr:last-of-type td:nth-of-type(7) a');
+        browser.pause(250);
+        browser.acceptAlert();
+        browser.pause(500);
+
+        /**
+         * navigate to the log page
+         */
+        browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+        browser.waitForElementVisible('table.rex-activity-table');
+        browser.assert.elementsCount('table.rex-activity-table tbody tr', 3);
+    });
+
+    it('Test Slice Logs', function (browser) {
+        /**
+         * check slice related checkboxes
+         */
+        browser.click('#rex_activity_log_slice_added');
+        browser.click('#rex_activity_log_slice_updated');
+        browser.click('#rex_activity_log_slice_deleted');
+        browser.click('#rex_activity_log_slice_moved');
+
+        /**
+         * save settings
+         */
+        browser.click('button[name=config-submit]');
+
+        /**
+         * assert if the checkboxes checked...
+         */
+        browser.expect.element('#rex_activity_log_slice_added').to.be.selected;
+        browser.expect.element('#rex_activity_log_slice_updated').to.be.selected;
+        browser.expect.element('#rex_activity_log_slice_deleted').to.be.selected;
+        browser.expect.element('#rex_activity_log_slice_moved').to.be.selected;
+        browser.pause(250);
+
+        /**
+         * add a module
+         */
+        browser.navigateTo('/redaxo/index.php?page=modules/modules&start=0&function=add');
+        browser.sendKeys('input[name=mname]', ['z_nightwatch_test_module', browser.Keys.ENTER]);
+        browser.waitForElementPresent('.alert.alert-success');
+        browser.waitForElementNotVisible('#rex-js-ajax-loader');
+        browser.pause(250);
+
+        /**
+         * check if is modules page...
+         */
+        browser.assert.urlContains('/redaxo/index.php?page=modules/modules&start=0');
+
+        /**
+         * add a slice
+         */
+        browser.navigateTo('/redaxo/index.php?page=structure');
+        browser.click('section.rex-page-section:last-of-type table tbody tr:last-of-type td:nth-of-type(3) a');
+        browser.waitForElementPresent('.rex-main-frame');
+        browser.click('.rex-slices .dropdown-toggle');
+        browser.waitForElementVisible('.rex-slices .dropdown-menu');
+        browser.click('.rex-slices .dropdown-menu li:first-of-type a');
+        browser.waitForElementVisible('.rex-slices .rex-slice-add')
+        browser.pause(250);
+        browser.click('.rex-slices .rex-slice-add button[name=btn_save]');
+        browser.waitForElementPresent('.alert.alert-success');
+        browser.waitForElementNotVisible('#rex-js-ajax-loader');
+        browser.pause(250);
+
+        /**
+         * change added slice
+         */
+        browser.click('.rex-slices li.rex-slice-output a.btn-edit');
+        browser.waitForElementVisible('.rex-slices .rex-slice-edit');
+        browser.pause(250);
+        browser.click('.rex-slices .rex-slice-edit button[name=btn_save]');
+        browser.waitForElementPresent('.alert.alert-success');
+        browser.waitForElementNotVisible('#rex-js-ajax-loader');
+        browser.pause(250);
+
+        /**
+         * move added slice
+         */
+        browser.click('.rex-slices li.rex-slice-output a.btn-move:first-of-type');
+        browser.waitForElementPresent('.alert.alert-danger');
+        browser.waitForElementNotVisible('#rex-js-ajax-loader');
+        browser.pause(250);
+
+        /**
+         * delete added slice
+         */
+        browser.click('.rex-slices li.rex-slice-output a.btn-delete');
+        browser.pause(250);
+        browser.acceptAlert();
+        browser.pause(500);
+
+        /**
+         * navigate to the log page
+         */
+        browser.navigateTo('/redaxo/index.php?page=activity_log/system.activity-log');
+        browser.waitForElementVisible('table.rex-activity-table');
+        browser.assert.elementsCount('table.rex-activity-table tbody tr', 4);
+    });
+
     /**
      * delete all logs, uncheck all
      */
