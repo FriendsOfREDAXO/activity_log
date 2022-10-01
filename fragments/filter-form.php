@@ -1,4 +1,5 @@
 <?php
+/** @var \rex_fragment $this */
 $sql = \rex_sql::factory();
 $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_log') . ' WHERE causer_id  IS NOT NULL GROUP BY causer_id ORDER BY causer_id');
 ?>
