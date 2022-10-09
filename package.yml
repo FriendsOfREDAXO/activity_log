@@ -1,8 +1,8 @@
 package: activity_log
 version: "0.0.2"
 name: Activity Log
-author: eaCe
-supportpage: https://github.com/eace/activity_log
+author: FriendsOfREDAXO
+supportpage: https://github.com/FriendsOfREDAXO/activity_log
 
 page:
     title: translate:title
