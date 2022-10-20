@@ -48,7 +48,7 @@ $query .= ' ORDER BY created_at DESC';
 $list = \rex_list::factory($query, $this->getConfig('rows_per_page') ?: 100, 'rex_activity');
 
 $list->removeColumn('id');
-$list->addTableAttribute('class', 'rex-activity-table');
+$list->addTableAttribute('class', 'table table-striped table-hover rex-activity-table');
 $list->setColumnFormat('created_at', 'date', 'd.m.Y - H:i:s');
 $list->setColumnSortable('created_at');
 
