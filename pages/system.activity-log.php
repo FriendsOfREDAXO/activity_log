@@ -4,9 +4,13 @@
 $table = \rex::getTable('activity_log');
 
 if (\rex_post('delete_old_logs') && \rex_post('delete_old_logs') == 1) {
+    $now = (new \DateTime());
+    $now->modify('-7 day');
+    $date = $now->format('Y-m-d H:i:s');
+
     $sql = \rex_sql::factory();
     $sql->setTable($table);
-    $sql->setWhere('created_at < now() - interval 7 day');
+    $sql->setWhere("created_at <= '$date'");
     $sql->delete();
 }
 
