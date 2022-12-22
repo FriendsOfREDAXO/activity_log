@@ -11,15 +11,19 @@ class rex_activity_log_cronjob extends \rex_cronjob
     {
         $daysToKeep = (int) $this->getParam('days_to_keep', 7);
 
+        $now = (new \DateTime());
+        $now->modify('-' . $daysToKeep . ' day');
+        $date = $now->format('Y-m-d H:i:s');
+
         $sql = \rex_sql::factory();
         $sql->setTable(\rex::getTable('activity_log'));
-        $sql->setWhere('created_at < now() - interval ' . $daysToKeep . ' day');
+        $sql->setWhere("created_at <= '$date'");
         $sql->select('id');
 
         if ($sql->getRows()) {
             $deleteSql = \rex_sql::factory();
             $deleteSql->setTable(\rex::getTable('activity_log'));
-            $deleteSql->setWhere('created_at < now() - interval ' . $daysToKeep . ' day');
+            $deleteSql->setWhere("created_at <= '$date'");
             $deleteSql->delete();
             $this->setMessage(\rex_i18n::msg('activity_log_cron_deleted'));
         }
