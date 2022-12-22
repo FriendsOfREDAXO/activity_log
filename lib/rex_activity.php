@@ -33,7 +33,7 @@ class rex_activity
         self::$addon->setConfig('cleared', false);
 
         /** clear old entries */
-        self::clearEntries();
+        //self::clearEntries();
 
         if (self::$activity === null) {
             self::$activity = new self;
@@ -54,7 +54,7 @@ class rex_activity
 
         $sql = rex_sql::factory();
         $sql->setTable(self::$table);
-        $sql->setValue('created_at', date("Y-m-d H:i:s"));
+        $sql->setValue('created_at', date('Y-m-d H:i:s'));
         $sql->setValue('type', self::$type ?: self::TYPE_NOTICE);
         $sql->setValue('message', self::$message);
         $sql->setValue('causer_id', self::$causer);
@@ -92,8 +92,7 @@ class rex_activity
     {
         if (is_numeric($user)) {
             self::$causer = $user;
-        }
-        elseif ($user instanceof rex_user) {
+        } elseif ($user instanceof rex_user) {
             self::$causer = $user->getId();
         }
 
@@ -157,12 +156,20 @@ class rex_activity
             return;
         }
 
+        $now = (new \DateTime());
+        $now->modify('-7 day');
+        $date = $now->format('Y-m-d H:i:s');
+
         $sql = rex_sql::factory();
         $sql->setTable(self::$table);
-        $sql->setWhere('DATE(created_at) = DATE_SUB(CURDATE(), INTERVAL 7 DAY)');
+        $sql->setWhere("created_at <= '$date'");
+        $sql->select('id');
 
         if ($sql->getRows()) {
-            $sql->delete();
+            $deleteSql = \rex_sql::factory();
+            $deleteSql->setTable(self::$table);
+            $deleteSql->setWhere("created_at <= '$date'");
+            $deleteSql->delete();
 
             self::$addon->setConfig('cleared', true);
         }
