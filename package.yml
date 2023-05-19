@@ -1,5 +1,5 @@
 package: activity_log
-version: "0.0.2"
+version: "0.1.0"
 name: Activity Log
 author: FriendsOfREDAXO
 supportpage: https://github.com/FriendsOfREDAXO/activity_log
@@ -18,10 +18,13 @@ pages:
     title: 'translate:activity_log_title'
     perm: admin
 
+console_commands:
+  activity:clear: activity_clear
+
 requires:
   redaxo: ^5.12.0
   php:
-    version: '>=7.1'
+    version: '>=8.0'
 
 default_config:
   'article_added': false

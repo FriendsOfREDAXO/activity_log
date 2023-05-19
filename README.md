@@ -18,6 +18,8 @@ Einträge können jederzeit manuell im Activity Log gelöscht werden.
 
 Weiter gibt es die Möglichkeit die Einträge über das **Cronjob Addon** automatisiert zu löschen. Es stehen verschiedene Zeiträume zur Auswahl.
 
+Über den Console-Befehl `activity:clear` können die Einträge auch manuell gelöscht werden.
+
 ---
 
 #### Typen:
