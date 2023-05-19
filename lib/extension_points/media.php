@@ -42,7 +42,7 @@ class media
      * @param string $type
      * @return string
      */
-    private function message(array $params, string $type): string
+    public static function message(array $params, string $type): string
     {
         $message = '<strong>Media:</strong> ';
 
