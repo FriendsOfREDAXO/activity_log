@@ -42,7 +42,7 @@ class user
      * @param string $type
      * @return string
      */
-    public static message(array $params, string $type): string
+    public static function message(array $params, string $type): string
     {
         $message = '<strong>User:</strong> ';
         $message .= '<a href="' . \rex_url::backendController(['page' => 'users/users', 'user_id' => $params['user']->getId()]) . '" title="' . $params['user']->getName() . '">' . $params['user']->getName() . '</a>';
