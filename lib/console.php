@@ -44,7 +44,7 @@ class activity_clear extends rex_console_command
             $sql->setTable($table);
             $sql->delete();
             $deleted = $sql->getRows();
-        } else if ($days > 0) {
+        } elseif ($days > 0) {
             $now = (new \DateTime());
             $now->modify("-$days day");
             $date = $now->format('Y-m-d H:i:s');
