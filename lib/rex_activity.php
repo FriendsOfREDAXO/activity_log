@@ -13,15 +13,13 @@ class rex_activity
     public const TYPE_EDIT = 'edit';
     public const TYPE_DELETE = 'delete';
 
-    /**
-     * @var rex_addon|null $addon
-     */
-    private static $addon = null;
+    /** @var rex_addon|null */
+    private static $addon;
     private static $table = '';
-    private static $activity = null;
-    private static $message = null;
-    private static $type = null;
-    private static $causer = null;
+    private static $activity;
+    private static $message;
+    private static $type;
+    private static $causer;
 
     /**
      * @throws rex_sql_exception
@@ -33,22 +31,22 @@ class rex_activity
         self::$addon->setConfig('cleared', false);
 
         /** clear old entries */
-        //self::clearEntries();
+        // self::clearEntries();
 
-        if (self::$activity === null) {
-            self::$activity = new self;
+        if (null === self::$activity) {
+            self::$activity = new self();
         }
     }
 
     /**
-     * create log
-     * @return void
+     * create log.
      * @throws rex_exception
      * @throws rex_sql_exception
+     * @return void
      */
     public static function log()
     {
-        if (is_null(self::$message)) {
+        if (null === self::$message) {
             throw new rex_exception('A message must be provided.');
         }
 
@@ -62,8 +60,7 @@ class rex_activity
     }
 
     /**
-     * add message
-     * @param string $message
+     * add message.
      * @return rex_activity|null
      */
     public static function message(string $message)
@@ -73,8 +70,7 @@ class rex_activity
     }
 
     /**
-     * add type, default info
-     * @param string $type
+     * add type, default info.
      * @return null
      */
     public static function type(string $type)
@@ -84,7 +80,7 @@ class rex_activity
     }
 
     /**
-     * add a causer
+     * add a causer.
      * @param rex_user|int $user
      * @return null
      */
@@ -100,9 +96,7 @@ class rex_activity
     }
 
     /**
-     * list callback - user column
-     * @param $params
-     * @return string
+     * list callback - user column.
      */
     public static function userListCallback($params): string
     {
@@ -110,11 +104,11 @@ class rex_activity
             /** @var \rex_user $user */
             $user = rex_user::get($params['subject']);
 
-            if (is_null($user)) {
+            if (null === $user) {
                 return '<a href="#" class="btn btn-sm btn-primary rex-activity-btn-disabled"><i class="rex-icon rex-icon-user"></i> ' . self::$addon->i18n('deleted_user') . ' [' . $params['subject'] . ']</a>';
             }
 
-            $name = $user->getName() !== '' ? $user->getName() : $user->getLogin();
+            $name = '' !== $user->getName() ? $user->getName() : $user->getLogin();
             return '<a class="btn btn-sm btn-primary" href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $name . '"><i class="rex-icon rex-icon-user"></i> ' . $name . '</a>';
         }
 
@@ -122,9 +116,7 @@ class rex_activity
     }
 
     /**
-     * list callback - type column
-     * @param $params
-     * @return string
+     * list callback - type column.
      */
     public static function typeListCallback($params): string
     {
@@ -136,9 +128,7 @@ class rex_activity
     }
 
     /**
-     * list callback - message column
-     * @param $params
-     * @return string
+     * list callback - message column.
      */
     public static function messageListCallback($params): string
     {

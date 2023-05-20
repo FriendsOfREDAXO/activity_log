@@ -1,9 +1,10 @@
 <?php
+
 /** @var \rex_addon $this */
 
 $table = \rex::getTable('activity_log');
 
-if (\rex_post('delete_old_logs') && \rex_post('delete_old_logs') == 1) {
+if (rex_post('delete_old_logs') && 1 == rex_post('delete_old_logs')) {
     $now = (new \DateTime());
     $now->modify('-7 day');
     $date = $now->format('Y-m-d H:i:s');
@@ -14,32 +15,32 @@ if (\rex_post('delete_old_logs') && \rex_post('delete_old_logs') == 1) {
     $sql->delete();
 }
 
-if (\rex_post('delete_all_logs') && \rex_post('delete_all_logs') == 1) {
+if (rex_post('delete_all_logs') && 1 == rex_post('delete_all_logs')) {
     $sql = \rex_sql::factory();
     $sql->setTable($table);
     $sql->delete();
 }
 
-if (\rex_post('delete_single_log')) {
+if (rex_post('delete_single_log')) {
     $sql = \rex_sql::factory();
     $sql->setTable($table);
-    $sql->setWhere('id = ' . \rex_post('delete_single_log'));
+    $sql->setWhere('id = ' . rex_post('delete_single_log'));
     $sql->delete();
 }
 
 $addon = \rex_addon::get('activity_log');
-$type = \rex_get('type');
-$user = \rex_get('user');
-$clear = \rex_get('clear_filter');
+$type = rex_get('type');
+$user = rex_get('user');
+$clear = rex_get('clear_filter');
 
 $query = 'SELECT id,created_at,type,message,causer_id FROM ' . $table;
 $where = [];
 
-if ($type && $type !== '' && !$clear) {
+if ($type && '' !== $type && !$clear) {
     $where[] = 'type = "' . $type . '"';
 }
 
-if ($user && $user !== '' && !$clear) {
+if ($user && '' !== $user && !$clear) {
     $where[] = 'causer_id = ' . $user;
 }
 
@@ -66,8 +67,7 @@ $list->setColumnFormat('message', 'custom', 'rex_activity::messageListCallback')
 $list->setColumnFormat('type', 'custom', 'rex_activity::typeListCallback');
 
 $list->addColumn('delete', '', -1, ['<th></th>', '<td class="rex-table-icon">###VALUE###</td>']);
-$list->setColumnFormat('delete', 'custom', static function ($params) use ($list)
-{
+$list->setColumnFormat('delete', 'custom', static function ($params) use ($list) {
     return '<button type="submit" class="btn btn-danger btn-sm" name="delete_single_log" value="' . $list->getValue('id') . '"><i class="rex-icon rex-icon-delete"></i></button>';
 });
 

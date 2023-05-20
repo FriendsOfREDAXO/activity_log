@@ -2,13 +2,15 @@
 
 namespace RexActivity\EP;
 
+use rex_addon_interface;
+
+use function is_bool;
+
 class media
 {
     use ep_trait;
 
-    /**
-     * @var \rex_addon_interface
-     */
+    /** @var rex_addon_interface */
     private static $addon;
 
     public function __construct()
@@ -16,32 +18,27 @@ class media
         self::$addon = $this->addon();
 
         /**
-         * new media has been added
+         * new media has been added.
          */
         if (is_bool(self::$addon->getConfig('media_added')) && self::$addon->getConfig('media_added')) {
             $this->add('MEDIA_ADDED', 'RexActivity\EP\media::message');
         }
 
         /**
-         * media has been updated
+         * media has been updated.
          */
         if (is_bool(self::$addon->getConfig('media_updated')) && self::$addon->getConfig('media_updated')) {
             $this->update('MEDIA_UPDATED', 'RexActivity\EP\media::message');
         }
 
         /**
-         * media has been deleted
+         * media has been deleted.
          */
         if (is_bool(self::$addon->getConfig('media_deleted')) && self::$addon->getConfig('media_deleted')) {
             $this->delete('MEDIA_DELETED', 'RexActivity\EP\media::message');
         }
     }
 
-    /**
-     * @param array $params
-     * @param string $type
-     * @return string
-     */
     public static function message(array $params, string $type): string
     {
         $message = '<strong>Media:</strong> ';

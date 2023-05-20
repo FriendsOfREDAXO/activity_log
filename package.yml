@@ -76,3 +76,4 @@ installer_ignore:
   - phpcs.xml
   - phpunit.xml
   - resources
+  - .php-cs-fixer.dist.php

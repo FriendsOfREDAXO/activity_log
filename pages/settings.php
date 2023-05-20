@@ -7,7 +7,7 @@ if (rex_post('config_toggle_true', 'bool') || rex_post('config_toggle_false', 'b
     $configEntries = rex_config::get('activity_log');
 
     foreach ($configEntries as $key => $value) {
-        if ($key === 'rows_per_page') {
+        if ('rows_per_page' === $key) {
             continue;
         }
 
@@ -56,7 +56,7 @@ if (rex_post('config-submit', 'bool')) {
 $content = '<fieldset class="rex-activity-log">';
 
 /**
- * articles
+ * articles.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group"><dd><strong>Article</strong></dd></dl>';
@@ -80,7 +80,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_article_status" name=
 $formElements[] = $n;
 
 /**
- * categories
+ * categories.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Category</strong></dd></dl>';
@@ -104,7 +104,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_category_status" name
 $formElements[] = $n;
 
 /**
- * slices
+ * slices.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Slice</strong></dd></dl>';
@@ -128,7 +128,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_slice_moved" name="co
 $formElements[] = $n;
 
 /**
- * media
+ * media.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Media</strong></dd></dl>';
@@ -147,7 +147,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_media_deleted" name="
 $formElements[] = $n;
 
 /**
- * meta info
+ * meta info.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Meta Info</strong></dd></dl>';
@@ -156,7 +156,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_meta_updated" name="c
 $formElements[] = $n;
 
 /**
- * user
+ * user.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>User</strong></dd></dl>';
@@ -175,7 +175,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_user_deleted" name="c
 $formElements[] = $n;
 
 /**
- * clang
+ * clang.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Language</strong></dd></dl>';
@@ -194,7 +194,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_clang_deleted" name="
 $formElements[] = $n;
 
 /**
- * template
+ * template.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Template</strong></dd></dl>';
@@ -213,7 +213,7 @@ $n['field'] = '<input type="checkbox" id="rex_activity_log_template_deleted" nam
 $formElements[] = $n;
 
 /**
- * module
+ * module.
  */
 $n = [];
 $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Module</strong></dd></dl>';
@@ -231,16 +231,15 @@ $n['label'] = '<label for="rex_activity_log_module_deleted">Module deleted</labe
 $n['field'] = '<input type="checkbox" id="rex_activity_log_module_deleted" name="config[module_deleted]" value="1" ' . ($this->getConfig('module_deleted') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
 
-
 /**
- * render form
+ * render form.
  */
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $formElements, false);
 $content .= $fragment->parse('core/form/checkbox.php');
 
 /**
- * misc
+ * misc.
  */
 $inputGroups = [];
 $n = [];
@@ -251,7 +250,6 @@ $inputGroups[] = $n;
 $fragment = new rex_fragment();
 $fragment->setVar('elements', $inputGroups, false);
 $content .= $fragment->parse('core/form/input_group.php');
-
 
 $formElements = [];
 

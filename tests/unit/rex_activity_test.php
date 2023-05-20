@@ -2,10 +2,12 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 final class rexActivityTest extends TestCase
 {
     /**
-     * @return void
      * @throws rex_sql_exception
      */
     public function testMissingMessage(): void
@@ -16,7 +18,6 @@ final class rexActivityTest extends TestCase
 
     /**
      * @doesNotPerformAssertions
-     * @return void
      */
     public function testActivityLog(): void
     {

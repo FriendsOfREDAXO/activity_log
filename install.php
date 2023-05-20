@@ -1,4 +1,5 @@
 <?php
+
 $addon = rex_addon::get('activity_log');
 
 rex_sql_table::get(rex::getTable('activity_log'))

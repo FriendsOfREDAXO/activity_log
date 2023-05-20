@@ -66,13 +66,9 @@ jobs:
       - name: Setup Problem Matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
-      - name: Run lint
-        working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
-        run: composer lint
-
-      - name: Run phpcs
-        working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
-        run: composer phpcs
+      # run php-cs-fixer
+      - name: Run PHP CS Fixer
+        run: composer cs-fix
 
       - name: Run phpunit
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}

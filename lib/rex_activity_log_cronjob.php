@@ -3,8 +3,7 @@
 class rex_activity_log_cronjob extends \rex_cronjob
 {
     /**
-     * execute the cronjob
-     * @return bool
+     * execute the cronjob.
      * @throws \rex_sql_exception
      */
     public function execute(): bool
@@ -26,8 +25,7 @@ class rex_activity_log_cronjob extends \rex_cronjob
             $deleteSql->setWhere("created_at <= '$date'");
             $deleteSql->delete();
             $this->setMessage(\rex_i18n::msg('activity_log_cron_deleted'));
-        }
-        else {
+        } else {
             $this->setMessage(\rex_i18n::msg('activity_log_cron_nothing_to_delete'));
         }
 
@@ -35,8 +33,7 @@ class rex_activity_log_cronjob extends \rex_cronjob
     }
 
     /**
-     * get the job name
-     * @return string
+     * get the job name.
      */
     public function getTypeName(): string
     {
@@ -44,7 +41,7 @@ class rex_activity_log_cronjob extends \rex_cronjob
     }
 
     /**
-     * set additional parameter
+     * set additional parameter.
      * @return array[]
      */
     public function getParamFields()

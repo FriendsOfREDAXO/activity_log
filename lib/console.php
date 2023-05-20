@@ -26,8 +26,7 @@ class activity_clear extends rex_console_command
         $helper = $this->getHelper('question');
 
         $daysQuestion = new Question('Delete logs older than n days (default: -1 -> delete all): ', -1);
-        $daysQuestion->setValidator(static function ($answer)
-        {
+        $daysQuestion->setValidator(static function ($answer) {
             if (!is_numeric($answer) || '' === $answer) {
                 throw new \RuntimeException('You must enter a number.');
             }

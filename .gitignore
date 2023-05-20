@@ -8,3 +8,4 @@
 /playwright-report/
 /playwright/.cache/
 /screens/
+/.php-cs-fixer.cache
