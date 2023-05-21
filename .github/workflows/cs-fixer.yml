@@ -34,4 +34,4 @@ jobs:
 
       # run php-cs-fixer, fix code styles
       - name: Run PHP CS Fixer
-        run: composer cs-fix
+        run: composer cs-dry
