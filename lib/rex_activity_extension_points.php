@@ -2,6 +2,8 @@
 
 namespace RexActivity\EP;
 
+use rex_addon;
+
 class rex_activity_extension_points
 {
     public function __construct()
@@ -15,5 +17,12 @@ class rex_activity_extension_points
         new \RexActivity\EP\category();
         new \RexActivity\EP\template();
         new \RexActivity\EP\module();
+
+        /**
+         * check if yform is available.
+         */
+        if (rex_addon::get('yform')->isAvailable()) {
+            new \RexActivity\EP\yform();
+        }
     }
 }

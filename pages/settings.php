@@ -47,6 +47,11 @@ if (rex_post('config-submit', 'bool')) {
         ['module_added', 'bool'],
         ['module_updated', 'bool'],
         ['module_deleted', 'bool'],
+        ['yform_added', 'bool'],
+        ['yform_updated', 'bool'],
+        ['yform_deleted', 'bool'],
+        ['module_updated', 'bool'],
+        ['module_deleted', 'bool'],
         ['rows_per_page', 'int'],
     ]));
 
@@ -230,6 +235,27 @@ $n = [];
 $n['label'] = '<label for="rex_activity_log_module_deleted">Module deleted</label>';
 $n['field'] = '<input type="checkbox" id="rex_activity_log_module_deleted" name="config[module_deleted]" value="1" ' . ($this->getConfig('module_deleted') ? ' checked="checked"' : '') . ' />';
 $formElements[] = $n;
+
+/**
+ * yform.
+ */
+if (rex_addon::get('yform')->isAvailable()) {
+    $n = [];
+    $n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>YForm</strong></dd></dl>';
+    $n['label'] = '<label for="rex_activity_log_yform_added">YForm data added</label>';
+    $n['field'] = '<input type="checkbox" id="rex_activity_log_yform_added" name="config[yform_added]" value="1" ' . ($this->getConfig('yform_added') ? ' checked="checked"' : '') . ' />';
+    $formElements[] = $n;
+
+    $n = [];
+    $n['label'] = '<label for="rex_activity_log_yform_updated">YForm data updated</label>';
+    $n['field'] = '<input type="checkbox" id="rex_activity_log_yform_updated" name="config[yform_updated]" value="1" ' . ($this->getConfig('yform_updated') ? ' checked="checked"' : '') . ' />';
+    $formElements[] = $n;
+
+    $n = [];
+    $n['label'] = '<label for="rex_activity_log_yform_deleted">YForm data deleted</label>';
+    $n['field'] = '<input type="checkbox" id="rex_activity_log_yform_deleted" name="config[yform_deleted]" value="1" ' . ($this->getConfig('yform_deleted') ? ' checked="checked"' : '') . ' />';
+    $formElements[] = $n;
+}
 
 /**
  * render form.
