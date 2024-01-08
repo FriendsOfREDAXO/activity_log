@@ -55,6 +55,7 @@ default_config:
   'module_added': false
   'module_updated': false
   'module_deleted': false
+  'disable_for_admins': false
   'rows_per_page': 100
 
 installer_ignore:

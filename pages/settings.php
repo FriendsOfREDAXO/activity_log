@@ -50,8 +50,7 @@ if (rex_post('config-submit', 'bool')) {
         ['yform_added', 'bool'],
         ['yform_updated', 'bool'],
         ['yform_deleted', 'bool'],
-        ['module_updated', 'bool'],
-        ['module_deleted', 'bool'],
+        ['disable_for_admins', 'bool'],
         ['rows_per_page', 'int'],
     ]));
 
@@ -256,6 +255,15 @@ if (rex_addon::get('yform')->isAvailable()) {
     $n['field'] = '<input type="checkbox" id="rex_activity_log_yform_deleted" name="config[yform_deleted]" value="1" ' . ($this->getConfig('yform_deleted') ? ' checked="checked"' : '') . ' />';
     $formElements[] = $n;
 }
+
+/**
+ * disable for admins.
+ */
+$n = [];
+$n['header'] = '<dl class="rex-form-group form-group form-group-header"><dd><strong>Disable for admins</strong></dd></dl>';
+$n['label'] = '<label for="rex_activity_log_disable_for_admins">Disable for admins</label>';
+$n['field'] = '<input type="checkbox" id="rex_activity_log_disable_for_admins" name="config[disable_for_admins]" value="1" ' . ($this->getConfig('disable_for_admins') ? ' checked="checked"' : '') . ' />';
+$formElements[] = $n;
 
 /**
  * render form.

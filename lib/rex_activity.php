@@ -50,6 +50,13 @@ class rex_activity
             throw new rex_exception('A message must be provided.');
         }
 
+        /**
+         * Return if user is admin and addon config is set.
+         */
+        if (self::$addon->getConfig('disable_for_admins') && rex::getUser()->isAdmin()) {
+            return;
+        }
+
         $sql = rex_sql::factory();
         $sql->setTable(self::$table);
         $sql->setValue('created_at', date('Y-m-d H:i:s'));
