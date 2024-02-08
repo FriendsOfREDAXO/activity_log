@@ -1,0 +1,92 @@
+{
+    "commit-msg": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "\\CaptainHook\\App\\Hook\\Message\\Action\\Regex",
+                "options": {
+                    "regex": "#.*#"
+                },
+                "config": {
+                    "label": "Check for non-empty commit message"
+                }
+            }
+        ]
+    },
+    "pre-push": {
+        "enabled": false,
+        "actions": [
+        ]
+    },
+    "pre-commit": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
+                "options": [],
+                "config": {
+                    "label": "Run PHP Linting"
+                }
+            },
+            {
+                "action": "composer cs-fix",
+                "config": {
+                    "label": "Run PHP CS Fixer and fix code style"
+                }
+            },
+            {
+                "action": "\\CaptainHook\\App\\Hook\\File\\Action\\DoesNotContainRegex",
+                "options": {
+                    "regex": "#print_r|var_dump|dump|@dump#i",
+                    "regexName": "debug output",
+                    "fileExtensions": [
+                        "inc",
+                        "php"
+                    ]
+                },
+                "config": {
+                    "label": "Search for debug output in files"
+                }
+            }
+        ]
+    },
+    "prepare-commit-msg": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-commit": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-merge": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-checkout": {
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer install --ansi",
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileChanged\\Any",
+                        "args": [
+                            ["composer.json", "composer.lock"]
+                        ]
+                    }
+                ],
+                "config": {
+                    "label": "Run composer install if composer.json or composer.lock has changed"
+                }
+            }
+        ]
+    },
+    "post-rewrite": {
+        "enabled": false,
+        "actions": []
+    },
+    "post-change": {
+        "enabled": false,
+        "actions": []
+    }
+}
