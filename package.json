@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/FriendsOfREDAXO/activity_log#readme",
   "dependencies": {
-    "nightwatch": "^3.1.3"
+    "nightwatch": "^3.6.2"
   },
   "devDependencies": {
     "geckodriver": "^3.0.2"
