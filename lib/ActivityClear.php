@@ -17,10 +17,7 @@ use Symfony\Component\Console\Question\Question;
 
 class ActivityClear extends rex_console_command
 {
-    /**
-     * @return void
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('activity:clear');
     }
