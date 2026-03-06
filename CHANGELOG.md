@@ -6,11 +6,11 @@ Diese Version bringt die lang geplante Code-Modernisierung mit vollständiger Na
 
 ### Breaking Changes (abwärtskompatibel via BC-Stubs)
 
-- Alle Klassen wurden in den Namespace `FriendsOfREDAXO\ActivityLog\` verschoben.
-  - `rex_activity` → `FriendsOfREDAXO\ActivityLog\Activity`
-  - `rex_activity_log_cronjob` → `FriendsOfREDAXO\ActivityLog\ActivityLogCronjob`
-  - `activity_clear` (Console-Befehl) → `FriendsOfREDAXO\ActivityLog\ActivityClear`
-  - Extension-Point-Handler → `FriendsOfREDAXO\ActivityLog\EP\*`
+- Alle Klassen wurden in den Namespace `FriendsOfRedaxo\ActivityLog\` verschoben.
+  - `rex_activity` → `FriendsOfRedaxo\ActivityLog\Activity`
+  - `rex_activity_log_cronjob` → `FriendsOfRedaxo\ActivityLog\ActivityLogCronjob`
+  - `activity_clear` (Console-Befehl) → `FriendsOfRedaxo\ActivityLog\ActivityClear`
+  - Extension-Point-Handler → `FriendsOfRedaxo\ActivityLog\EP\*`
 - Die alten Klassennamen bleiben als leere BC-Stubs erhalten, bestehender Code funktioniert weiterhin.
 
 ### Neue Features

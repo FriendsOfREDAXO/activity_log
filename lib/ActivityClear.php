@@ -1,6 +1,6 @@
 <?php
 
-namespace FriendsOfREDAXO\ActivityLog;
+namespace FriendsOfRedaxo\ActivityLog;
 
 use rex;
 use rex_console_command;

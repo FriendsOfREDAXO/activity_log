@@ -1,8 +1,8 @@
 <?php
 
-use FriendsOfREDAXO\ActivityLog\Activity;
+use FriendsOfRedaxo\ActivityLog\Activity;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\Activity - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\Activity - BC stub */
 class rex_activity extends Activity
 {
 }

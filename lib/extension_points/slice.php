@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\Slice;
+use FriendsOfRedaxo\ActivityLog\EP\Slice;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\Slice - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Slice - BC stub */
 class slice extends Slice
 {
 }

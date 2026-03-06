@@ -1,8 +1,8 @@
 <?php
 
-use FriendsOfREDAXO\ActivityLog\ActivityLogCronjob;
+use FriendsOfRedaxo\ActivityLog\ActivityLogCronjob;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\ActivityLogCronjob - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\ActivityLogCronjob - BC stub */
 class rex_activity_log_cronjob extends ActivityLogCronjob
 {
 }

@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\Category;
+use FriendsOfRedaxo\ActivityLog\EP\Category;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\Category - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Category - BC stub */
 class category extends Category
 {
 }

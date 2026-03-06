@@ -3,9 +3,9 @@
 namespace RexActivity\EP;
 
 /**
- * @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\EpTrait - BC stub.
+ * @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\EpTrait - BC stub.
  */
 trait ep_trait
 {
-    use \FriendsOfREDAXO\ActivityLog\EP\EpTrait;
+    use \FriendsOfRedaxo\ActivityLog\EP\EpTrait;
 }

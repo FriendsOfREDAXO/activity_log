@@ -1,8 +1,8 @@
 <?php
 
-namespace FriendsOfREDAXO\ActivityLog\EP;
+namespace FriendsOfRedaxo\ActivityLog\EP;
 
-use FriendsOfREDAXO\ActivityLog\Activity;
+use FriendsOfRedaxo\ActivityLog\Activity;
 use rex;
 use rex_addon;
 use rex_addon_interface;

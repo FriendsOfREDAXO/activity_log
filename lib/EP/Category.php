@@ -1,6 +1,6 @@
 <?php
 
-namespace FriendsOfREDAXO\ActivityLog\EP;
+namespace FriendsOfRedaxo\ActivityLog\EP;
 
 use rex_addon_interface;
 use rex_category;

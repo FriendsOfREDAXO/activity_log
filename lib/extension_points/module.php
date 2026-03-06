@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\Module;
+use FriendsOfRedaxo\ActivityLog\EP\Module;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\Module - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Module - BC stub */
 class module extends Module
 {
 }

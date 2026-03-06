@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\Clang;
+use FriendsOfRedaxo\ActivityLog\EP\Clang;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\Clang - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Clang - BC stub */
 class clang extends Clang
 {
 }

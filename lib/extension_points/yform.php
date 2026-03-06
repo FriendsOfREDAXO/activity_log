@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\Yform;
+use FriendsOfRedaxo\ActivityLog\EP\Yform;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\Yform - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Yform - BC stub */
 class yform extends Yform
 {
 }

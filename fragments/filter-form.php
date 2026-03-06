@@ -4,7 +4,7 @@ $sql = \rex_sql::factory();
 $causers = $sql->getArray('SELECT causer_id FROM ' . \rex::getTable('activity_log') . ' WHERE causer_id IS NOT NULL GROUP BY causer_id ORDER BY causer_id');
 $sources = $sql->getArray('SELECT source FROM ' . \rex::getTable('activity_log') . ' WHERE source IS NOT NULL AND source != "" GROUP BY source ORDER BY source');
 
-use FriendsOfREDAXO\ActivityLog\Activity;
+use FriendsOfRedaxo\ActivityLog\Activity;
 
 $hasSources = count($sources) > 0;
 $hasCausers = count($causers) > 0;

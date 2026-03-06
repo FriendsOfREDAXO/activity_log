@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\Meta;
+use FriendsOfRedaxo\ActivityLog\EP\Meta;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\Meta - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Meta - BC stub */
 class meta extends Meta
 {
 }

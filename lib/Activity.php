@@ -1,6 +1,6 @@
 <?php
 
-namespace FriendsOfREDAXO\ActivityLog;
+namespace FriendsOfRedaxo\ActivityLog;
 
 use DateTime;
 use rex;

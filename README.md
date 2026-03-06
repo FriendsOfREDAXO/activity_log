@@ -4,7 +4,7 @@ Eine einfache Möglichkeit um Aktivitäten zu loggen.
 Die Logs werden im System unter Activity Log angezeigt.
 
 ```php
-use FriendsOfREDAXO\ActivityLog\Activity;
+use FriendsOfRedaxo\ActivityLog\Activity;
 
 Activity::message('Hello World!')->type(Activity::TYPE_INFO)->log();
 Activity::message('He did something :O')->type(Activity::TYPE_WARNING)->causer(rex::getUser())->log();

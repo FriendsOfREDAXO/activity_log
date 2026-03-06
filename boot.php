@@ -1,7 +1,7 @@
 <?php
 
-use FriendsOfREDAXO\ActivityLog\ActivityLogCronjob;
-use FriendsOfREDAXO\ActivityLog\EP\ActivityExtensionPoints;
+use FriendsOfRedaxo\ActivityLog\ActivityLogCronjob;
+use FriendsOfRedaxo\ActivityLog\EP\ActivityExtensionPoints;
 
 if (rex::isBackend() && is_object(rex::getUser())) {
     /** @var rex_addon $this */

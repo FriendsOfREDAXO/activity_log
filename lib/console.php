@@ -1,8 +1,8 @@
 <?php
 
-use FriendsOfREDAXO\ActivityLog\ActivityClear;
+use FriendsOfRedaxo\ActivityLog\ActivityClear;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\ActivityClear - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\ActivityClear - BC stub */
 class activity_clear extends ActivityClear
 {
 }

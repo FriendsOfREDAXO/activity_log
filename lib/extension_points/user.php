@@ -2,9 +2,9 @@
 
 namespace RexActivity\EP;
 
-use FriendsOfREDAXO\ActivityLog\EP\User;
+use FriendsOfRedaxo\ActivityLog\EP\User;
 
-/** @deprecated Use \FriendsOfREDAXO\ActivityLog\EP\User - BC stub */
+/** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\User - BC stub */
 class user extends User
 {
 }
