@@ -3,7 +3,7 @@
 /** @var rex_addon $this */
 
 $table = rex::getTable('activity_log');
-$isAdmin = rex::getUser()->isAdmin();
+$isAdmin = rex::getUser()?->isAdmin() ?? false;
 
 if ($isAdmin && rex_post('delete_old_logs') && 1 == rex_post('delete_old_logs')) {
     $now = (new DateTime());

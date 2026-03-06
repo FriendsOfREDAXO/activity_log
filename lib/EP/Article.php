@@ -26,7 +26,7 @@ class Article
 
         /** @phpstan-ignore-next-line */
         if (is_bool(self::$addon->getConfig('article_added')) && self::$addon->getConfig('article_added')) {
-            $this->add('ART_ADDED', static::class . '::message');
+            $this->addArticle();
         }
 
         /** @phpstan-ignore-next-line */
@@ -48,6 +48,37 @@ class Article
     protected function getSource(): string
     {
         return 'article';
+    }
+
+    /**
+     * Registriert den ART_ADDED-Handler mit Deduplication:
+     * Da REDAXO ART_ADDED einmal pro Sprache feuert, wird nur der erste Aufruf
+     * pro Artikel-ID geloggt.
+     */
+    private function addArticle(): void
+    {
+        $source = $this->getSource();
+        rex_extension::register('ART_ADDED', static function (rex_extension_point $ep) use ($source): void {
+            /** @var array<string, mixed> $params */
+            $params = $ep->getParams();
+            $articleId = (int) ($params['id'] ?? 0);
+
+            /** @var array<int, bool> $logged */
+            static $logged = [];
+
+            if (isset($logged[$articleId])) {
+                return;
+            }
+            $logged[$articleId] = true;
+
+            $message = static::message($params, Activity::TYPE_ADD);
+
+            Activity::message($message)
+                ->type(Activity::TYPE_ADD)
+                ->source($source)
+                ->causer(rex::getUser())
+                ->log();
+        });
     }
 
     /**

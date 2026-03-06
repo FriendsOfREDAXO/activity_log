@@ -42,8 +42,8 @@ class Yform
     }
 
     /**
-     * @param array<string> $params
-     * @param array<string>|null $additionalParams
+     * @param array<string, mixed> $params
+     * @param array<string, mixed>|null $additionalParams
      */
     public static function message(array $params, string $type, ?array $additionalParams = null): string
     {

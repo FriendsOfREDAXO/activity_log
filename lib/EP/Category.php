@@ -2,9 +2,13 @@
 
 namespace FriendsOfRedaxo\ActivityLog\EP;
 
+use FriendsOfRedaxo\ActivityLog\Activity;
+use rex;
 use rex_addon_interface;
 use rex_category;
 use rex_clang;
+use rex_extension;
+use rex_extension_point;
 use rex_url;
 
 use function is_bool;
@@ -22,7 +26,7 @@ class Category
 
         /** @phpstan-ignore-next-line */
         if (is_bool(self::$addon->getConfig('category_added')) && self::$addon->getConfig('category_added')) {
-            $this->add('CAT_ADDED', static::class . '::message');
+            $this->addCategory();
         }
 
         /** @phpstan-ignore-next-line */
@@ -32,7 +36,7 @@ class Category
 
         /** @phpstan-ignore-next-line */
         if (is_bool(self::$addon->getConfig('category_deleted')) && self::$addon->getConfig('category_deleted')) {
-            $this->delete('CAT_DELETED', static::class . '::message');
+            $this->deleteCategory();
         }
 
         /** @phpstan-ignore-next-line */
@@ -44,6 +48,68 @@ class Category
     protected function getSource(): string
     {
         return 'category';
+    }
+
+    /**
+     * Registriert den CAT_ADDED-Handler mit Deduplication:
+     * Da REDAXO CAT_ADDED einmal pro Sprache feuert, wird nur der erste Aufruf
+     * pro Kategorie-ID geloggt.
+     */
+    private function addCategory(): void
+    {
+        $source = $this->getSource();
+        rex_extension::register('CAT_ADDED', static function (rex_extension_point $ep) use ($source): void {
+            /** @var array<string, mixed> $params */
+            $params = $ep->getParams();
+            $categoryId = (int) ($params['id'] ?? 0);
+
+            /** @var array<int, bool> $logged */
+            static $logged = [];
+
+            if (isset($logged[$categoryId])) {
+                return;
+            }
+            $logged[$categoryId] = true;
+
+            $message = static::message($params, Activity::TYPE_ADD);
+
+            Activity::message($message)
+                ->type(Activity::TYPE_ADD)
+                ->source($source)
+                ->causer(rex::getUser())
+                ->log();
+        });
+    }
+
+    /**
+     * Registriert den CAT_DELETED-Handler mit Deduplication:
+     * Da REDAXO CAT_DELETED einmal pro Sprache feuert, wird nur der erste Aufruf
+     * pro Kategorie-ID geloggt.
+     */
+    private function deleteCategory(): void
+    {
+        $source = $this->getSource();
+        rex_extension::register('CAT_DELETED', static function (rex_extension_point $ep) use ($source): void {
+            /** @var array<string, mixed> $params */
+            $params = $ep->getParams();
+            $categoryId = (int) ($params['id'] ?? 0);
+
+            /** @var array<int, bool> $logged */
+            static $logged = [];
+
+            if (isset($logged[$categoryId])) {
+                return;
+            }
+            $logged[$categoryId] = true;
+
+            $message = static::message($params, Activity::TYPE_DELETE);
+
+            Activity::message($message)
+                ->type(Activity::TYPE_DELETE)
+                ->source($source)
+                ->causer(rex::getUser())
+                ->log();
+        });
     }
 
     /**

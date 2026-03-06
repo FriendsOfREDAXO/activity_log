@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.0.0-beta2] – 2026-03-06
+
+### Bugfixes
+
+- **`ART_ADDED` doppelter Log-Eintrag bei Mehrsprachigkeit**: REDAXO feuert `ART_ADDED` einmal pro Sprache – neuer Artikel wird jetzt nur einmal geloggt (`static $logged` Deduplication).
+- **`CAT_ADDED` / `CAT_DELETED` doppelter Log-Eintrag bei Mehrsprachigkeit**: Gleiche Deduplication-Logik wie bei Artikeln auf Kategorien ausgeweitet.
+
+### Technisches
+
+- **PHPStan Level 8 – 0 Fehler**: Komplette Typbereinigung aller Addon-Klassen und Fragmente.
+  - `Activity`: Statische Properties typisiert, Fluent-Methoden geben `self` zurück, `new self()`, `assert()` für Factory-Methode.
+  - `ActivityClear`: `QuestionHelper`-Cast, Validator-Signatur auf `float|int|string`.
+  - `ActivityLogCronjob`: `@return array<int, array<string, mixed>>` für `getParamFields()`.
+  - `EP\EpTrait`: `callable` → `string|callable`, korrekte PHPDoc-Typen für Callbacks.
+  - `EP\User`: `rex_user`-Import und `@var`-Cast für `$params['user']`.
+  - `EP\Yform.php`: Unterdrückung der `rex_yform_manager_table`-Fehler (optionales Addon, nicht in Analyse-Umgebung installiert) via `phpstan.neon`.
+  - `fragments/filter-form.php`: `(string)`-Cast für `htmlspecialchars()` / `ucfirst()`.
+  - `pages/system.activity-log.php`: Null-sicherer Operator `rex::getUser()?->isAdmin() ?? false`.
+- **`phpstan.neon`** ergänzt um `ignoreErrors` für `rex_yform_manager_table` (optionales Addon) und `fragments/` als Analyse-Pfad.
+
+---
+
 ## [1.0.0-beta1] – 2026-03-06
 
 Diese Version bringt die lang geplante Code-Modernisierung mit vollständiger Namespace-Migration sowie mehrere Bugfixes, neue Features und modernisierte CI-Workflows.
