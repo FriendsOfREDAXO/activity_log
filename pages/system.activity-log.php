@@ -1,40 +1,40 @@
 <?php
 
-/** @var \rex_addon $this */
+/** @var rex_addon $this */
 
-$table = \rex::getTable('activity_log');
-$isAdmin = \rex::getUser()->isAdmin();
+$table = rex::getTable('activity_log');
+$isAdmin = rex::getUser()->isAdmin();
 
 if ($isAdmin && rex_post('delete_old_logs') && 1 == rex_post('delete_old_logs')) {
-    $now = (new \DateTime());
+    $now = (new DateTime());
     $now->modify('-7 day');
     $date = $now->format('Y-m-d H:i:s');
 
-    $sql = \rex_sql::factory();
+    $sql = rex_sql::factory();
     $sql->setTable($table);
     $sql->setWhere("created_at <= '$date'");
     $sql->delete();
 }
 
 if ($isAdmin && rex_post('delete_all_logs') && 1 == rex_post('delete_all_logs')) {
-    $sql = \rex_sql::factory();
+    $sql = rex_sql::factory();
     $sql->setTable($table);
     $sql->delete();
 }
 
 if ($isAdmin && rex_post('delete_single_log')) {
-    $sql = \rex_sql::factory();
+    $sql = rex_sql::factory();
     $sql->setTable($table);
     $sql->setWhere('id = ' . rex_post('delete_single_log'));
     $sql->delete();
 }
 
-$addon = \rex_addon::get('activity_log');
-$type   = rex_get('type', 'string', '');
-$user   = rex_get('user', 'string', '');
+$addon = rex_addon::get('activity_log');
+$type = rex_get('type', 'string', '');
+$user = rex_get('user', 'string', '');
 $source = rex_get('source', 'string', '');
 $search = rex_get('search', 'string', '');
-$clear  = rex_get('clear_filter', 'string', '');
+$clear = rex_get('clear_filter', 'string', '');
 
 $query = 'SELECT id,created_at,type,message,causer_id,source FROM ' . $table;
 $where = [];
@@ -66,7 +66,7 @@ if ($where) {
 
 $query .= ' ORDER BY created_at DESC';
 
-$list = \rex_list::factory($query, $this->getConfig('rows_per_page') ?: 100, 'rex_activity');
+$list = rex_list::factory($query, $this->getConfig('rows_per_page') ?: 100, 'rex_activity');
 
 $list->removeColumn('id');
 $list->addTableAttribute('class', 'table table-striped table-hover rex-activity-table');
@@ -92,14 +92,22 @@ if ($isAdmin) {
 }
 
 // Filter-Parameter durch Pager-Links und List-Form (delete_single_log) durchreichen
-if ('' !== $type)   { $list->addParam('type',   $type); }
-if ('' !== $user)   { $list->addParam('user',   $user); }
-if ('' !== $source) { $list->addParam('source', $source); }
-if ('' !== $search) { $list->addParam('search', $search); }
+if ('' !== $type) {
+    $list->addParam('type', $type);
+}
+if ('' !== $user) {
+    $list->addParam('user', $user);
+}
+if ('' !== $source) {
+    $list->addParam('source', $source);
+}
+if ('' !== $search) {
+    $list->addParam('search', $search);
+}
 
-$filterFragment = new \rex_fragment();
-$filterFragment->setVar('type',   $clear ? '' : $type);
-$filterFragment->setVar('user',   $clear ? '' : $user);
+$filterFragment = new rex_fragment();
+$filterFragment->setVar('type', $clear ? '' : $type);
+$filterFragment->setVar('user', $clear ? '' : $user);
 $filterFragment->setVar('source', $clear ? '' : $source);
 $filterFragment->setVar('search', $clear ? '' : $search);
 $content = $filterFragment->parse('filter-form.php');
@@ -115,13 +123,12 @@ foreach (['type' => $type, 'user' => $user, 'source' => $source, 'search' => $se
 }
 
 if ($isAdmin) {
-    $content .= '<hr><form method="post" action="' . \rex_url::currentBackendPage() . '" style="text-align: right">' . $filterHidden . '
+    $content .= '<hr><form method="post" action="' . rex_url::currentBackendPage() . '" style="text-align: right">' . $filterHidden . '
         <button type="submit" class="btn btn-danger" name="delete_old_logs" value="1">' . $addon->i18n('delete_older_than_7_days') . '</button>
         <button type="submit" class="btn btn-danger" name="delete_all_logs" value="1">' . $addon->i18n('delete_all') . '</button>
     </form>';
 }
 
-$fragment = new \rex_fragment();
+$fragment = new rex_fragment();
 $fragment->setVar('body', $content, false);
 echo $fragment->parse('core/page/section.php');
-

@@ -14,11 +14,6 @@ class User
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'user';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -37,6 +32,11 @@ class User
         if (is_bool(self::$addon->getConfig('user_deleted')) && self::$addon->getConfig('user_deleted')) {
             $this->delete('USER_DELETED', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'user';
     }
 
     /**

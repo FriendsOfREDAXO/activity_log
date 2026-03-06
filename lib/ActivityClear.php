@@ -2,9 +2,14 @@
 
 namespace FriendsOfRedaxo\ActivityLog;
 
+use DateTime;
 use rex;
+use rex_api_exception;
 use rex_console_command;
+use rex_exception;
 use rex_sql;
+use rex_sql_exception;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,9 +26,9 @@ class ActivityClear extends rex_console_command
     }
 
     /**
-     * @throws \rex_exception
-     * @throws \rex_api_exception
-     * @throws \rex_sql_exception
+     * @throws rex_exception
+     * @throws rex_api_exception
+     * @throws rex_sql_exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -32,7 +37,7 @@ class ActivityClear extends rex_console_command
         $daysQuestion = new Question('Delete logs older than n days (default: -1 -> delete all): ', -1);
         $daysQuestion->setValidator(static function ($answer) {
             if (!is_numeric($answer) || '' === $answer) {
-                throw new \RuntimeException('You must enter a number.');
+                throw new RuntimeException('You must enter a number.');
             }
             return $answer;
         });
@@ -47,7 +52,7 @@ class ActivityClear extends rex_console_command
             $sql->delete();
             $deleted = $sql->getRows();
         } elseif ($days > 0) {
-            $now = new \DateTime();
+            $now = new DateTime();
             $now->modify("-$days day");
             $date = $now->format('Y-m-d H:i:s');
 

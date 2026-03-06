@@ -4,6 +4,7 @@ namespace FriendsOfRedaxo\ActivityLog\EP;
 
 use rex_addon_interface;
 use rex_article;
+use rex_clang;
 use rex_url;
 
 use function is_bool;
@@ -14,11 +15,6 @@ class Article
 
     /** @var rex_addon_interface */
     private static $addon;
-
-    protected function getSource(): string
-    {
-        return 'article';
-    }
 
     public function __construct()
     {
@@ -43,6 +39,11 @@ class Article
         if (is_bool(self::$addon->getConfig('article_status')) && self::$addon->getConfig('article_status')) {
             $this->status('ART_STATUS', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'article';
     }
 
     /**
@@ -71,7 +72,7 @@ class Article
                 'page' => 'content/edit',
                 'article_id' => $article->getId(),
                 'category_id' => $article->getCategoryId(),
-                'clang_id' => $params['clang'] ?? \rex_clang::getCurrentId(),
+                'clang_id' => $params['clang'] ?? rex_clang::getCurrentId(),
                 'mode' => 'edit',
             ]) . '">';
             $message .= rex_escape($article->getName());

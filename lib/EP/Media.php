@@ -13,11 +13,6 @@ class Media
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'media';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -36,6 +31,11 @@ class Media
         if (is_bool(self::$addon->getConfig('media_deleted')) && self::$addon->getConfig('media_deleted')) {
             $this->delete('MEDIA_DELETED', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'media';
     }
 
     /**

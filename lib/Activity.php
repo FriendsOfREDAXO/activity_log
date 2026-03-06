@@ -85,8 +85,6 @@ class Activity
 
     /**
      * Set message.
-     *
-     * @return static|null
      */
     public static function message(string $message): ?static
     {
@@ -96,8 +94,6 @@ class Activity
 
     /**
      * Set type (default: notice).
-     *
-     * @return static|null
      */
     public static function type(string $type): ?static
     {
@@ -107,8 +103,6 @@ class Activity
 
     /**
      * Set source (e.g. 'article', 'yform', 'media').
-     *
-     * @return static|null
      */
     public static function source(string $source): ?static
     {
@@ -120,7 +114,6 @@ class Activity
      * Set causer.
      *
      * @param rex_user|int $user
-     * @return static|null
      */
     public static function causer($user): ?static
     {

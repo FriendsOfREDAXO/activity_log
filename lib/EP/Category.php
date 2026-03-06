@@ -16,11 +16,6 @@ class Category
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'category';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -44,6 +39,11 @@ class Category
         if (is_bool(self::$addon->getConfig('category_status')) && self::$addon->getConfig('category_status')) {
             $this->status('CAT_STATUS', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'category';
     }
 
     /**

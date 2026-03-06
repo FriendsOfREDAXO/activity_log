@@ -59,7 +59,7 @@ class ActivityLogCronjob extends rex_cronjob
     /**
      * Additional parameter fields.
      *
-     * @return array[]
+     * @return array<array>
      */
     public function getParamFields(): array
     {
@@ -70,9 +70,9 @@ class ActivityLogCronjob extends rex_cronjob
                 'type' => 'select',
                 'default' => 7,
                 'options' => [
-                    1  => rex_i18n::msg('activity_log_cronjob_clean_sing', 1),
-                    3  => rex_i18n::msg('activity_log_cronjob_clean_plur', 3),
-                    7  => rex_i18n::msg('activity_log_cronjob_clean_plur', 7),
+                    1 => rex_i18n::msg('activity_log_cronjob_clean_sing', 1),
+                    3 => rex_i18n::msg('activity_log_cronjob_clean_plur', 3),
+                    7 => rex_i18n::msg('activity_log_cronjob_clean_plur', 7),
                     14 => rex_i18n::msg('activity_log_cronjob_clean_plur', 14),
                     30 => rex_i18n::msg('activity_log_cronjob_clean_plur', 30),
                     90 => rex_i18n::msg('activity_log_cronjob_clean_plur', 90),
@@ -87,16 +87,16 @@ class ActivityLogCronjob extends rex_cronjob
                 'default' => '',
                 'options' => [
                     '' => rex_i18n::msg('activity_log_cronjob_source_all'),
-                    'article'  => 'Article',
+                    'article' => 'Article',
                     'category' => 'Category',
-                    'clang'    => 'Clang',
-                    'media'    => 'Media',
-                    'meta'     => 'Meta',
-                    'module'   => 'Module',
-                    'slice'    => 'Slice',
+                    'clang' => 'Clang',
+                    'media' => 'Media',
+                    'meta' => 'Meta',
+                    'module' => 'Module',
+                    'slice' => 'Slice',
                     'template' => 'Template',
-                    'user'     => 'User',
-                    'yform'    => 'YForm',
+                    'user' => 'User',
+                    'yform' => 'YForm',
                 ],
             ],
         ];

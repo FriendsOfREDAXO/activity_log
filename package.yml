@@ -1,8 +1,8 @@
 package: activity_log
 version: "1.0.0-beta1"
 name: Activity Log
-author: FriendsOfRedaxo
-supportpage: https://github.com/FriendsOfRedaxo/activity_log
+author: FriendsOfREDAXO
+supportpage: https://github.com/FriendsOfREDAXO/activity_log
 
 page:
     title: translate:title

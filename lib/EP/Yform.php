@@ -16,11 +16,6 @@ class Yform
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'yform';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -39,6 +34,11 @@ class Yform
         if (is_bool(self::$addon->getConfig('yform_deleted')) && self::$addon->getConfig('yform_deleted')) {
             $this->delete('YFORM_DATA_DELETE', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'yform';
     }
 
     /**

@@ -14,11 +14,6 @@ class Template
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'template';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -37,6 +32,11 @@ class Template
         if (is_bool(self::$addon->getConfig('template_deleted')) && self::$addon->getConfig('template_deleted')) {
             $this->delete('TEMPLATE_DELETED', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'template';
     }
 
     /**

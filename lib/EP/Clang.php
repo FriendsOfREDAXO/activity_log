@@ -14,11 +14,6 @@ class Clang
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'clang';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -37,6 +32,11 @@ class Clang
         if (is_bool(self::$addon->getConfig('clang_deleted')) && self::$addon->getConfig('clang_deleted')) {
             $this->delete('CLANG_DELETED', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'clang';
     }
 
     /**

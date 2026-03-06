@@ -2,10 +2,12 @@
 
 namespace RexActivity\EP;
 
+use FriendsOfRedaxo\ActivityLog\EP\EpTrait;
+
 /**
- * @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\EpTrait - BC stub.
+ * @deprecated use \FriendsOfRedaxo\ActivityLog\EP\EpTrait - BC stub
  */
 trait ep_trait
 {
-    use \FriendsOfRedaxo\ActivityLog\EP\EpTrait;
+    use EpTrait;
 }

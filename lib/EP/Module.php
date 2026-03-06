@@ -14,11 +14,6 @@ class Module
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'module';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -37,6 +32,11 @@ class Module
         if (is_bool(self::$addon->getConfig('module_deleted')) && self::$addon->getConfig('module_deleted')) {
             $this->delete('MODULE_DELETED', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'module';
     }
 
     /**

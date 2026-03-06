@@ -20,11 +20,6 @@ class Meta
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'meta';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -33,6 +28,11 @@ class Meta
         if (is_bool(self::$addon->getConfig('meta_updated')) && self::$addon->getConfig('meta_updated')) {
             $this->update('ART_META_UPDATED', static::class . '::message');
         }
+    }
+
+    protected function getSource(): string
+    {
+        return 'meta';
     }
 
     /**

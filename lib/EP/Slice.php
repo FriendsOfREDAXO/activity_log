@@ -19,11 +19,6 @@ class Slice
     /** @var rex_addon_interface */
     private static $addon;
 
-    protected function getSource(): string
-    {
-        return 'slice';
-    }
-
     public function __construct()
     {
         self::$addon = $this->addon();
@@ -49,6 +44,11 @@ class Slice
         }
     }
 
+    protected function getSource(): string
+    {
+        return 'slice';
+    }
+
     /**
      * @param array<string> $params
      * @param array<string>|null $additionalParams
@@ -58,7 +58,7 @@ class Slice
     {
         if (isset($additionalParams['type']) && 'move' === $additionalParams['type']) {
             $slice = rex_sql::factory()->getArray(
-                'SELECT id, ctype_id, module_id FROM ' . rex::getTable('article_slice') . ' WHERE id = ' . (int) $params['slice_id']
+                'SELECT id, ctype_id, module_id FROM ' . rex::getTable('article_slice') . ' WHERE id = ' . (int) $params['slice_id'],
             );
 
             if (!empty($slice)) {
@@ -68,7 +68,7 @@ class Slice
         }
 
         $module = rex_sql::factory()->getArray(
-            'SELECT * FROM ' . rex::getTable('module') . ' WHERE id = ' . (int) $params['module_id']
+            'SELECT * FROM ' . rex::getTable('module') . ' WHERE id = ' . (int) $params['module_id'],
         );
 
         $clangId = $params['clang_id'] ?? $params['clang'] ?? rex_clang::getCurrentId();
