@@ -63,6 +63,15 @@ class ActivityLogCronjob extends rex_cronjob
      */
     public function getParamFields(): array
     {
+        // Alle aktuell in der Datenbank vorhandenen Quellen dynamisch laden
+        $sourceOptions = ['' => rex_i18n::msg('activity_log_cronjob_source_all')];
+        $sql = rex_sql::factory();
+        $sql->setQuery('SELECT DISTINCT source FROM ' . rex::getTable('activity_log') . ' WHERE source IS NOT NULL AND source != \'\' ORDER BY source');
+        foreach ($sql as $row) {
+            $source = (string) $row->getValue('source');
+            $sourceOptions[$source] = $source;
+        }
+
         return [
             [
                 'label' => rex_i18n::msg('activity_log_cronjob_clean'),
@@ -85,19 +94,7 @@ class ActivityLogCronjob extends rex_cronjob
                 'name' => 'source',
                 'type' => 'select',
                 'default' => '',
-                'options' => [
-                    '' => rex_i18n::msg('activity_log_cronjob_source_all'),
-                    'article' => 'Article',
-                    'category' => 'Category',
-                    'clang' => 'Clang',
-                    'media' => 'Media',
-                    'meta' => 'Meta',
-                    'module' => 'Module',
-                    'slice' => 'Slice',
-                    'template' => 'Template',
-                    'user' => 'User',
-                    'yform' => 'YForm',
-                ],
+                'options' => $sourceOptions,
             ],
         ];
     }
