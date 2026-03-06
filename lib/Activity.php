@@ -31,6 +31,7 @@ class Activity
     private static $message;
     private static $type;
     private static $causer;
+    private static ?string $source = null;
 
     /**
      * @throws rex_sql_exception
@@ -72,12 +73,14 @@ class Activity
         $sql->setValue('type', self::$type ?: self::TYPE_NOTICE);
         $sql->setValue('message', self::$message);
         $sql->setValue('causer_id', self::$causer);
+        $sql->setValue('source', self::$source);
         $sql->insert();
 
         // Reset state after logging
         self::$message = null;
         self::$type = null;
         self::$causer = null;
+        self::$source = null;
     }
 
     /**
@@ -99,6 +102,17 @@ class Activity
     public static function type(string $type): ?static
     {
         self::$type = $type;
+        return self::$activity;
+    }
+
+    /**
+     * Set source (e.g. 'article', 'yform', 'media').
+     *
+     * @return static|null
+     */
+    public static function source(string $source): ?static
+    {
+        self::$source = $source;
         return self::$activity;
     }
 
@@ -157,6 +171,18 @@ class Activity
     public static function messageListCallback(array $params): string
     {
         return $params['subject'];
+    }
+
+    /**
+     * List callback – source column.
+     */
+    public static function sourceListCallback(array $params): string
+    {
+        $source = $params['subject'];
+        if ('' === $source || null === $source) {
+            return '<span class="text-muted">–</span>';
+        }
+        return '<span class="badge rex-activity-source rex-activity-source-' . htmlspecialchars($source) . '">' . htmlspecialchars(ucfirst($source)) . '</span>';
     }
 
     /**

@@ -8,6 +8,7 @@ rex_sql_table::get(rex::getTable('activity_log'))
     ->ensureColumn(new rex_sql_column('type', 'ENUM(\'info\',\'warning\',\'alert\',\'error\',\'notice\',\'critical\',\'debug\',\'update\',\'add\',\'edit\',\'delete\')'))
     ->ensureColumn(new rex_sql_column('message', 'text', true))
     ->ensureColumn(new rex_sql_column('causer_id', 'int', true))
+    ->ensureColumn(new rex_sql_column('source', 'varchar(191)', true))
     ->ensure();
 
 $sql = rex_sql::factory();

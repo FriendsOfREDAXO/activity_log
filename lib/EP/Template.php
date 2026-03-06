@@ -14,6 +14,11 @@ class Template
     /** @var rex_addon_interface */
     private static $addon;
 
+    protected function getSource(): string
+    {
+        return 'template';
+    }
+
     public function __construct()
     {
         self::$addon = $this->addon();

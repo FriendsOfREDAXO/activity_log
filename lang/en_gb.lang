@@ -25,3 +25,13 @@ activity_log_type_add = added
 activity_log_type_edit = edited
 activity_log_type_status = Changed status
 activity_log_type_move = moved
+
+activity_log_col_time = Time
+activity_log_col_type = Type
+activity_log_col_source = Source
+activity_log_col_message = Message
+activity_log_col_user = User
+
+activity_log_filter_search = Search
+activity_log_filter_search_placeholder = Search in messages ...
+activity_log_filter_apply = Apply filter

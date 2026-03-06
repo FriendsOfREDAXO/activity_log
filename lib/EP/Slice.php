@@ -19,6 +19,11 @@ class Slice
     /** @var rex_addon_interface */
     private static $addon;
 
+    protected function getSource(): string
+    {
+        return 'slice';
+    }
+
     public function __construct()
     {
         self::$addon = $this->addon();

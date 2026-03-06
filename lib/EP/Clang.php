@@ -15,6 +15,11 @@ class Clang
     /** @var rex_addon_interface */
     private static $addon;
 
+    protected function getSource(): string
+    {
+        return 'clang';
+    }
+
     public function __construct()
     {
         self::$addon = $this->addon();

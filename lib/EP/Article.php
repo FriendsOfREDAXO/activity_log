@@ -16,6 +16,11 @@ class Article
     /** @var rex_addon_interface */
     private static $addon;
 
+    protected function getSource(): string
+    {
+        return 'article';
+    }
+
     public function __construct()
     {
         self::$addon = $this->addon();

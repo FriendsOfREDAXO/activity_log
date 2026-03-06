@@ -24,6 +24,14 @@ trait EpTrait
         return rex::getUser();
     }
 
+    /**
+     * Override in each EP class to provide the log source identifier.
+     */
+    protected function getSource(): string
+    {
+        return '';
+    }
+
     public function add(string $extensionPoint, callable $messageCallback): void
     {
         $this->logExtensionPoint(Activity::TYPE_ADD, $extensionPoint, $messageCallback);
@@ -54,7 +62,8 @@ trait EpTrait
      */
     public function logExtensionPoint(string $type, string $extensionPoint, ?callable $messageCallback = null, ?array $additionalParams = null): void
     {
-        rex_extension::register($extensionPoint, static function (rex_extension_point $ep) use ($messageCallback, $type, $additionalParams) {
+        $source = $this->getSource();
+        rex_extension::register($extensionPoint, static function (rex_extension_point $ep) use ($messageCallback, $type, $additionalParams, $source) {
             $params = $ep->getParams();
             $message = '';
 
@@ -64,6 +73,7 @@ trait EpTrait
 
             Activity::message($message)
                 ->type($type)
+                ->source($source)
                 ->causer(rex::getUser())
                 ->log();
         });

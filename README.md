@@ -8,6 +8,9 @@ use FriendsOfREDAXO\ActivityLog\Activity;
 
 Activity::message('Hello World!')->type(Activity::TYPE_INFO)->log();
 Activity::message('He did something :O')->type(Activity::TYPE_WARNING)->causer(rex::getUser())->log();
+
+// Optional: Quelle setzen (erscheint als Filter-Spalte im Backend)
+Activity::message('Datensatz importiert')->type(Activity::TYPE_ADD)->source('mein-addon')->log();
 ```
 
 > **Hinweis zur Abwärtskompatibilität:** Die alte Klasse `rex_activity` bleibt als BC-Stub erhalten und kann weiter verwendet werden – ein Update bestehenden Codes ist nicht erforderlich.
@@ -23,6 +26,21 @@ Einträge können jederzeit manuell im Activity Log gelöscht werden.
 Weiter gibt es die Möglichkeit die Einträge über das **Cronjob Addon** automatisiert zu löschen. Es stehen verschiedene Zeiträume zur Auswahl.
 
 Über den Console-Befehl `activity:clear` können die Einträge auch manuell gelöscht werden.
+
+---
+
+#### Quelle (Source):
+
+Jedem Log-Eintrag kann optional eine Quelle zugewiesen werden. Diese erscheint als eigene Spalte in der Übersicht und kann als Filter genutzt werden.
+
+Die internen Extension-Point-Handler setzen die Quelle automatisch (z. B. `article`, `media`, `yform`). Für eigene Logs einfach `->source()` in der Kette ergänzen:
+
+```php
+Activity::message('Import abgeschlossen')
+    ->type(Activity::TYPE_INFO)
+    ->source('mein-addon')
+    ->log();
+```
 
 ---
 
