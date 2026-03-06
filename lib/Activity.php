@@ -61,7 +61,8 @@ class Activity
         /**
          * Return if user is admin and addon config is set.
          */
-        if (self::$addon->getConfig('disable_for_admins') && rex::getUser()->isAdmin()) {
+        $currentUser = rex::getUser();
+        if (self::$addon->getConfig('disable_for_admins') && null !== $currentUser && $currentUser->isAdmin()) {
             return;
         }
 
