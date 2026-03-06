@@ -164,6 +164,30 @@ Die alten Klassennamen sind als BC-Stubs erhalten und können weiterhin verwende
 
 ---
 
+## Autor
+
+**Friends Of REDAXO**
+
+* https://www.redaxo.org
+* https://github.com/FriendsOfREDAXO
+
+---
+
+## Credits
+
+**Project Lead**
+
+[Thorben Berger (eaCe)](https://github.com/eaCe)
+
+**Weitere Mitwirkende**
+
+[Thomas Skerbis](https://github.com/skerbis),
+Andreas Eberhard,
+Oliver Kreischer,
+Norbert Micheel
+
+---
+
 ## Lizenz
 
 MIT – siehe [LICENSE](LICENSE)
