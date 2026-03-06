@@ -1,15 +1,18 @@
 <?php
 
+use FriendsOfREDAXO\ActivityLog\ActivityLogCronjob;
+use FriendsOfREDAXO\ActivityLog\EP\ActivityExtensionPoints;
+
 if (rex::isBackend() && is_object(rex::getUser())) {
     /** @var rex_addon $this */
     rex_view::addCssFile($this->getAssetsUrl('css/styles.css'));
 
     /**
-     * hook into extension points.
+     * Hook into extension points.
      */
-    new \RexActivity\EP\rex_activity_extension_points();
+    new ActivityExtensionPoints();
 }
 
 if (rex_addon::get('cronjob')->isAvailable() && !rex::isSafeMode()) {
-    rex_cronjob_manager::registerType('rex_activity_log_cronjob');
+    rex_cronjob_manager::registerType(ActivityLogCronjob::class);
 }

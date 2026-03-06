@@ -1,0 +1,115 @@
+<?php
+
+namespace FriendsOfREDAXO\ActivityLog\EP;
+
+use rex;
+use rex_addon_interface;
+use rex_article;
+use rex_clang;
+use rex_sql;
+use rex_sql_exception;
+use rex_url;
+
+use function is_bool;
+
+class Slice
+{
+    use EpTrait;
+
+    /** @var rex_addon_interface */
+    private static $addon;
+
+    public function __construct()
+    {
+        self::$addon = $this->addon();
+
+        /** @phpstan-ignore-next-line */
+        if (is_bool(self::$addon->getConfig('slice_added')) && self::$addon->getConfig('slice_added')) {
+            $this->add('SLICE_ADDED', static::class . '::message');
+        }
+
+        /** @phpstan-ignore-next-line */
+        if (is_bool(self::$addon->getConfig('slice_updated')) && self::$addon->getConfig('slice_updated')) {
+            $this->update('SLICE_UPDATED', static::class . '::message');
+        }
+
+        /** @phpstan-ignore-next-line */
+        if (is_bool(self::$addon->getConfig('slice_deleted')) && self::$addon->getConfig('slice_deleted')) {
+            $this->delete('SLICE_DELETED', static::class . '::message');
+        }
+
+        /** @phpstan-ignore-next-line */
+        if (is_bool(self::$addon->getConfig('slice_moved')) && self::$addon->getConfig('slice_moved')) {
+            $this->move('SLICE_MOVE', static::class . '::message');
+        }
+    }
+
+    /**
+     * @param array<string> $params
+     * @param array<string>|null $additionalParams
+     * @throws rex_sql_exception
+     */
+    public static function message(array $params, string $type, ?array $additionalParams = null): string
+    {
+        if (isset($additionalParams['type']) && 'move' === $additionalParams['type']) {
+            $slice = rex_sql::factory()->getArray(
+                'SELECT id, ctype_id, module_id FROM ' . rex::getTable('article_slice') . ' WHERE id = ' . (int) $params['slice_id']
+            );
+
+            if (!empty($slice)) {
+                $params['module_id'] = $slice[0]['module_id'];
+                $params['ctype'] = $slice[0]['ctype_id'];
+            }
+        }
+
+        $module = rex_sql::factory()->getArray(
+            'SELECT * FROM ' . rex::getTable('module') . ' WHERE id = ' . (int) $params['module_id']
+        );
+
+        $clangId = $params['clang_id'] ?? $params['clang'] ?? rex_clang::getCurrentId();
+
+        $message = '<strong>Slice:</strong> ';
+        $message .= '<a href="' . rex_url::backendController([
+            'page' => 'content/edit',
+            'article_id' => $params['article_id'],
+            'slice_id' => $params['slice_id'],
+            'clang_id' => $clangId,
+            'ctype' => $params['ctype'],
+            'function' => 'edit',
+        ]) . '">';
+        $message .= $module[0]['name'] ?? '[' . $params['module_id'] . ']';
+        $message .= '</a>';
+
+        if (isset($additionalParams['type'])) {
+            $message .= ' ' . self::$addon->i18n('type_' . $additionalParams['type']);
+        } else {
+            $message .= ' ' . self::$addon->i18n('type_' . $type);
+        }
+
+        /** @var rex_article|null $article */
+        $article = rex_article::get((int) $params['article_id']);
+
+        if (null !== $article) {
+            $message .= ' - ';
+            $message .= '<a href="' . rex_url::backendController([
+                'page' => 'content/edit',
+                'article_id' => $article->getId(),
+                'category_id' => $article->getCategoryId(),
+                'clang_id' => $clangId,
+                'mode' => 'edit',
+            ]) . '">';
+            $message .= $article->getName();
+            $message .= '</a>';
+        }
+
+        if (isset($additionalParams['type'], $params['direction'])) {
+            if ('moveup' === $params['direction']) {
+                $message .= '  <span class="small"><i class="rex-icon rex-icon-up"></i></span>';
+            } elseif ('movedown' === $params['direction']) {
+                $message .= '  <span class="small"><i class="rex-icon rex-icon-down"></i></span>';
+            }
+        }
+
+        return $message;
+    }
+}

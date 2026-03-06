@@ -1,5 +1,5 @@
 package: activity_log
-version: "0.1.0"
+version: "0.2.0"
 name: Activity Log
 author: FriendsOfREDAXO
 supportpage: https://github.com/FriendsOfREDAXO/activity_log
@@ -19,7 +19,7 @@ pages:
     perm: admin
 
 console_commands:
-  activity:clear: activity_clear
+  activity:clear: 'FriendsOfREDAXO\ActivityLog\ActivityClear'
 
 requires:
   redaxo: ^5.12.0
