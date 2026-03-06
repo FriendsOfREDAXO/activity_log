@@ -1,8 +1,5 @@
 # Activity Log für REDAXO 5
 
-[![PHP checks](https://github.com/FriendsOfREDAXO/activity_log/actions/workflows/phpunit.yml/badge.svg)](https://github.com/FriendsOfREDAXO/activity_log/actions/workflows/phpunit.yml)
-[![PHP-CS-Fixer](https://github.com/FriendsOfREDAXO/activity_log/actions/workflows/cs-fixer.yml/badge.svg)](https://github.com/FriendsOfREDAXO/activity_log/actions/workflows/cs-fixer.yml)
-
 Protokolliert Aktivitäten im REDAXO-Backend und stellt sie übersichtlich dar. Eigene Addons können beliebige Log-Einträge schreiben. Darüber hinaus lassen sich bekannte REDAXO-Ereignisse (Artikel, Medien, User usw.) automatisch über Extension Points erfassen.
 
 ![activity_log](https://user-images.githubusercontent.com/2708231/163674949-76762489-3217-4d2f-8bbc-d89494f723c7.png)
