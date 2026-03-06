@@ -187,10 +187,11 @@ class Activity
 
     /**
      * Delete entries older than the given number of days.
+     * Optionally restricted to a specific source (e.g. 'article', 'media').
      *
      * @throws rex_sql_exception
      */
-    public static function clearEntries(int $daysToKeep = 7): void
+    public static function clearEntries(int $daysToKeep = 7, ?string $source = null): void
     {
         if (self::$addon->getConfig('cleared')) {
             return;
@@ -200,15 +201,20 @@ class Activity
         $now->modify('-' . $daysToKeep . ' day');
         $date = $now->format('Y-m-d H:i:s');
 
+        $where = "created_at <= '$date'";
+        if (null !== $source && '' !== $source) {
+            $where .= ' AND source = ' . rex_sql::factory()->escape($source);
+        }
+
         $sql = rex_sql::factory();
         $sql->setTable(self::$table);
-        $sql->setWhere("created_at <= '$date'");
+        $sql->setWhere($where);
         $sql->select('id');
 
         if ($sql->getRows()) {
             $deleteSql = rex_sql::factory();
             $deleteSql->setTable(self::$table);
-            $deleteSql->setWhere("created_at <= '$date'");
+            $deleteSql->setWhere($where);
             $deleteSql->delete();
 
             self::$addon->setConfig('cleared', true);

@@ -35,3 +35,6 @@ activity_log_col_user = User
 activity_log_filter_search = Search
 activity_log_filter_search_placeholder = Search in messages ...
 activity_log_filter_apply = Apply filter
+
+activity_log_cronjob_source = Source
+activity_log_cronjob_source_all = All sources

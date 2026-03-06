@@ -19,20 +19,26 @@ class ActivityLogCronjob extends rex_cronjob
     public function execute(): bool
     {
         $daysToKeep = (int) $this->getParam('days_to_keep', 7);
+        $source = (string) $this->getParam('source', '');
 
         $now = new DateTime();
         $now->modify('-' . $daysToKeep . ' day');
         $date = $now->format('Y-m-d H:i:s');
 
+        $where = "created_at <= '$date'";
+        if ('' !== $source) {
+            $where .= ' AND source = ' . rex_sql::factory()->escape($source);
+        }
+
         $sql = rex_sql::factory();
         $sql->setTable(rex::getTable('activity_log'));
-        $sql->setWhere("created_at <= '$date'");
+        $sql->setWhere($where);
         $sql->select('id');
 
         if ($sql->getRows()) {
             $deleteSql = rex_sql::factory();
             $deleteSql->setTable(rex::getTable('activity_log'));
-            $deleteSql->setWhere("created_at <= '$date'");
+            $deleteSql->setWhere($where);
             $deleteSql->delete();
             $this->setMessage(rex_i18n::msg('activity_log_cron_deleted'));
         } else {
@@ -69,6 +75,28 @@ class ActivityLogCronjob extends rex_cronjob
                     7  => rex_i18n::msg('activity_log_cronjob_clean_plur', 7),
                     14 => rex_i18n::msg('activity_log_cronjob_clean_plur', 14),
                     30 => rex_i18n::msg('activity_log_cronjob_clean_plur', 30),
+                    90 => rex_i18n::msg('activity_log_cronjob_clean_plur', 90),
+                    180 => rex_i18n::msg('activity_log_cronjob_clean_plur', 180),
+                    365 => rex_i18n::msg('activity_log_cronjob_clean_plur', 365),
+                ],
+            ],
+            [
+                'label' => rex_i18n::msg('activity_log_cronjob_source'),
+                'name' => 'source',
+                'type' => 'select',
+                'default' => '',
+                'options' => [
+                    '' => rex_i18n::msg('activity_log_cronjob_source_all'),
+                    'article'  => 'Article',
+                    'category' => 'Category',
+                    'clang'    => 'Clang',
+                    'media'    => 'Media',
+                    'meta'     => 'Meta',
+                    'module'   => 'Module',
+                    'slice'    => 'Slice',
+                    'template' => 'Template',
+                    'user'     => 'User',
+                    'yform'    => 'YForm',
                 ],
             ],
         ];
