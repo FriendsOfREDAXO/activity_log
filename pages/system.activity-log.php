@@ -36,7 +36,7 @@ $source = rex_get('source', 'string', '');
 $search = rex_get('search', 'string', '');
 $clear = rex_get('clear_filter', 'string', '');
 
-$query = 'SELECT id,created_at,type,message,causer_id,source FROM ' . $table;
+$query = 'SELECT id,created_at,source,type,message,causer_id FROM ' . $table;
 $where = [];
 
 if ($clear) {

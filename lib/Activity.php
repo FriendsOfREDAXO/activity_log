@@ -136,11 +136,16 @@ class Activity
             $user = rex_user::get($params['subject']);
 
             if (null === $user) {
-                return '<a href="#" class="btn btn-sm btn-primary rex-activity-btn-disabled"><i class="rex-icon rex-icon-user"></i> ' . self::$addon->i18n('deleted_user') . ' [' . $params['subject'] . ']</a>';
+                return rex_escape(self::$addon->i18n('deleted_user') . ' [' . $params['subject'] . ']');
             }
 
             $name = rex_escape('' !== $user->getName() ? $user->getName() : $user->getLogin());
-            return '<a class="btn btn-sm btn-primary" href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $name . '"><i class="rex-icon rex-icon-user"></i> ' . $name . '</a>';
+
+            if (rex::getUser() instanceof rex_user && rex::getUser()->isAdmin()) {
+                return '<a class="btn btn-sm btn-primary" href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $name . '"><i class="rex-icon rex-icon-user"></i> ' . $name . '</a>';
+            }
+
+            return '<i class="rex-icon rex-icon-user"></i> ' . $name;
         }
 
         return '';
