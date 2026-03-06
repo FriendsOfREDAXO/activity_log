@@ -1,30 +1,33 @@
 package: activity_log
-version: "0.1.0"
+version: "1.0.0-beta1"
 name: Activity Log
 author: FriendsOfREDAXO
 supportpage: https://github.com/FriendsOfREDAXO/activity_log
 
 page:
     title: translate:title
-    perm: admin
+    perm: activity_log[]
     icon: rex-icon fa-list-alt
     subpages:
-        system.activity-log: { title: 'translate:activity_log_title' }
-        settings: { title: translate:settings }
+        system.activity-log: { title: 'translate:activity_log_title', perm: 'activity_log[]' }
+        settings: { title: translate:settings, perm: admin }
         help: { title: translate:help, subPath: README.md, icon: rex-icon fa-question-circle, itemclass: pull-right }
 
 pages:
   system/activity-log:
     title: 'translate:activity_log_title'
-    perm: admin
+    perm: activity_log[]
+
+permissions:
+  - activity_log[]
 
 console_commands:
-  activity:clear: activity_clear
+  activity:clear: 'FriendsOfRedaxo\ActivityLog\ActivityClear'
 
 requires:
-  redaxo: ^5.12.0
+  redaxo: ^5.20.0
   php:
-    version: '>=8.0'
+    version: '>=8.2'
 
 default_config:
   'article_added': false

@@ -13,25 +13,19 @@ jobs:
   cs-fixer:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # for Git to git apply
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
-          extensions: gd, intl, pdo_mysql
-          coverage: none # disable xdebug, pcov
+          php-version: '8.4'
+          extensions: gd, intl
+          coverage: none
 
-      # install dependencies from composer.json
-      - name: Install test dependencies
-        env:
-          COMPOSER: composer.json
-        run: composer install --prefer-dist --no-progress
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-scripts
 
-      # run php-cs-fixer, fix code styles
       - name: Run PHP CS Fixer
         run: composer cs-dry

@@ -18,10 +18,9 @@
     "url": "https://github.com/FriendsOfREDAXO/activity_log/issues"
   },
   "homepage": "https://github.com/FriendsOfREDAXO/activity_log#readme",
-  "dependencies": {
-    "nightwatch": "^3.6.2"
-  },
   "devDependencies": {
-    "geckodriver": "^3.0.2"
+    "geckodriver": "^6.1.0",
+    "lodash": "^4.17.23",
+    "nightwatch": "^3.15.0"
   }
 }

@@ -13,18 +13,16 @@ jobs:
   e2e:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # for Git to git apply
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.4'
           extensions: gd, intl, pdo_mysql
-          coverage: none # disable xdebug, pcov
+          coverage: none
 
       # credits https://blog.markvincze.com/download-artifacts-from-a-latest-github-release-in-sh-and-powershell/
       - name: Download latest REDAXO release
@@ -40,11 +38,16 @@ jobs:
         run: |
           sudo /etc/init.d/mysql start
           mysql -uroot -h127.0.0.1 -proot -e 'create database redaxo5;'
-          git apply .github/workflows/default.config.yml.github-action.diff
 
       - name: Setup REDAXO
         run: |
-          php redaxo_cms/redaxo/bin/console setup:run -n --lang=de_de --agree-license --db-password=root --db-createdb=no --db-setup=normal --admin-username=admin --admin-password=adminpassword --error-email=test@redaxo.invalid --ansi
+          php redaxo_cms/redaxo/bin/console setup:run -n --lang=de_de --agree-license \
+            --db-host=127.0.0.1 --db-name=redaxo5 --db-password=root \
+            --db-createdb=no --db-setup=normal \
+            --admin-username=admin --admin-password=adminpassword \
+            --error-email=test@redaxo.invalid --ansi
+          php redaxo_cms/redaxo/bin/console config:set --type boolean debug.enabled true
+          php redaxo_cms/redaxo/bin/console config:set --type boolean debug.throw_always_exception true
 
       - name: Create user, update config
         run: |
@@ -63,9 +66,9 @@ jobs:
           redaxo_cms/redaxo/bin/console package:install '${{ github.event.repository.name }}'
 
       - name: Setup nodejs
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "16.x"
+          node-version: "20.x"
           cache: 'npm'
           cache-dependency-path: package-lock.json
 

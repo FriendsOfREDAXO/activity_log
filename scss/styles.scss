@@ -42,6 +42,24 @@
             }
           }
         }
+
+        // Row coloring by type (uses :has() – supported in all modern browsers)
+        &:has(.badge.error),
+        &:has(.badge.delete) {
+          background-color: rgba(220, 53, 69, 0.07) !important;
+        }
+
+        &:has(.badge.warning) {
+          background-color: rgba(255, 167, 0, 0.08) !important;
+        }
+
+        &:has(.badge.critical) {
+          background-color: rgba(196, 0, 196, 0.07) !important;
+        }
+
+        &:has(.badge.add) {
+          background-color: rgba(40, 167, 69, 0.07) !important;
+        }
       }
     }
   }
@@ -51,6 +69,27 @@
     pointer-events: none;
     cursor: not-allowed;
     opacity: 0.6;
+  }
+
+  // Source badges
+  &-source {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #fff;
+    background-color: #6c757d;
+
+    &-article   { background-color: #4b9ad9; }
+    &-category  { background-color: #5a6fd6; }
+    &-slice     { background-color: #6db3e8; }
+    &-meta      { background-color: #7baed4; }
+    &-media     { background-color: #20c997; }
+    &-user      { background-color: #fd7e14; }
+    &-template  { background-color: #6f42c1; }
+    &-module    { background-color: #795548; }
+    &-clang     { background-color: #17a2b8; }
+    &-yform     { background-color: #e83e8c; }
   }
 }
 
@@ -69,7 +108,45 @@ form#activity-log-settings {
 }
 
 body.rex-theme-dark {
+  .rex-activity-table tbody tr {
+    &:has(.badge.error),
+    &:has(.badge.delete) {
+      background-color: rgba(220, 53, 69, 0.15) !important;
+    }
+
+    &:has(.badge.warning) {
+      background-color: rgba(255, 167, 0, 0.12) !important;
+    }
+
+    &:has(.badge.critical) {
+      background-color: rgba(196, 0, 196, 0.13) !important;
+    }
+
+    &:has(.badge.add) {
+      background-color: rgba(40, 167, 69, 0.12) !important;
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
+  body.rex-has-theme:not(.rex-theme-light) {
+    .rex-activity-table tbody tr {
+      &:has(.badge.error),
+      &:has(.badge.delete) {
+        background-color: rgba(220, 53, 69, 0.15) !important;
+      }
+
+      &:has(.badge.warning) {
+        background-color: rgba(255, 167, 0, 0.12) !important;
+      }
+
+      &:has(.badge.critical) {
+        background-color: rgba(196, 0, 196, 0.13) !important;
+      }
+
+      &:has(.badge.add) {
+        background-color: rgba(40, 167, 69, 0.12) !important;
+      }
+    }
+  }
 }
