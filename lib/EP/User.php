@@ -48,8 +48,8 @@ class User
         $message .= '<a href="' . rex_url::backendController([
             'page' => 'users/users',
             'user_id' => $params['user']->getId(),
-        ]) . '" title="' . $params['user']->getName() . '">';
-        $message .= $params['user']->getName();
+        ]) . '" title="' . rex_escape($params['user']->getName()) . '">';
+        $message .= rex_escape($params['user']->getName());
         $message .= '</a>';
         $message .= ' - ';
         $message .= self::$addon->i18n('type_' . $type);

@@ -2,7 +2,6 @@
 
 namespace FriendsOfRedaxo\ActivityLog\EP;
 
-use rex_addon;
 use rex_addon_interface;
 use rex_article;
 use rex_url;
@@ -57,7 +56,7 @@ class Article
         // Do NOT call rex_article::get() for delete – the record is already gone
         // from DB when ART_DELETED fires, causing an SQL conflict.
         if ('delete' === $type) {
-            $message .= $params['name'] ?? '[' . $params['id'] . ']';
+            $message .= rex_escape($params['name'] ?? '[' . $params['id'] . ']');
             $message .= ' - ' . self::$addon->i18n('type_' . $type);
             return $message;
         }
@@ -66,7 +65,7 @@ class Article
         $article = rex_article::get((int) $params['id']);
 
         if (null === $article) {
-            $message .= $params['name'] ?? '[' . $params['id'] . ']';
+            $message .= rex_escape($params['name'] ?? '[' . $params['id'] . ']');
         } else {
             $message .= '<a href="' . rex_url::backendController([
                 'page' => 'content/edit',
@@ -75,7 +74,7 @@ class Article
                 'clang_id' => $params['clang'] ?? \rex_clang::getCurrentId(),
                 'mode' => 'edit',
             ]) . '">';
-            $message .= $article->getName();
+            $message .= rex_escape($article->getName());
             $message .= '</a>';
         }
 

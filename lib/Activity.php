@@ -146,7 +146,7 @@ class Activity
                 return '<a href="#" class="btn btn-sm btn-primary rex-activity-btn-disabled"><i class="rex-icon rex-icon-user"></i> ' . self::$addon->i18n('deleted_user') . ' [' . $params['subject'] . ']</a>';
             }
 
-            $name = '' !== $user->getName() ? $user->getName() : $user->getLogin();
+            $name = rex_escape('' !== $user->getName() ? $user->getName() : $user->getLogin());
             return '<a class="btn btn-sm btn-primary" href="' . rex_url::backendController(['page' => 'users/users', 'user_id' => $user->getId()]) . '" title="' . $name . '"><i class="rex-icon rex-icon-user"></i> ' . $name . '</a>';
         }
 
@@ -182,7 +182,7 @@ class Activity
         if ('' === $source || null === $source) {
             return '<span class="text-muted">–</span>';
         }
-        return '<span class="badge rex-activity-source rex-activity-source-' . htmlspecialchars($source) . '">' . htmlspecialchars(ucfirst($source)) . '</span>';
+        return '<span class="badge rex-activity-source rex-activity-source-' . rex_escape($source) . '">' . rex_escape(ucfirst($source)) . '</span>';
     }
 
     /**

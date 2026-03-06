@@ -57,7 +57,7 @@ class Category
         // Do NOT call rex_category::get() for delete – the record is already gone
         // from DB when CAT_DELETED fires, causing an SQL conflict.
         if ('delete' === $type) {
-            $message .= $params['name'] ?? '[' . $params['id'] . ']';
+            $message .= rex_escape($params['name'] ?? '[' . $params['id'] . ']');
             $message .= ' - ' . self::$addon->i18n('type_' . $type);
             return $message;
         }
@@ -65,7 +65,7 @@ class Category
         $category = rex_category::get((int) $params['id']);
 
         if (null === $category) {
-            $message .= $params['name'] ?? '[' . $params['id'] . ']';
+            $message .= rex_escape($params['name'] ?? '[' . $params['id'] . ']');
         } else {
             $message .= '<a href="' . rex_url::backendController([
                 'page' => 'structure',
@@ -73,7 +73,7 @@ class Category
                 'category_id' => $params['id'],
                 'clang_id' => $params['clang'] ?? rex_clang::getCurrentId(),
             ]) . '">';
-            $message .= $category->getName();
+            $message .= rex_escape($category->getName());
             $message .= '</a>';
         }
 

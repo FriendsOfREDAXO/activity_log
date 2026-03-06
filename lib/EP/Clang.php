@@ -3,7 +3,6 @@
 namespace FriendsOfRedaxo\ActivityLog\EP;
 
 use rex_addon_interface;
-use rex_clang;
 use rex_url;
 
 use function is_bool;
@@ -47,7 +46,7 @@ class Clang
     {
         $message = '<strong>Language:</strong> ';
         $message .= '<a href="' . rex_url::backendController(['page' => 'system/lang']) . '">';
-        $message .= $params['name'];
+        $message .= rex_escape($params['name']);
         $message .= '</a>';
         $message .= ' - ';
         $message .= self::$addon->i18n('type_' . $type);

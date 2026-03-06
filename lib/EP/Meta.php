@@ -54,7 +54,7 @@ class Meta
             'clang_id' => $clangId,
             'mode' => 'edit',
         ]) . '">';
-        $message .= $article ? $article->getName() : '[' . $params['id'] . ']';
+        $message .= rex_escape($article ? $article->getName() : '[' . $params['id'] . ']');
         $message .= '</a>';
         $message .= ' - ';
         $message .= self::$addon->i18n('type_' . $type);

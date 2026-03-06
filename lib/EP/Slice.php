@@ -82,7 +82,7 @@ class Slice
             'ctype' => $params['ctype'],
             'function' => 'edit',
         ]) . '">';
-        $message .= $module[0]['name'] ?? '[' . $params['module_id'] . ']';
+        $message .= rex_escape($module[0]['name'] ?? '[' . $params['module_id'] . ']');
         $message .= '</a>';
 
         if (isset($additionalParams['type'])) {
@@ -103,7 +103,7 @@ class Slice
                 'clang_id' => $clangId,
                 'mode' => 'edit',
             ]) . '">';
-            $message .= $article->getName();
+            $message .= rex_escape($article->getName());
             $message .= '</a>';
         }
 

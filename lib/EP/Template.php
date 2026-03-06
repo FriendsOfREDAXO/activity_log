@@ -54,7 +54,7 @@ class Template
                 'template_id' => $params['id'],
                 'function' => 'edit',
             ]) . '">';
-            $message .= $params['name'];
+            $message .= rex_escape($params['name']);
             $message .= '</a>';
         }
 
