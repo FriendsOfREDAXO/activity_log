@@ -86,7 +86,7 @@ class Activity
     /**
      * Set message.
      */
-    public static function message(string $message): ?static
+    public static function message(string $message): ?self
     {
         self::$message = $message;
         return self::$activity;
@@ -95,7 +95,7 @@ class Activity
     /**
      * Set type (default: notice).
      */
-    public static function type(string $type): ?static
+    public static function type(string $type): ?self
     {
         self::$type = $type;
         return self::$activity;
@@ -104,7 +104,7 @@ class Activity
     /**
      * Set source (e.g. 'article', 'yform', 'media').
      */
-    public static function source(string $source): ?static
+    public static function source(string $source): ?self
     {
         self::$source = $source;
         return self::$activity;
@@ -115,7 +115,7 @@ class Activity
      *
      * @param rex_user|int $user
      */
-    public static function causer($user): ?static
+    public static function causer($user): ?self
     {
         if (is_numeric($user)) {
             self::$causer = (int) $user;
