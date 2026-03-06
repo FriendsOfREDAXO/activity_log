@@ -58,7 +58,6 @@ trait EpTrait
     }
 
     /**
-     * @param string|callable|null $messageCallback
      * @param array<string, mixed>|null $additionalParams
      */
     public function logExtensionPoint(string $type, string $extensionPoint, string|callable|null $messageCallback = null, ?array $additionalParams = null): void

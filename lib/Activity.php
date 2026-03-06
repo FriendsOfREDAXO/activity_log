@@ -11,6 +11,9 @@ use rex_sql_exception;
 use rex_url;
 use rex_user;
 
+use function assert;
+use function is_int;
+
 class Activity
 {
     public const TYPE_INFO = 'info';
@@ -116,8 +119,6 @@ class Activity
 
     /**
      * Set causer.
-     *
-     * @param rex_user|int|null $user
      */
     public static function causer(rex_user|int|null $user): self
     {
