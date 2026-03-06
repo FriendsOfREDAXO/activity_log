@@ -2,6 +2,11 @@
 
 ## [1.0.0-beta2] – 2026-03-06
 
+### Bugfixes
+
+- **`ART_ADDED` doppelter Log-Eintrag bei Mehrsprachigkeit**: REDAXO feuert `ART_ADDED` einmal pro Sprache – neuer Artikel wird jetzt nur einmal geloggt (`static $logged` Deduplication).
+- **`CAT_ADDED` / `CAT_DELETED` doppelter Log-Eintrag bei Mehrsprachigkeit**: Gleiche Deduplication-Logik wie bei Artikeln auf Kategorien ausgeweitet.
+
 ### Technisches
 
 - **PHPStan Level 8 – 0 Fehler**: Komplette Typbereinigung aller Addon-Klassen und Fragmente.
