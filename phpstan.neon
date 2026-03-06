@@ -1,0 +1,13 @@
+includes:
+    - ../../../../phpstan.dist.neon
+
+parameters:
+    paths:
+        - lib/
+        - pages/
+    excludePaths:
+        analyse:
+            # BC-Stub-Dateien nicht einzeln analysieren – werden als Alias der neuen Klassen geladen
+            - lib/extension_points/
+            # eigene vendor-Abhängigkeiten
+            - vendor/
