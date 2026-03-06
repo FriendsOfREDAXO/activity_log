@@ -45,7 +45,7 @@ $colButtons = 'col-sm-3';
             <label for="filter_source"><?= rex_i18n::msg('activity_log_col_source') ?></label>
             <select class="form-control selectpicker" name="source" id="filter_source" title="-">
                 <?php foreach ($sources as $row) : ?>
-                    <option <?= ($this->source ?? '') === $row['source'] ? 'selected' : '' ?> value="<?= htmlspecialchars($row['source']) ?>"><?= htmlspecialchars(ucfirst($row['source'])) ?></option>
+                    <option <?= ($this->source ?? '') === $row['source'] ? 'selected' : '' ?> value="<?= htmlspecialchars((string) $row['source']) ?>"><?= htmlspecialchars(ucfirst((string) $row['source'])) ?></option>
                 <?php endforeach ?>
             </select>
         </div>

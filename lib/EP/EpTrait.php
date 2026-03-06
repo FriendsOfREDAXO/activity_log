@@ -32,35 +32,36 @@ trait EpTrait
         return '';
     }
 
-    public function add(string $extensionPoint, callable $messageCallback): void
+    public function add(string $extensionPoint, string|callable $messageCallback): void
     {
         $this->logExtensionPoint(Activity::TYPE_ADD, $extensionPoint, $messageCallback);
     }
 
-    public function delete(string $extensionPoint, callable $messageCallback): void
+    public function delete(string $extensionPoint, string|callable $messageCallback): void
     {
         $this->logExtensionPoint(Activity::TYPE_DELETE, $extensionPoint, $messageCallback);
     }
 
-    public function update(string $extensionPoint, callable $messageCallback): void
+    public function update(string $extensionPoint, string|callable $messageCallback): void
     {
         $this->logExtensionPoint(Activity::TYPE_UPDATE, $extensionPoint, $messageCallback);
     }
 
-    public function status(string $extensionPoint, callable $messageCallback): void
+    public function status(string $extensionPoint, string|callable $messageCallback): void
     {
         $this->logExtensionPoint(Activity::TYPE_EDIT, $extensionPoint, $messageCallback, ['type' => 'status']);
     }
 
-    public function move(string $extensionPoint, callable $messageCallback): void
+    public function move(string $extensionPoint, string|callable $messageCallback): void
     {
         $this->logExtensionPoint(Activity::TYPE_UPDATE, $extensionPoint, $messageCallback, ['type' => 'move']);
     }
 
     /**
-     * @param array<string>|null $additionalParams
+     * @param string|callable|null $messageCallback
+     * @param array<string, mixed>|null $additionalParams
      */
-    public function logExtensionPoint(string $type, string $extensionPoint, ?callable $messageCallback = null, ?array $additionalParams = null): void
+    public function logExtensionPoint(string $type, string $extensionPoint, string|callable|null $messageCallback = null, ?array $additionalParams = null): void
     {
         $source = $this->getSource();
         rex_extension::register($extensionPoint, static function (rex_extension_point $ep) use ($messageCallback, $type, $additionalParams, $source) {
@@ -79,6 +80,9 @@ trait EpTrait
         });
     }
 
+    /**
+     * @param array<string, mixed>|null $additionalParams
+     */
     public static function getStatus(bool $status, ?array $additionalParams): string
     {
         if (isset($additionalParams['type']) && 'status' === $additionalParams['type']) {

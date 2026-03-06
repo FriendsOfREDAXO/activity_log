@@ -5,6 +5,8 @@ namespace FriendsOfRedaxo\ActivityLog\EP;
 use rex_addon_interface;
 use rex_csrf_token;
 use rex_url;
+
+/** @phpstan-ignore class.notFound */
 use rex_yform_manager_table;
 
 use function is_bool;
@@ -42,26 +44,30 @@ class Yform
     }
 
     /**
-     * @param array<string> $params
-     * @param array<string>|null $additionalParams
+     * @param array<string, mixed> $params
+     * @param array<string, mixed>|null $additionalParams
      */
     public static function message(array $params, string $type, ?array $additionalParams = null): string
     {
-        /** @var rex_yform_manager_table $table */
+        /** @var rex_yform_manager_table $table @phpstan-ignore varTag.nativeType */
         $table = $params['table'];
         $message = '<strong>YForm Dataset:</strong> ';
 
         if ('delete' === $type) {
+            /** @phpstan-ignore method.notFound */
             $message .= $table->getTableName() . ' - [' . $params['data_id'] . ']';
         } else {
+            /** @phpstan-ignore method.notFound */
             $csrfKey = $table->getCSRFKey();
             $urlParams = [
+                /** @phpstan-ignore method.notFound */
                 'table_name' => $table->getTableName(),
                 'data_id' => $params['data_id'],
                 'func' => 'edit',
             ];
             $urlParams += rex_csrf_token::factory($csrfKey)->getUrlParams();
             $message .= '<a href="' . rex_url::backendPage('yform/manager/data_edit', $urlParams) . '">';
+            /** @phpstan-ignore method.notFound */
             $message .= $table->getTableName() . ' - [' . $params['data_id'] . ']';
             $message .= '</a>';
         }

@@ -1,13 +1,16 @@
-includes:
-    - ../../../../phpstan.dist.neon
-
 parameters:
+    level: 8
+    phpVersion: 80200
+    treatPhpDocTypesAsCertain: false
     paths:
         - lib/
         - pages/
+        - fragments/
     excludePaths:
         analyse:
-            # BC-Stub-Dateien nicht einzeln analysieren – werden als Alias der neuen Klassen geladen
-            - lib/extension_points/
-            # eigene vendor-Abhängigkeiten
             - vendor/
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # rex_yform_manager_table is part of yform (optional addon, not installed in analysis environment)
+        - message: '#rex_yform_manager_table#'
+          path: lib/EP/Yform.php

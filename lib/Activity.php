@@ -24,13 +24,12 @@ class Activity
     public const TYPE_EDIT = 'edit';
     public const TYPE_DELETE = 'delete';
 
-    /** @var rex_addon|null */
-    private static $addon;
-    private static $table = '';
-    private static $activity;
-    private static $message;
-    private static $type;
-    private static $causer;
+    private static rex_addon $addon;
+    private static string $table = '';
+    private static ?self $activity = null;
+    private static ?string $message = null;
+    private static ?string $type = null;
+    private static ?int $causer = null;
     private static ?string $source = null;
 
     /**
@@ -39,11 +38,13 @@ class Activity
     public static function __constructStatic(): void
     {
         self::$table = rex::getTable('activity_log');
-        self::$addon = rex_addon::get('activity_log');
+        $addon = rex_addon::get('activity_log');
+        assert($addon instanceof rex_addon);
+        self::$addon = $addon;
         self::$addon->setConfig('cleared', false);
 
         if (null === self::$activity) {
-            self::$activity = new static();
+            self::$activity = new self();
         }
     }
 
@@ -86,48 +87,54 @@ class Activity
     /**
      * Set message.
      */
-    public static function message(string $message): ?self
+    public static function message(string $message): self
     {
         self::$message = $message;
+        assert(null !== self::$activity);
         return self::$activity;
     }
 
     /**
      * Set type (default: notice).
      */
-    public static function type(string $type): ?self
+    public static function type(string $type): self
     {
         self::$type = $type;
+        assert(null !== self::$activity);
         return self::$activity;
     }
 
     /**
      * Set source (e.g. 'article', 'yform', 'media').
      */
-    public static function source(string $source): ?self
+    public static function source(string $source): self
     {
         self::$source = $source;
+        assert(null !== self::$activity);
         return self::$activity;
     }
 
     /**
      * Set causer.
      *
-     * @param rex_user|int $user
+     * @param rex_user|int|null $user
      */
-    public static function causer($user): ?self
+    public static function causer(rex_user|int|null $user): self
     {
-        if (is_numeric($user)) {
-            self::$causer = (int) $user;
+        if (is_int($user)) {
+            self::$causer = $user;
         } elseif ($user instanceof rex_user) {
             self::$causer = $user->getId();
         }
 
+        assert(null !== self::$activity);
         return self::$activity;
     }
 
     /**
      * List callback – user column.
+     *
+     * @param array<string, mixed> $params
      */
     public static function userListCallback(array $params): string
     {
@@ -153,6 +160,8 @@ class Activity
 
     /**
      * List callback – type column.
+     *
+     * @param array<string, mixed> $params
      */
     public static function typeListCallback(array $params): string
     {
@@ -165,6 +174,8 @@ class Activity
 
     /**
      * List callback – message column.
+     *
+     * @param array<string, mixed> $params
      */
     public static function messageListCallback(array $params): string
     {
@@ -173,6 +184,8 @@ class Activity
 
     /**
      * List callback – source column.
+     *
+     * @param array<string, mixed> $params
      */
     public static function sourceListCallback(array $params): string
     {

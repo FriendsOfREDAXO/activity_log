@@ -59,7 +59,7 @@ class ActivityLogCronjob extends rex_cronjob
     /**
      * Additional parameter fields.
      *
-     * @return array<array>
+     * @return array<int, array<string, mixed>>
      */
     public function getParamFields(): array
     {

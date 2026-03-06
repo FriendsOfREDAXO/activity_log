@@ -1,5 +1,12 @@
 .rex-activity {
   &-table {
+    // Zeitspalte auf minimale Breite begrenzen
+    th:first-child,
+    td:first-child {
+      white-space: nowrap;
+      width: 1%;
+    }
+
     tbody {
       tr {
         td {

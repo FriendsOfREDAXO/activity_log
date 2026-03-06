@@ -4,6 +4,7 @@ namespace FriendsOfRedaxo\ActivityLog\EP;
 
 use rex_addon_interface;
 use rex_url;
+use rex_user;
 
 use function is_bool;
 
@@ -40,16 +41,18 @@ class User
     }
 
     /**
-     * @param array<string> $params
+     * @param array<string, mixed> $params
      */
     public static function message(array $params, string $type): string
     {
+        /** @var rex_user $user */
+        $user = $params['user'];
         $message = '<strong>User:</strong> ';
         $message .= '<a href="' . rex_url::backendController([
             'page' => 'users/users',
-            'user_id' => $params['user']->getId(),
-        ]) . '" title="' . rex_escape($params['user']->getName()) . '">';
-        $message .= rex_escape($params['user']->getName());
+            'user_id' => $user->getId(),
+        ]) . '" title="' . rex_escape($user->getName()) . '">';
+        $message .= rex_escape($user->getName());
         $message .= '</a>';
         $message .= ' - ';
         $message .= self::$addon->i18n('type_' . $type);
