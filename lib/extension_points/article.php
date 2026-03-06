@@ -5,4 +5,6 @@ namespace RexActivity\EP;
 use FriendsOfRedaxo\ActivityLog\EP\Article;
 
 /** @deprecated Use \FriendsOfRedaxo\ActivityLog\EP\Article - BC stub */
-class article extends Article {}
+if (!class_exists('RexActivity\EP\article', false)) {
+    class article extends Article {}
+}
