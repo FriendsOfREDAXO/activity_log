@@ -13,20 +13,17 @@ jobs:
   phpunit:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: write  # for Git to git apply
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.4'
           extensions: gd, intl, pdo_mysql
-          coverage: none # disable xdebug, pcov
+          coverage: none
 
-      # credits https://blog.markvincze.com/download-artifacts-from-a-latest-github-release-in-sh-and-powershell/
       - name: Download latest REDAXO release
         run: |
           LATEST_RELEASE=$(curl -L -s -H 'Accept: application/json' https://github.com/redaxo/redaxo/releases/latest)
@@ -38,30 +35,29 @@ jobs:
 
       - name: Init database
         run: |
-            sudo /etc/init.d/mysql start
-            mysql -uroot -h127.0.0.1 -proot -e 'create database redaxo5;'
+          sudo /etc/init.d/mysql start
+          mysql -uroot -h127.0.0.1 -proot -e 'create database redaxo5;'
 
       - name: Setup REDAXO
         run: |
-          php redaxo_cms/redaxo/bin/console setup:run -n --lang=de_de --agree-license --db-host=127.0.0.1 --db-name=redaxo5 --db-password=root --db-createdb=no --db-setup=normal --admin-username=admin --admin-password=adminpassword --error-email=test@redaxo.invalid --ansi
+          php redaxo_cms/redaxo/bin/console setup:run -n --lang=de_de --agree-license \
+            --db-host=127.0.0.1 --db-name=redaxo5 --db-password=root \
+            --db-createdb=no --db-setup=normal \
+            --admin-username=admin --admin-password=adminpassword \
+            --error-email=test@redaxo.invalid --ansi
           php redaxo_cms/redaxo/bin/console config:set --type boolean debug.enabled true
           php redaxo_cms/redaxo/bin/console config:set --type boolean debug.throw_always_exception true
 
-      # copy Addon files, ignore some directories...
-      # install phpmailer
-      # install the addon
-      # if the addon name does not match the repository name, ${{ github.event.repository.name }} must be replaced with the addon name
-      - name: Copy and install Addons
+      - name: Copy and install Addon
         run: |
-          rsync -av --exclude='vendor' --exclude='.github' --exclude='.git' --exclude='redaxo_cms' './' 'redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}'
+          rsync -av --exclude='vendor' --exclude='.github' --exclude='.git' --exclude='redaxo_cms' \
+            './' 'redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}'
           redaxo_cms/redaxo/bin/console package:install 'phpmailer'
           redaxo_cms/redaxo/bin/console package:install '${{ github.event.repository.name }}'
 
       - name: Install test dependencies
         working-directory: redaxo_cms/redaxo/src/addons/${{ github.event.repository.name }}
-        env:
-          COMPOSER: composer.json
-        run: composer install --prefer-dist --no-progress
+        run: composer install --prefer-dist --no-progress --no-scripts
 
       - name: Setup Problem Matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
