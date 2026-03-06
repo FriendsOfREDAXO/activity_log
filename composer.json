@@ -2,6 +2,9 @@
   "name": "friendsofredaxo/activity_log",
   "description": "Activity Log für REDAXO 5",
   "license": "MIT",
+  "require": {
+    "php": ">=8.2"
+  },
   "scripts": {
     "cs-dry": "php-cs-fixer fix -v --ansi --dry-run --config=.php-cs-fixer.dist.php",
     "cs-fix": "php-cs-fixer fix -v --ansi --config=.php-cs-fixer.dist.php",
