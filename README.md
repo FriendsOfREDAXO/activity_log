@@ -4,9 +4,13 @@ Eine einfache Möglichkeit um Aktivitäten zu loggen.
 Die Logs werden im System unter Activity Log angezeigt.
 
 ```php
-rex_activity::message('Hello World!')->type(rex_activity::TYPE_INFO)->log();
-rex_activity::message('He did something :O')->type(rex_activity::TYPE_WARNING)->causer(rex::getUser())->log();
+use FriendsOfREDAXO\ActivityLog\Activity;
+
+Activity::message('Hello World!')->type(Activity::TYPE_INFO)->log();
+Activity::message('He did something :O')->type(Activity::TYPE_WARNING)->causer(rex::getUser())->log();
 ```
+
+> **Hinweis zur Abwärtskompatibilität:** Die alte Klasse `rex_activity` bleibt als BC-Stub erhalten und kann weiter verwendet werden – ein Update bestehenden Codes ist nicht erforderlich.
 
 ![activity_log](https://user-images.githubusercontent.com/2708231/163674949-76762489-3217-4d2f-8bbc-d89494f723c7.png)
 
@@ -19,6 +23,12 @@ Einträge können jederzeit manuell im Activity Log gelöscht werden.
 Weiter gibt es die Möglichkeit die Einträge über das **Cronjob Addon** automatisiert zu löschen. Es stehen verschiedene Zeiträume zur Auswahl.
 
 Über den Console-Befehl `activity:clear` können die Einträge auch manuell gelöscht werden.
+
+---
+
+#### Admins von der Protokollierung ausschließen:
+
+In den Einstellungen kann die Option **„Protokollierung für Administratoren deaktivieren"** aktiviert werden. Ist diese Option gesetzt, werden Aktionen von REDAXO-Admins nicht im Activity Log erfasst.
 
 ---
 
