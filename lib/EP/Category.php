@@ -47,10 +47,19 @@ class Category
      */
     public static function message(array $params, string $type, ?array $additionalParams = null): string
     {
-        $category = rex_category::get((int) $params['id']);
         $message = '<strong>Category:</strong> ';
 
-        if ('delete' === $type || null === $category) {
+        // Do NOT call rex_category::get() for delete – the record is already gone
+        // from DB when CAT_DELETED fires, causing an SQL conflict.
+        if ('delete' === $type) {
+            $message .= $params['name'] ?? '[' . $params['id'] . ']';
+            $message .= ' - ' . self::$addon->i18n('type_' . $type);
+            return $message;
+        }
+
+        $category = rex_category::get((int) $params['id']);
+
+        if (null === $category) {
             $message .= $params['name'] ?? '[' . $params['id'] . ']';
         } else {
             $message .= '<a href="' . rex_url::backendController([

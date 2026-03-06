@@ -47,12 +47,20 @@ class Article
      */
     public static function message(array $params, string $type, ?array $additionalParams = null): string
     {
+        $message = '<strong>Article:</strong> ';
+
+        // Do NOT call rex_article::get() for delete – the record is already gone
+        // from DB when ART_DELETED fires, causing an SQL conflict.
+        if ('delete' === $type) {
+            $message .= $params['name'] ?? '[' . $params['id'] . ']';
+            $message .= ' - ' . self::$addon->i18n('type_' . $type);
+            return $message;
+        }
+
         /** @var rex_article|null $article */
         $article = rex_article::get((int) $params['id']);
 
-        $message = '<strong>Article:</strong> ';
-
-        if ('delete' === $type || null === $article) {
+        if (null === $article) {
             $message .= $params['name'] ?? '[' . $params['id'] . ']';
         } else {
             $message .= '<a href="' . rex_url::backendController([
