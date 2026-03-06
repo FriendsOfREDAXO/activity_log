@@ -2,9 +2,13 @@
 
 namespace FriendsOfRedaxo\ActivityLog\EP;
 
+use FriendsOfRedaxo\ActivityLog\Activity;
+use rex;
 use rex_addon_interface;
 use rex_article;
 use rex_clang;
+use rex_extension;
+use rex_extension_point;
 use rex_url;
 
 use function is_bool;
@@ -32,7 +36,7 @@ class Article
 
         /** @phpstan-ignore-next-line */
         if (is_bool(self::$addon->getConfig('article_deleted')) && self::$addon->getConfig('article_deleted')) {
-            $this->delete('ART_DELETED', static::class . '::message');
+            $this->deleteArticle();
         }
 
         /** @phpstan-ignore-next-line */
@@ -44,6 +48,37 @@ class Article
     protected function getSource(): string
     {
         return 'article';
+    }
+
+    /**
+     * Registriert den ART_DELETED-Handler mit Deduplication:
+     * Da REDAXO ART_DELETED einmal pro Sprache feuert, wird nur der erste Aufruf
+     * pro Artikel-ID geloggt.
+     */
+    private function deleteArticle(): void
+    {
+        $source = $this->getSource();
+        rex_extension::register('ART_DELETED', static function (rex_extension_point $ep) use ($source): void {
+            /** @var array<string, mixed> $params */
+            $params = $ep->getParams();
+            $articleId = (int) ($params['id'] ?? 0);
+
+            /** @var array<int, bool> $logged */
+            static $logged = [];
+
+            if (isset($logged[$articleId])) {
+                return;
+            }
+            $logged[$articleId] = true;
+
+            $message = static::message($params, Activity::TYPE_DELETE);
+
+            Activity::message($message)
+                ->type(Activity::TYPE_DELETE)
+                ->source($source)
+                ->causer(rex::getUser())
+                ->log();
+        });
     }
 
     /**
