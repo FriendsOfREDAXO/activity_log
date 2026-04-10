@@ -20,7 +20,7 @@
   "homepage": "https://github.com/FriendsOfREDAXO/activity_log#readme",
   "devDependencies": {
     "geckodriver": "^6.1.0",
-    "lodash": "^4.17.23",
+    "lodash": "^4.18.1",
     "nightwatch": "^3.15.0"
   }
 }
